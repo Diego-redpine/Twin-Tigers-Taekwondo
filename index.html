@@ -724,5 +724,28 @@
         </p>
     </div>
 
+    <script>
+        // Load studio name and logo saved by the owner portal. This runs on page load.
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Studio name
+                const savedName = localStorage.getItem('studioName');
+                if (savedName) {
+                    const nameEl = document.getElementById('studio-name');
+                    if (nameEl) {
+                        nameEl.textContent = savedName.toUpperCase();
+                    }
+                }
+                // Studio logo
+                const savedLogo = localStorage.getItem('studioLogo');
+                const logoEl = document.getElementById('studio-logo');
+                if (logoEl && savedLogo) {
+                    logoEl.innerHTML = `<img src="${savedLogo}" class="w-full h-full object-cover rounded-2xl">`;
+                }
+            } catch (err) {
+                console.error('Error loading studio settings:', err);
+            }
+        });
+    </script>
 </body>
 </html>

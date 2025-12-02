@@ -278,7 +278,7 @@
     <!-- Toast Container -->
     <div id="toast-container" class="toast-container"></div>
 
-    <div id="app" class="max-w-5xl mx-auto min-h-screen flex flex-col">
+    <div id="app" class="max-w-7xl mx-auto min-h-screen flex flex-col">
 
         <!-- Header -->
         <header class="sticky top-0 z-50 bg-tiger-blue-500 px-4 py-3 flex items-center justify-between">
@@ -670,7 +670,7 @@
         </main>
 
         <!-- Bottom Navigation -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-5xl mx-auto bg-tiger-blue-500">
+        <nav class="fixed bottom-0 left-0 right-0 max-w-7xl mx-auto bg-tiger-blue-500">
             <div class="flex items-center justify-around py-3">
                 <button class="nav-item active flex flex-col items-center py-1 px-3" onclick="switchTab('home')">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1758,11 +1758,13 @@
                 return;
             }
             
-            // Sort: pinned first, then by date (newest first)
+            // Sort: pinned items first (case-insensitive), then by date (newest first)
+            const isPinned = (val) => String(val || '').toLowerCase() === 'true';
             const sorted = [...announcementsData].sort((a, b) => {
-                // Pinned items first
-                if (a.Pinned === 'true' && b.Pinned !== 'true') return -1;
-                if (b.Pinned === 'true' && a.Pinned !== 'true') return 1;
+                const aPinned = isPinned(a.Pinned);
+                const bPinned = isPinned(b.Pinned);
+                if (aPinned && !bPinned) return -1;
+                if (bPinned && !aPinned) return 1;
                 // Then by date (newest first)
                 return new Date(b.Date_Posted || 0) - new Date(a.Date_Posted || 0);
             });
