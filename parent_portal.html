@@ -634,7 +634,9 @@
                 // Trim whitespace and compare case-insensitively to avoid missing matches.
                 const parentEmail = (currentUser?.email || '').trim().toLowerCase();
                 studentsData = students.filter(s => {
-                    const sEmail = (s.Parent_Email || '').trim().toLowerCase();
+                    // Some sheets may store the parent email under different header names (e.g. 'Parent Email').
+                    const rawEmail = s.Parent_Email || s['Parent Email'] || s.parent_email || '';
+                    const sEmail = String(rawEmail).trim().toLowerCase();
                     return sEmail === parentEmail;
                 });
                 
@@ -646,6 +648,26 @@
                 renderAnnouncements();
                 loadProfile();
             } catch (error) { console.error('Error:', error); }
+        }
+
+        // Initialize the portal only after we know the user is authenticated.
+        // Ensures currentUser is defined before any data fetches occur, which fixes
+        // issues where students or profile do not appear due to currentUser being undefined.
+        async function initParentPortal() {
+            // Get the current session from Supabase
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                // If no session, redirect to login page
+                window.location.href = 'index.html';
+                return;
+            }
+            // Set the current user and update header UI
+            currentUser = session.user;
+            const email = currentUser.email || '';
+            document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
+            document.getElementById('user-email').textContent = email;
+            // Now that currentUser is set, load all data
+            await fetchAllData();
         }
 
         function setCalendarView(view) {
@@ -1188,8 +1210,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuth();
-            fetchAllData();
+            // Start the portal only after authentication; this ensures currentUser
+            // is available before any fetches occur.
+            initParentPortal();
         });
     </script>
 

@@ -852,6 +852,12 @@
                             <option value="Reminder">Reminder</option>
                         </select>
                     </div>
+
+                    <!-- Photo upload input for the announcement (optional) -->
+                    <div>
+                        <label class="block text-sm text-white-80 mb-2">Photo (optional)</label>
+                        <input type="file" id="announcement-photo" accept="image/*" class="w-full text-white text-sm">
+                    </div>
                 </div>
                 
                 <p id="announcement-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
@@ -1769,12 +1775,15 @@
                 return new Date(b.Date_Posted || 0) - new Date(a.Date_Posted || 0);
             });
             
-            container.innerHTML = sorted.map(a => `
-                <div class="card p-4 ${a.Pinned === 'true' ? 'ring-2 ring-pine-500' : ''}">
+            container.innerHTML = sorted.map(a => {
+                // Determine if pinned using a case-insensitive check
+                const pinned = String(a.Pinned || '').toLowerCase() === 'true';
+                return `
+                <div class="card p-4 ${pinned ? 'ring-2 ring-pine-500' : ''}">
                     <div class="flex items-start justify-between mb-3">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
-                                ${a.Pinned === 'true' ? `
+                        <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
+                                ${pinned ? `
                                     <svg class="w-5 h-5 text-pine-500" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/>
                                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
@@ -1788,14 +1797,14 @@
                             <div>
                                 <div class="flex items-center gap-2">
                                     <h4 class="font-semibold text-sm text-white">${a.Author||'Twin Tigers'}</h4>
-                                    ${a.Pinned === 'true' ? '<span class="text-xs text-pine-500 font-medium">📌 Pinned</span>' : ''}
+                                    ${pinned ? '<span class="text-xs text-pine-500 font-medium">📌 Pinned</span>' : ''}
                                 </div>
                                 <p class="text-xs text-white-60">${formatDate(a.Date_Posted)}</p>
                             </div>
                         </div>
                         <div class="flex gap-1">
-                            <button onclick="togglePinAnnouncement('${a.Announcement_Id}', ${a.Pinned === 'true'})" class="p-2 ${a.Pinned === 'true' ? 'text-pine-500' : 'text-white-60'} hover:text-pine-500 transition-colors" title="${a.Pinned === 'true' ? 'Unpin' : 'Pin to top'}">
-                                <svg class="w-5 h-5" fill="${a.Pinned === 'true' ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                            <button onclick="togglePinAnnouncement('${a.Announcement_Id}', ${pinned})" class="p-2 ${pinned ? 'text-pine-500' : 'text-white-60'} hover:text-pine-500 transition-colors" title="${pinned ? 'Unpin' : 'Pin to top'}">
+                                <svg class="w-5 h-5" fill="${pinned ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                             </button>
                             <button onclick="openEditAnnouncementModal('${a.Announcement_Id}')" class="p-2 text-white-60 hover:text-white transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
@@ -1807,6 +1816,7 @@
                     </div>
                     <h3 class="font-semibold text-white mb-2">${a.Title||''}</h3>
                     <p class="text-sm text-white-80">${a.Content||''}</p>
+                    ${a.Photo ? `<img src="${a.Photo}" alt="Announcement photo" class="w-full mt-3 rounded-lg">` : ''}
                     ${a.Type ? `<span class="inline-block mt-2 px-2 py-1 bg-tiger-blue-600 text-xs text-white-60 rounded">${a.Type}</span>` : ''}
                 </div>
             `).join('');
@@ -2617,6 +2627,25 @@
                 Author: 'Twin Tigers',
                 Date_Posted: today
             };
+            // If a photo is selected, convert it to a base64 Data URL and include it in the announcement.
+            try {
+                const photoInput = document.getElementById('announcement-photo');
+                if (photoInput && photoInput.files && photoInput.files[0]) {
+                    const file = photoInput.files[0];
+                    const reader = new FileReader();
+                    await new Promise((resolve, reject) => {
+                        reader.onload = () => {
+                            data.Photo = reader.result;
+                            resolve();
+                        };
+                        reader.onerror = () => reject('Failed to read photo');
+                        reader.readAsDataURL(file);
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+                // Continue without photo if conversion fails
+            }
             
             try {
                 const response = await fetch(SHEETDB_API + '?sheet=Announcements', {
