@@ -1950,7 +1950,7 @@
             document.getElementById('modal-title').textContent = 'Parent Details';
             
             // Find related students
-            const relatedStudents = studentsData.filter(s => s.Parent_Email === parent.Email);
+            const relatedStudents = studentsData.filter(s => (s.Parent_Email || '').toLowerCase().trim() === (parent.Email || '').toLowerCase().trim());
             
             content.innerHTML = `
                 <div class="text-center mb-6">
