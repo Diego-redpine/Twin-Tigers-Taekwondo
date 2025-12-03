@@ -274,7 +274,7 @@
         <!-- Header -->
         <header class="sticky top-0 z-50 bg-tiger-blue-500 px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div id="studio-logo" class="w-10 h-10 bg-tiger-blue-600 rounded-xl flex items-center justify-center overflow-hidden">
+                <div class="w-10 h-10 bg-tiger-blue-600 rounded-xl flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z"/>
                     </svg>
@@ -630,11 +630,15 @@
                     fetch(`${SHEETDB_API}?sheet=Announcements`).then(r => r.json())
                 ]);
                 
-                // FIX #2: Filter students - case-insensitive and trimmed comparison
-                const parentEmail = (currentUser?.email || '').toLowerCase().trim();
-                studentsData = students.filter(s => 
-                    (s.Parent_Email || '').toLowerCase().trim() === parentEmail
-                );
+                // Filter students to only show those linked to this parent.
+                // Trim whitespace and compare case-insensitively to avoid missing matches.
+                const parentEmail = (currentUser?.email || '').trim().toLowerCase();
+                studentsData = students.filter(s => {
+                    // Some sheets may store the parent email under different header names (e.g. 'Parent Email').
+                    const rawEmail = s.Parent_Email || s['Parent Email'] || s.parent_email || '';
+                    const sEmail = String(rawEmail).trim().toLowerCase();
+                    return sEmail === parentEmail;
+                });
                 
                 classesData = classes;
                 announcementsData = announcements;
@@ -662,23 +666,8 @@
             const email = currentUser.email || '';
             document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
             document.getElementById('user-email').textContent = email;
-            
-            // FIX #3: Load saved logo
-            loadSavedLogo();
-            
             // Now that currentUser is set, load all data
             await fetchAllData();
-        }
-
-        // FIX #3: Load saved logo function
-        function loadSavedLogo() {
-            const savedLogo = localStorage.getItem('studioLogo');
-            if (savedLogo) {
-                const headerLogo = document.getElementById('studio-logo');
-                if (headerLogo) {
-                    headerLogo.innerHTML = `<img src="${savedLogo}" class="w-full h-full object-cover rounded-xl">`;
-                }
-            }
         }
 
         function setCalendarView(view) {
@@ -1029,28 +1018,11 @@
             if (!currentUser) return;
             
             try {
-                // FIX #1: Use encodeURIComponent for email in fetch URL
-                const email = encodeURIComponent(currentUser.email);
-                const response = await fetch(`${SHEETDB_API}/search?Email=${email}&sheet=Parents`);
+                const response = await fetch(`${SHEETDB_API}/search?Email=${currentUser.email}&sheet=Parents`);
                 const data = await response.json();
-                
-                // FIX #1: Add fallback with case-insensitive matching
-                if (!data || data.length === 0) {
-                    // Fallback: fetch all parents and find match manually
-                    const allResponse = await fetch(`${SHEETDB_API}?sheet=Parents`);
-                    const allParents = await allResponse.json();
-                    const userEmail = currentUser.email.toLowerCase().trim();
-                    const match = allParents.find(p => 
-                        (p.Email || '').toLowerCase().trim() === userEmail
-                    );
-                    if (match) {
-                        parentData = match;
-                    }
-                } else {
+                if (data && data.length > 0) {
                     parentData = data[0];
-                }
-                
-                if (parentData) {
+                    
                     // Update profile display
                     const initials = ((parentData.First_Name || '')[0] || '') + ((parentData.Last_Name || '')[0] || '');
                     document.getElementById('profile-avatar').textContent = initials || '--';
