@@ -274,17 +274,19 @@
         <!-- Header -->
         <header class="sticky top-0 z-50 bg-tiger-blue-500 px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-tiger-blue-600 rounded-xl flex items-center justify-center">
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z"/>
-                    </svg>
-                </div>
+                <!-- Studio logo; will be set via STUDIO_LOGO_URL constant -->
+                <img id="studio-logo" src="" alt="Twin Tigers Logo" class="w-10 h-10 rounded-xl object-cover">
                 <div>
                     <h1 class="font-bold text-sm text-white">TWIN TIGERS</h1>
                     <p class="text-xs text-white-60">Taekwondo Academy</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-3">
+                <!-- Parent name display -->
+                <div class="hidden sm:flex flex-col items-end mr-1">
+                    <p id="header-parent-name" class="text-xs text-white font-medium"></p>
+                    <p class="text-[10px] text-white-60 uppercase tracking-wide">Parent</p>
+                </div>
                 <button class="p-2 hover:bg-tiger-blue-600 rounded-lg transition-colors">
                     <svg class="w-5 h-5 text-white-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
@@ -295,7 +297,9 @@
                         <span id="user-initials">--</span>
                     </button>
                     <div id="profile-menu" class="hidden absolute right-0 top-11 w-48 bg-tiger-blue-600 rounded-lg py-2 shadow-xl z-50">
-                        <p id="user-email" class="px-4 py-2 text-xs text-white-60 border-b border-tiger-blue-500 truncate"></p>
+                        <!-- User name displayed in dropdown -->
+                        <p id="user-name-dropdown" class="px-4 pt-2 text-xs text-white-80 font-semibold truncate"></p>
+                        <p id="user-email" class="px-4 pb-2 text-xs text-white-60 border-b border-tiger-blue-500 truncate"></p>
                         <button onclick="handleLogout()" class="w-full px-4 py-2 text-left text-sm text-white-80 hover:bg-tiger-blue-500 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
@@ -575,6 +579,9 @@
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const SHEETDB_API = 'https://sheetdb.io/api/v1/7gridxho6ejta';
         const STUDIO_ADDRESS = "Twin Tigers Taekwondo, Salt Lake City, UT";
+
+        // URL for the studio logo used in the header. Update this path to point to your actual logo file.
+        const STUDIO_LOGO_URL = 'logo.png';
         
         let currentUser = null;
         let studentsData = [];
@@ -584,6 +591,17 @@
         let currentMonth = new Date();
         let selectedDay = new Date();
         let calendarView = 'week';
+
+        /**
+         * Normalize various truthy values for the Pinned flag. Accepts true/yes/y/1 (case-insensitive).
+         * @param {any} value
+         * @returns {boolean}
+         */
+        function isPinnedFlag(value) {
+            if (value === undefined || value === null) return false;
+            const v = value.toString().trim().toLowerCase();
+            return v === 'true' || v === 'yes' || v === 'y' || v === '1';
+        }
 
         // Date formatting helper
         function formatDate(dateStr) {
@@ -630,23 +648,25 @@
                     fetch(`${SHEETDB_API}?sheet=Announcements`).then(r => r.json())
                 ]);
                 
-                // Filter students to only show those linked to this parent.
-                // Trim whitespace and compare case-insensitively to avoid missing matches.
+                // Filter students to only show those linked to this parent by email or by Parent_Id
                 const parentEmail = (currentUser?.email || '').trim().toLowerCase();
+                const parentId = parentData && parentData.Parent_Id ? String(parentData.Parent_Id).trim() : null;
                 studentsData = students.filter(s => {
-                    // Some sheets may store the parent email under different header names (e.g. 'Parent Email').
+                    const sParentId = String(s.Parent_Id || s['Parent Id'] || s.parent_id || '').trim();
                     const rawEmail = s.Parent_Email || s['Parent Email'] || s.parent_email || '';
                     const sEmail = String(rawEmail).trim().toLowerCase();
+                    if (parentId && sParentId) {
+                        return sParentId.toLowerCase() === parentId.toLowerCase();
+                    }
                     return sEmail === parentEmail;
                 });
-                
+
                 classesData = classes;
                 announcementsData = announcements;
                 renderCalendar();
                 renderTodaysClasses();
                 renderStudents();
                 renderAnnouncements();
-                loadProfile();
             } catch (error) { console.error('Error:', error); }
         }
 
@@ -664,10 +684,20 @@
             // Set the current user and update header UI
             currentUser = session.user;
             const email = currentUser.email || '';
-            document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
-            document.getElementById('user-email').textContent = email;
-            // Now that currentUser is set, load all data
+            // Display initial initials and email until profile is loaded
+            const initEl = document.getElementById('user-initials');
+            if (initEl) initEl.textContent = email.substring(0, 2).toUpperCase();
+            const emailEl = document.getElementById('user-email');
+            if (emailEl) emailEl.textContent = email;
+            // Set the studio logo source from configuration if available
+            const logoEl = document.getElementById('studio-logo');
+            if (logoEl) logoEl.src = STUDIO_LOGO_URL;
+            // Load the parent's profile first so that parentData is populated (for filtering) and header/name updates
+            await loadProfile();
+            // Now that parentData is available, fetch all other data (students, classes, announcements)
             await fetchAllData();
+            // Update the profile summary after students have been loaded
+            renderProfileStudents();
         }
 
         function setCalendarView(view) {
@@ -914,18 +944,22 @@
                 return;
             }
             
-            // Sort: pinned first, then by date (newest first)
+            // Sort: pinned announcements first, then by date (newest first)
             const sorted = [...announcementsData].sort((a, b) => {
-                if (a.Pinned === 'true' && b.Pinned !== 'true') return -1;
-                if (b.Pinned === 'true' && a.Pinned !== 'true') return 1;
+                const aPinned = isPinnedFlag(a.Pinned);
+                const bPinned = isPinnedFlag(b.Pinned);
+                if (aPinned && !bPinned) return -1;
+                if (bPinned && !aPinned) return 1;
                 return new Date(b.Date_Posted || 0) - new Date(a.Date_Posted || 0);
             });
-            
-            container.innerHTML = sorted.map(a => `
-                <div class="card p-4 ${a.Pinned === 'true' ? 'ring-2 ring-pine-500' : ''}">
+
+            container.innerHTML = sorted.map(a => {
+                const pinned = isPinnedFlag(a.Pinned);
+                return `
+                <div class="card p-4 ${pinned ? 'ring-2 ring-pine-500' : ''}">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
-                            ${a.Pinned === 'true' ? `
+                            ${pinned ? `
                                 <svg class="w-5 h-5 text-pine-500" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
                                 </svg>
@@ -938,7 +972,7 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <h4 class="font-semibold text-sm text-white">${a.Author || 'Twin Tigers'}</h4>
-                                ${a.Pinned === 'true' ? '<span class="text-xs text-pine-500">📌</span>' : ''}
+                                ${pinned ? '<span class="text-xs text-pine-500">📌</span>' : ''}
                             </div>
                             <p class="text-xs text-white-60">${formatDate(a.Date_Posted)}</p>
                         </div>
@@ -946,7 +980,8 @@
                     <h3 class="font-semibold text-white mb-2">${a.Title || ''}</h3>
                     <p class="text-sm text-white-80">${a.Content || ''}</p>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function switchTab(tabName) {
@@ -1023,16 +1058,37 @@
                 if (data && data.length > 0) {
                     parentData = data[0];
                     
-                    // Update profile display
-                    const initials = ((parentData.First_Name || '')[0] || '') + ((parentData.Last_Name || '')[0] || '');
+                    // Compute full name and initials. Fall back to email initials if name parts are missing.
+                    const firstName = parentData.First_Name || '';
+                    const lastName  = parentData.Last_Name  || '';
+                    const fullName  = `${firstName} ${lastName}`.trim() || 'Parent';
+                    let initials = '';
+                    if (firstName || lastName) {
+                        initials = ((firstName[0] || '') + (lastName[0] || '')).toUpperCase();
+                    } else {
+                        const email = currentUser.email || '';
+                        initials = email.substring(0, 2).toUpperCase();
+                    }
+
+                    // Update profile card
                     document.getElementById('profile-avatar').textContent = initials || '--';
-                    document.getElementById('profile-name').textContent = `${parentData.First_Name || ''} ${parentData.Last_Name || ''}`.trim() || 'Parent';
+                    document.getElementById('profile-name').textContent = fullName;
                     document.getElementById('profile-email-display').textContent = currentUser.email;
-                    
-                    // Fill form
-                    document.getElementById('profile-first').value = parentData.First_Name || '';
-                    document.getElementById('profile-last').value = parentData.Last_Name || '';
-                    document.getElementById('profile-phone').value = parentData.Phone || '';
+
+                    // Update header and dropdown with name and initials
+                    const headerNameEl = document.getElementById('header-parent-name');
+                    if (headerNameEl) headerNameEl.textContent = fullName;
+                    const dropdownNameEl = document.getElementById('user-name-dropdown');
+                    if (dropdownNameEl) dropdownNameEl.textContent = fullName;
+                    const initialsEl = document.getElementById('user-initials');
+                    if (initialsEl) initialsEl.textContent = initials;
+                    const emailEl = document.getElementById('user-email');
+                    if (emailEl) emailEl.textContent = currentUser.email;
+
+                    // Fill form fields
+                    document.getElementById('profile-first').value     = firstName;
+                    document.getElementById('profile-last').value      = lastName;
+                    document.getElementById('profile-phone').value     = parentData.Phone || '';
                     document.getElementById('profile-emergency').value = parentData.Emergency_Contact || '';
                 }
             } catch (error) {
@@ -1120,6 +1176,8 @@
                 Age: document.getElementById('add-student-age').value,
                 Belt_Rank: 'White Belt',
                 Parent_Email: currentUser?.email || '',
+                // Link the student row to the parent by Parent_Id if available. This allows owners to group students by parent.
+                Parent_Id: parentData?.Parent_Id || '',
                 Medical_Conditions: document.getElementById('add-student-medical').value,
                 Enrollment_Date: today,
                 Status: 'Active'
