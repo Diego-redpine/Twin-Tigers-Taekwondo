@@ -672,37 +672,37 @@
         <!-- Bottom Navigation -->
         <nav class="fixed bottom-0 left-0 right-0 max-w-none mx-auto bg-tiger-blue-500">
             <div class="flex items-center justify-around py-3">
-                <button class="nav-item active flex flex-col items-center py-1 px-3" onclick="switchTab('home')">
+                <button class="nav-item active flex flex-col items-center py-1 px-3" onclick="switchTab('home', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                     </svg>
                     <span class="text-xs font-medium">Home</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('students')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('students', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
                     <span class="text-xs font-medium">Student(s)</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('parents')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('parents', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
                     <span class="text-xs font-medium">Parents</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('classes')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('classes', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                     <span class="text-xs font-medium">Classes</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('announcements')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('announcements', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
                     </svg>
                     <span class="text-xs font-medium">News</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('settings')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('settings', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -1809,7 +1809,8 @@
                             <button onclick="openEditAnnouncementModal('${a.Announcement_Id}')" class="p-2 text-white-60 hover:text-white transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                             </button>
-                            <button onclick="confirmDeleteAnnouncement('${a.Announcement_Id}', '${(a.Title||'').replace(/'/g, "\\'")}')" class="p-2 text-white-60 hover:text-red-400 transition-colors">
+                            <!-- Pass only the announcement ID to avoid string escaping issues -->
+                            <button onclick="confirmDeleteAnnouncement('${a.Announcement_Id}')" class="p-2 text-white-60 hover:text-red-400 transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                             </button>
                         </div>
@@ -1818,8 +1819,9 @@
                     <p class="text-sm text-white-80">${a.Content||''}</p>
                     ${a.Photo ? `<img src="${a.Photo}" alt="Announcement photo" class="w-full mt-3 rounded-lg">` : ''}
                     ${a.Type ? `<span class="inline-block mt-2 px-2 py-1 bg-tiger-blue-600 text-xs text-white-60 rounded">${a.Type}</span>` : ''}
-                </div>
-            `).join('');
+                    </div>
+                    `;
+                }).join('');
         }
 
         function showStudentModal(studentId) {
@@ -2132,10 +2134,23 @@
             }
         }
 
-        function confirmDeleteAnnouncement(announcementId, title) {
-            if (confirm(`Are you sure you want to delete "${title}"? This cannot be undone.`)) {
-                deleteAnnouncement(announcementId);
-            }
+        /**
+         * Show a confirmation dialog before deleting an announcement.
+         * Only the announcement ID is passed; the title is looked up from
+         * announcementsData to avoid having to escape quotes in the HTML template.
+         * This function will display a custom confirm modal and, upon
+         * confirmation, call deleteAnnouncement().
+         */
+        function confirmDeleteAnnouncement(announcementId) {
+            // Find the announcement by ID to retrieve its title
+            const announcement = (Array.isArray(announcementsData) ? announcementsData : []).find(a => a.Announcement_Id === announcementId);
+            const title = announcement && announcement.Title ? announcement.Title : '';
+            // Use the custom confirm modal for a consistent user experience
+            showConfirmModal(
+                'Delete Announcement?',
+                `Are you sure you want to delete "${title}"? This action cannot be undone.`,
+                () => deleteAnnouncement(announcementId)
+            );
         }
 
         async function deleteAnnouncement(announcementId) {
@@ -2403,10 +2418,15 @@
             );
         }
 
+        // Legacy overload of confirmDeleteAnnouncement used by older code passing both ID and title.
+        // The title parameter is optional; if provided we ignore it and lookup the title from announcementsData.
         function confirmDeleteAnnouncement(announcementId, title) {
+            // Find the announcement to derive the proper title; fallback to the provided title
+            const announcement = (Array.isArray(announcementsData) ? announcementsData : []).find(a => a.Announcement_Id === announcementId);
+            const resolvedTitle = (announcement && announcement.Title) ? announcement.Title : (title || '');
             showConfirmModal(
                 'Delete Announcement?',
-                `Are you sure you want to delete "${title}"? This action cannot be undone.`,
+                `Are you sure you want to delete "${resolvedTitle}"? This action cannot be undone.`,
                 () => deleteAnnouncement(announcementId)
             );
         }
@@ -2858,11 +2878,22 @@
             btn.textContent = 'Add Student';
         }
 
-        function switchTab(tabName) {
+        // Switch between different tabs in the owner portal. Accepts the tab name and the
+        // element that was clicked (passing `this` in the onclick). Falls back gracefully
+        // if no element is provided.
+        function switchTab(tabName, el) {
+            // Hide all tab contents and remove active state from nav items
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('tab-' + tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
+            // Show the selected tab
+            const target = document.getElementById('tab-' + tabName);
+            if (target) {
+                target.classList.add('active');
+            }
+            // Add active class to the clicked nav item if provided
+            if (el) {
+                el.classList.add('active');
+            }
         }
 
         function saveStudioSettings() {
