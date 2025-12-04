@@ -196,8 +196,6 @@
         .modal-overlay.active .modal-content {
             transform: translateY(0);
         }
-        .text-white-60 { color: rgba(255,255,255,0.6); }
-        .text-white-80 { color: rgba(255,255,255,0.8); }
 
         .btn-primary {
             background: #ce0707;
@@ -261,6 +259,18 @@
             transition: all 0.2s ease;
         }
         .location-btn:hover { background: rgba(255,255,255,0.25); }
+
+        .rsvp-btn {
+            transition: all 0.2s ease;
+        }
+        .rsvp-btn.confirmed {
+            background: #16a34a !important;
+            cursor: default;
+        }
+        .rsvp-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -274,15 +284,13 @@
         <!-- Header -->
         <header class="sticky top-0 z-50 bg-tiger-blue-500 px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <!-- Studio logo; will be set via STUDIO_LOGO_URL constant -->
-                <img id="studio-logo" src="" alt="Twin Tigers Logo" class="w-10 h-10 rounded-xl object-cover">
+                <img id="studio-logo" src="logo.png" alt="Twin Tigers Logo" class="w-10 h-10 rounded-xl object-cover" onerror="this.style.display='none'">
                 <div>
                     <h1 class="font-bold text-sm text-white">TWIN TIGERS</h1>
                     <p class="text-xs text-white-60">Taekwondo Academy</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <!-- Parent name display -->
                 <div class="hidden sm:flex flex-col items-end mr-1">
                     <p id="header-parent-name" class="text-xs text-white font-medium"></p>
                     <p class="text-[10px] text-white-60 uppercase tracking-wide">Parent</p>
@@ -297,7 +305,6 @@
                         <span id="user-initials">--</span>
                     </button>
                     <div id="profile-menu" class="hidden absolute right-0 top-11 w-48 bg-tiger-blue-600 rounded-lg py-2 shadow-xl z-50">
-                        <!-- User name displayed in dropdown -->
                         <p id="user-name-dropdown" class="px-4 pt-2 text-xs text-white-80 font-semibold truncate"></p>
                         <p id="user-email" class="px-4 pb-2 text-xs text-white-60 border-b border-tiger-blue-500 truncate"></p>
                         <button onclick="handleLogout()" class="w-full px-4 py-2 text-left text-sm text-white-80 hover:bg-tiger-blue-500 flex items-center gap-2">
@@ -532,31 +539,31 @@
         <!-- Bottom Navigation -->
         <nav class="fixed bottom-0 left-0 right-0 max-w-none mx-auto bg-tiger-blue-500">
             <div class="flex items-center justify-around py-3">
-                <button class="nav-item active flex flex-col items-center py-1 px-3" onclick="switchTab('classes')">
+                <button class="nav-item active flex flex-col items-center py-1 px-3" onclick="switchTab('classes', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                     <span class="text-xs font-medium">Classes</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('students')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('students', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
                     <span class="text-xs font-medium">Student(s)</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('announcements')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('announcements', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
                     </svg>
                     <span class="text-xs font-medium">News</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('billing')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('billing', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                     </svg>
                     <span class="text-xs font-medium">Billing</span>
                 </button>
-                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('profile')">
+                <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('profile', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
@@ -574,36 +581,39 @@
     </div>
 
     <script>
+        // =============================================
+        // CONFIGURATION - Update these for each studio
+        // =============================================
         const SUPABASE_URL = 'https://ipvutcoacitpcaeynexr.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwdnV0Y29hY2l0cGNhZXluZXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ0NjU4ODUsImV4cCI6MjA4MDA0MTg4NX0.WvUbmShhsLo_kGKZzEAAZPWqEaKf9haO0MeKvyPSZZc';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const SHEETDB_API = 'https://sheetdb.io/api/v1/7gridxho6ejta';
         const STUDIO_ADDRESS = "Twin Tigers Taekwondo, Salt Lake City, UT";
-
-        // URL for the studio logo used in the header. Update this path to point to your actual logo file.
         const STUDIO_LOGO_URL = 'logo.png';
-        
+
+        // =============================================
+        // GLOBAL STATE
+        // =============================================
         let currentUser = null;
+        let parentData = null;
         let studentsData = [];
         let classesData = [];
         let announcementsData = [];
+        let attendanceData = []; // Track RSVPs
         let currentWeekStart = getWeekStart(new Date());
         let currentMonth = new Date();
         let selectedDay = new Date();
         let calendarView = 'week';
 
-        /**
-         * Normalize various truthy values for the Pinned flag. Accepts true/yes/y/1 (case-insensitive).
-         * @param {any} value
-         * @returns {boolean}
-         */
+        // =============================================
+        // UTILITY FUNCTIONS
+        // =============================================
         function isPinnedFlag(value) {
             if (value === undefined || value === null) return false;
             const v = value.toString().trim().toLowerCase();
             return v === 'true' || v === 'yes' || v === 'y' || v === '1';
         }
 
-        // Date formatting helper
         function formatDate(dateStr) {
             if (!dateStr) return 'N/A';
             const date = new Date(dateStr);
@@ -614,92 +624,315 @@
         function getWeekStart(date) {
             const d = new Date(date);
             d.setDate(d.getDate() - d.getDay());
-            d.setHours(0,0,0,0);
+            d.setHours(0, 0, 0, 0);
             return d;
         }
 
-        async function checkAuth() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) { window.location.href = 'index.html'; return; }
-            currentUser = session.user;
-            const email = currentUser.email || '';
-            document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
-            document.getElementById('user-email').textContent = email;
+        function normalizeString(str) {
+            return (str || '').toString().trim().toLowerCase();
         }
 
-        function toggleProfileMenu() { document.getElementById('profile-menu').classList.toggle('hidden'); }
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ${type === 'success' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>' : 
+                      type === 'error' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' :
+                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'}
+                </svg>
+                ${message}
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function getBeltClass(belt) {
+            if (!belt) return 'bg-gray-500';
+            const b = belt.toLowerCase();
+            if (b.includes('white') && b.includes('stripe')) return 'belt-white-stripe';
+            if (b.includes('yellow') && b.includes('stripe')) return 'belt-yellow-stripe';
+            if (b.includes('white')) return 'belt-white';
+            if (b.includes('yellow')) return 'belt-yellow';
+            if (b.includes('orange')) return 'belt-orange';
+            if (b.includes('green')) return 'belt-green';
+            if (b.includes('blue')) return 'belt-blue';
+            if (b.includes('purple')) return 'belt-purple';
+            if (b.includes('brown')) return 'belt-brown';
+            if (b.includes('red')) return 'belt-red';
+            if (b.includes('poom')) return 'belt-poom';
+            if (b.includes('black')) return 'belt-black';
+            return 'bg-gray-500';
+        }
+
+        // =============================================
+        // AUTHENTICATION
+        // =============================================
+        async function initParentPortal() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            currentUser = session.user;
+            const email = currentUser.email || '';
+            
+            // Set initial UI
+            document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
+            document.getElementById('user-email').textContent = email;
+            
+            const logoEl = document.getElementById('studio-logo');
+            if (logoEl) logoEl.src = STUDIO_LOGO_URL;
+            
+            // Load parent profile first (for linking)
+            await loadProfile();
+            
+            // Then load all data
+            await fetchAllData();
+            
+            // Update profile students section
+            renderProfileStudents();
+        }
+
+        function toggleProfileMenu() {
+            document.getElementById('profile-menu').classList.toggle('hidden');
+        }
         
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('profile-menu');
             const btn = document.getElementById('profile-btn');
-            if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) menu.classList.add('hidden');
+            if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
         });
 
         async function handleLogout() {
-            await supabase.auth.signOut();
-            window.location.href = 'index.html';
+            if (confirm('Are you sure you want to sign out?')) {
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+            }
         }
 
+        // =============================================
+        // DATA FETCHING - FIXED PARENT-STUDENT LINKING
+        // =============================================
         async function fetchAllData() {
             try {
-                const [students, classes, announcements] = await Promise.all([
+                const [students, classes, announcements, attendance] = await Promise.all([
                     fetch(`${SHEETDB_API}?sheet=Students`).then(r => r.json()),
                     fetch(`${SHEETDB_API}?sheet=Classes`).then(r => r.json()),
-                    fetch(`${SHEETDB_API}?sheet=Announcements`).then(r => r.json())
+                    fetch(`${SHEETDB_API}?sheet=Announcements`).then(r => r.json()),
+                    fetch(`${SHEETDB_API}?sheet=Attendance`).then(r => r.json()).catch(() => [])
                 ]);
                 
-                // Filter students to only show those linked to this parent by email or by Parent_Id
-                const parentEmail = (currentUser?.email || '').trim().toLowerCase();
-                const parentId = parentData && parentData.Parent_Id ? String(parentData.Parent_Id).trim() : null;
+                // FIXED: Link students to parent using multiple matching strategies
+                const parentEmail = normalizeString(currentUser?.email);
+                const parentPhone = normalizeString(parentData?.Phone);
+                const parentName = normalizeString(`${parentData?.First_Name || ''} ${parentData?.Last_Name || ''}`);
+                const parentId = parentData?.Parent_Id ? String(parentData.Parent_Id).trim() : null;
+                
                 studentsData = students.filter(s => {
-                    const sParentId = String(s.Parent_Id || s['Parent Id'] || s.parent_id || '').trim();
-                    const rawEmail = s.Parent_Email || s['Parent Email'] || s.parent_email || '';
-                    const sEmail = String(rawEmail).trim().toLowerCase();
-                    if (parentId && sParentId) {
-                        return sParentId.toLowerCase() === parentId.toLowerCase();
+                    // Strategy 1: Match by Parent_Id (most reliable)
+                    if (parentId) {
+                        const studentParentId = String(s.Parent_Id || '').trim();
+                        if (studentParentId && studentParentId.toLowerCase() === parentId.toLowerCase()) {
+                            return true;
+                        }
                     }
-                    return sEmail === parentEmail;
+                    
+                    // Strategy 2: Match by Parent_Email
+                    const studentEmail = normalizeString(s.Parent_Email);
+                    if (parentEmail && studentEmail && studentEmail === parentEmail) {
+                        return true;
+                    }
+                    
+                    // Strategy 3: Match by Parent Phone
+                    const studentPhone = normalizeString(s.Parent_Phone);
+                    if (parentPhone && studentPhone && studentPhone === parentPhone) {
+                        return true;
+                    }
+                    
+                    // Strategy 4: Match by Parent Name (fallback)
+                    const studentParentName = normalizeString(s.Parent_Name);
+                    if (parentName && studentParentName && studentParentName === parentName) {
+                        return true;
+                    }
+                    
+                    return false;
                 });
 
                 classesData = classes;
                 announcementsData = announcements;
+                attendanceData = attendance || [];
+                
                 renderCalendar();
                 renderTodaysClasses();
                 renderStudents();
                 renderAnnouncements();
-            } catch (error) { console.error('Error:', error); }
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showToast('Failed to load data', 'error');
+            }
         }
 
-        // Initialize the portal only after we know the user is authenticated.
-        // Ensures currentUser is defined before any data fetches occur, which fixes
-        // issues where students or profile do not appear due to currentUser being undefined.
-        async function initParentPortal() {
-            // Get the current session from Supabase
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) {
-                // If no session, redirect to login page
-                window.location.href = 'index.html';
+        // =============================================
+        // PROFILE MANAGEMENT
+        // =============================================
+        async function loadProfile() {
+            if (!currentUser) return;
+            
+            try {
+                // Try to find parent by email first
+                let response = await fetch(`${SHEETDB_API}/search?Email=${encodeURIComponent(currentUser.email)}&sheet=Parents`);
+                let data = await response.json();
+                
+                if (data && data.length > 0) {
+                    parentData = data[0];
+                } else {
+                    // If no match by email, this parent might not exist yet
+                    // Create a minimal parent record
+                    parentData = {
+                        Email: currentUser.email,
+                        First_Name: '',
+                        Last_Name: '',
+                        Phone: ''
+                    };
+                }
+                
+                updateProfileUI();
+                
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+
+        function updateProfileUI() {
+            const firstName = parentData?.First_Name || '';
+            const lastName = parentData?.Last_Name || '';
+            const fullName = `${firstName} ${lastName}`.trim() || 'Parent';
+            const email = currentUser?.email || '';
+            
+            let initials = '';
+            if (firstName || lastName) {
+                initials = ((firstName[0] || '') + (lastName[0] || '')).toUpperCase();
+            } else {
+                initials = email.substring(0, 2).toUpperCase();
+            }
+
+            // Update all profile displays
+            const profileAvatar = document.getElementById('profile-avatar');
+            if (profileAvatar) profileAvatar.textContent = initials || '--';
+            
+            const profileName = document.getElementById('profile-name');
+            if (profileName) profileName.textContent = fullName;
+            
+            const profileEmail = document.getElementById('profile-email-display');
+            if (profileEmail) profileEmail.textContent = email;
+            
+            const headerName = document.getElementById('header-parent-name');
+            if (headerName) headerName.textContent = fullName;
+            
+            const dropdownName = document.getElementById('user-name-dropdown');
+            if (dropdownName) dropdownName.textContent = fullName;
+            
+            const userInitials = document.getElementById('user-initials');
+            if (userInitials) userInitials.textContent = initials;
+            
+            const userEmail = document.getElementById('user-email');
+            if (userEmail) userEmail.textContent = email;
+
+            // Fill form fields
+            const profileFirst = document.getElementById('profile-first');
+            if (profileFirst) profileFirst.value = firstName;
+            
+            const profileLast = document.getElementById('profile-last');
+            if (profileLast) profileLast.value = lastName;
+            
+            const profilePhone = document.getElementById('profile-phone');
+            if (profilePhone) profilePhone.value = parentData?.Phone || '';
+            
+            const profileEmergency = document.getElementById('profile-emergency');
+            if (profileEmergency) profileEmergency.value = parentData?.Emergency_Contact || '';
+        }
+
+        function renderProfileStudents() {
+            const container = document.getElementById('profile-students');
+            if (!container) return;
+            
+            if (!studentsData.length) {
+                container.innerHTML = '<p class="text-white-60 text-sm">No students linked yet</p>';
                 return;
             }
-            // Set the current user and update header UI
-            currentUser = session.user;
-            const email = currentUser.email || '';
-            // Display initial initials and email until profile is loaded
-            const initEl = document.getElementById('user-initials');
-            if (initEl) initEl.textContent = email.substring(0, 2).toUpperCase();
-            const emailEl = document.getElementById('user-email');
-            if (emailEl) emailEl.textContent = email;
-            // Set the studio logo source from configuration if available
-            const logoEl = document.getElementById('studio-logo');
-            if (logoEl) logoEl.src = STUDIO_LOGO_URL;
-            // Load the parent's profile first so that parentData is populated (for filtering) and header/name updates
-            await loadProfile();
-            // Now that parentData is available, fetch all other data (students, classes, announcements)
-            await fetchAllData();
-            // Update the profile summary after students have been loaded
-            renderProfileStudents();
+            
+            container.innerHTML = studentsData.map(s => `
+                <div class="flex items-center justify-between p-3 bg-tiger-blue-600 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-tiger-blue-500 flex items-center justify-center text-xs font-bold text-white">
+                            ${(s.First_Name || '')[0] || ''}${(s.Last_Name || '')[0] || ''}
+                        </div>
+                        <span class="text-white text-sm">${s.First_Name || ''} ${s.Last_Name || ''}</span>
+                    </div>
+                    <span class="text-xs px-2 py-1 ${getBeltClass(s.Belt_Rank)} rounded">${s.Belt_Rank || 'White Belt'}</span>
+                </div>
+            `).join('');
         }
 
+        async function saveProfile() {
+            const firstName = document.getElementById('profile-first').value.trim();
+            const lastName = document.getElementById('profile-last').value.trim();
+            const phone = document.getElementById('profile-phone').value.trim();
+            const emergency = document.getElementById('profile-emergency').value.trim();
+            
+            const data = {
+                First_Name: firstName,
+                Last_Name: lastName,
+                Phone: phone,
+                Emergency_Contact: emergency
+            };
+            
+            try {
+                if (parentData?.Parent_Id) {
+                    // Update existing parent
+                    const response = await fetch(`${SHEETDB_API}/Parent_Id/${parentData.Parent_Id}?sheet=Parents`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ data })
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed to save');
+                } else {
+                    // Create new parent record
+                    const newParentId = 'PAR-' + Date.now();
+                    data.Parent_Id = newParentId;
+                    data.Email = currentUser.email;
+                    
+                    const response = await fetch(`${SHEETDB_API}?sheet=Parents`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ data })
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed to create profile');
+                    parentData.Parent_Id = newParentId;
+                }
+                
+                // Update local data
+                parentData = { ...parentData, ...data };
+                updateProfileUI();
+                showToast('Profile updated!', 'success');
+                
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                showToast('Failed to save profile', 'error');
+            }
+        }
+
+        // =============================================
+        // CALENDAR NAVIGATION
+        // =============================================
         function setCalendarView(view) {
             calendarView = view;
             document.getElementById('btn-week').className = view === 'week' 
@@ -743,7 +976,8 @@
             label.textContent = `${months[currentWeekStart.getMonth()]} ${currentWeekStart.getDate()} - ${months[weekEnd.getMonth()]} ${weekEnd.getDate()}, ${weekEnd.getFullYear()}`;
             
             let html = '';
-            const today = new Date(); today.setHours(0,0,0,0);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
             
             for (let i = 0; i < 7; i++) {
                 const date = new Date(currentWeekStart);
@@ -774,14 +1008,13 @@
             const startPadding = firstDay.getDay();
             
             let html = '';
-            const today = new Date(); today.setHours(0,0,0,0);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
             
-            // Empty cells for padding
             for (let i = 0; i < startPadding; i++) {
                 html += '<div class="text-center py-2"></div>';
             }
             
-            // Days of month
             for (let d = 1; d <= lastDay.getDate(); d++) {
                 const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), d);
                 const isToday = date.toDateString() === today.toDateString();
@@ -802,6 +1035,9 @@
             renderTodaysClasses();
         }
 
+        // =============================================
+        // CLASSES & RSVP SYSTEM
+        // =============================================
         function renderTodaysClasses() {
             const container = document.getElementById('classes-container');
             const header = document.getElementById('classes-header');
@@ -811,7 +1047,7 @@
             
             const todaysClasses = classesData.filter(c => {
                 const d = (c.Day_Of_Week || '').toLowerCase();
-                return d.includes(dayName.toLowerCase().substring(0,3));
+                return d.includes(dayName.toLowerCase().substring(0, 3));
             });
             
             if (todaysClasses.length === 0) {
@@ -819,7 +1055,12 @@
                 return;
             }
             
-            container.innerHTML = todaysClasses.map(cls => `
+            const selectedDateStr = selectedDay.toISOString().split('T')[0];
+            
+            container.innerHTML = todaysClasses.map(cls => {
+                const classId = cls.Class_Id || cls.Class_Name;
+                
+                return `
                 <div class="card p-4">
                     <div class="flex items-start justify-between mb-3">
                         <div>
@@ -828,18 +1069,29 @@
                         </div>
                         <span class="px-2 py-1 bg-tiger-blue-600 text-white text-xs font-medium rounded">${cls.Start_Time || ''}</span>
                     </div>
+                    
                     ${studentsData.length > 0 ? `
                         <div class="mb-3">
                             <p class="text-xs text-white-60 mb-2">RSVP for:</p>
                             <div class="flex flex-wrap gap-2">
-                                ${studentsData.map(s => `
-                                    <button onclick="handleAttend('${cls.Class_Id || cls.Class_Name}', '${s.Student_Id}', this)" class="px-3 py-1 bg-tiger-blue-600 hover:bg-pine-500 text-white text-xs rounded-full transition-colors">
-                                        ${s.First_Name}
-                                    </button>
-                                `).join('')}
+                                ${studentsData.map(s => {
+                                    const isRsvped = checkRsvpStatus(classId, s.Student_Id, selectedDateStr);
+                                    return `
+                                        <button 
+                                            id="rsvp-${classId}-${s.Student_Id}"
+                                            onclick="handleRsvp('${classId}', '${s.Student_Id}', '${selectedDateStr}', this)" 
+                                            class="rsvp-btn px-3 py-1 ${isRsvped ? 'confirmed bg-green-600' : 'bg-tiger-blue-600 hover:bg-pine-500'} text-white text-xs rounded-full transition-colors"
+                                            ${isRsvped ? 'disabled' : ''}>
+                                            ${isRsvped ? '✓ ' : ''}${s.First_Name}
+                                        </button>
+                                    `;
+                                }).join('')}
                             </div>
                         </div>
-                    ` : ''}
+                    ` : `
+                        <p class="text-xs text-white-60 mb-3">No students linked to RSVP</p>
+                    `}
+                    
                     <div class="flex items-center justify-between">
                         <a href="https://maps.google.com/?q=${encodeURIComponent(STUDIO_ADDRESS)}" target="_blank" class="location-btn flex items-center gap-2 text-white-80">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -850,19 +1102,95 @@
                         </a>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
+        function checkRsvpStatus(classId, studentId, date) {
+            return attendanceData.some(a => 
+                (a.Class_Id === classId || a.Class_Name === classId) && 
+                a.Student_Id === studentId && 
+                a.Date === date &&
+                (a.Status === 'Confirmed' || a.Status === 'RSVP')
+            );
+        }
+
+        async function handleRsvp(classId, studentId, date, btn) {
+            // Prevent double-clicks
+            if (btn.disabled) return;
+            
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Confirming...';
+            
+            try {
+                // Check if already RSVP'd (double-check)
+                const existingRsvp = attendanceData.find(a => 
+                    (a.Class_Id === classId || a.Class_Name === classId) && 
+                    a.Student_Id === studentId && 
+                    a.Date === date
+                );
+                
+                if (existingRsvp) {
+                    btn.textContent = '✓ ' + originalText.replace('✓ ', '');
+                    btn.classList.add('confirmed');
+                    showToast('Already RSVP\'d!', 'info');
+                    return;
+                }
+                
+                const attendanceId = 'ATT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
+                const student = studentsData.find(s => s.Student_Id === studentId);
+                
+                const rsvpData = {
+                    Attendance_Id: attendanceId,
+                    Class_Id: classId,
+                    Student_Id: studentId,
+                    Student_Name: student ? `${student.First_Name} ${student.Last_Name}` : '',
+                    Date: date,
+                    Status: 'Confirmed',
+                    RSVP_Time: new Date().toISOString()
+                };
+                
+                const response = await fetch(`${SHEETDB_API}?sheet=Attendance`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: rsvpData })
+                });
+                
+                if (!response.ok) throw new Error('Failed to RSVP');
+                
+                // Add to local data
+                attendanceData.push(rsvpData);
+                
+                // Update button
+                btn.textContent = '✓ ' + originalText.replace('Confirming...', '').trim();
+                btn.classList.add('confirmed');
+                btn.style.background = '#16a34a';
+                
+                showToast('RSVP confirmed!', 'success');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                btn.textContent = originalText;
+                btn.disabled = false;
+                showToast('Failed to RSVP', 'error');
+            }
+        }
+
+        // =============================================
+        // STUDENTS RENDERING
+        // =============================================
         function renderStudents() {
             const container = document.getElementById('students-container');
+            
             if (!studentsData.length) {
                 container.innerHTML = `
-                    <div class="text-center py-12">
+                    <div class="text-center py-12 col-span-full">
                         <svg class="w-16 h-16 mx-auto text-tiger-blue-500 opacity-30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                         </svg>
-                        <p class="text-tiger-blue-500 opacity-60 mb-4">No students yet</p>
-                        <button onclick="openAddStudentModal()" class="px-6 py-2 bg-pine-500 text-white rounded-lg text-sm font-medium hover:bg-pine-600 transition-colors">Add Your First Student</button>
+                        <p class="text-tiger-blue-500 opacity-60 mb-4">No students linked to your account</p>
+                        <p class="text-tiger-blue-500 opacity-40 text-sm mb-4">Contact the studio to link your student(s)</p>
+                        <button onclick="openAddStudentModal()" class="px-6 py-2 bg-pine-500 text-white rounded-lg text-sm font-medium hover:bg-pine-600 transition-colors">Request to Add Student</button>
                     </div>
                 `;
                 return;
@@ -870,14 +1198,14 @@
             
             const beltOrder = ['White Belt', 'White Stripe', 'Yellow Belt', 'Yellow Stripe', 'Orange Belt', 'Green Belt', 'Blue Belt', 'Purple Belt', 'Brown Belt', 'Red Belt', 'Poom Belt', 'Black Belt'];
             
-            container.innerHTML = studentsData.slice(0, 5).map(s => {
+            container.innerHTML = studentsData.map(s => {
                 const currentBeltIndex = beltOrder.findIndex(b => b.toLowerCase() === (s.Belt_Rank || '').toLowerCase());
                 const progressPercent = currentBeltIndex >= 0 ? Math.round(((currentBeltIndex + 1) / beltOrder.length) * 100) : 0;
                 const nextBelt = currentBeltIndex >= 0 && currentBeltIndex < beltOrder.length - 1 ? beltOrder[currentBeltIndex + 1] : null;
                 
                 return `
                 <div class="student-card">
-                    <div class="student-avatar">${(s.First_Name||'').charAt(0)}${(s.Last_Name||'').charAt(0)}</div>
+                    <div class="student-avatar">${(s.First_Name || '').charAt(0)}${(s.Last_Name || '').charAt(0)}</div>
                     <h3 class="text-xl font-bold text-white mb-1">${s.First_Name || ''} ${s.Last_Name || ''}</h3>
                     <span class="inline-block px-3 py-1 ${getBeltClass(s.Belt_Rank)} text-xs font-semibold rounded-full mb-4">${s.Belt_Rank || 'No Belt'}</span>
                     
@@ -904,47 +1232,22 @@
                         </div>
                     </div>
 
-                    <div class="bg-tiger-blue-600 rounded-lg p-4 text-left">
-                        <h4 class="text-sm font-semibold text-white mb-3">Waivers</h4>
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-white-80">Annual Liability Waiver</span>
-                                <span class="text-xs text-green-400">✓ Signed</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button onclick="openEditStudentModal('${s.Student_Id}')" class="mt-4 w-full py-2 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white-80 rounded-lg text-sm transition-colors">Edit Details</button>
+                    <button onclick="openEditStudentModal('${s.Student_Id}')" class="mt-2 w-full py-2 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white-80 rounded-lg text-sm transition-colors">View Details</button>
                 </div>
             `}).join('');
         }
 
-        function getBeltClass(belt) {
-            if (!belt) return 'bg-gray-500';
-            const b = belt.toLowerCase();
-            if (b.includes('white') && b.includes('stripe')) return 'belt-white-stripe';
-            if (b.includes('yellow') && b.includes('stripe')) return 'belt-yellow-stripe';
-            if (b.includes('white')) return 'belt-white';
-            if (b.includes('yellow')) return 'belt-yellow';
-            if (b.includes('orange')) return 'belt-orange';
-            if (b.includes('green')) return 'belt-green';
-            if (b.includes('blue')) return 'belt-blue';
-            if (b.includes('purple')) return 'belt-purple';
-            if (b.includes('brown')) return 'belt-brown';
-            if (b.includes('red')) return 'belt-red';
-            if (b.includes('poom')) return 'belt-poom';
-            if (b.includes('black')) return 'belt-black';
-            return 'bg-gray-500';
-        }
-
+        // =============================================
+        // ANNOUNCEMENTS
+        // =============================================
         function renderAnnouncements() {
             const container = document.getElementById('announcements-container');
+            
             if (!announcementsData.length) {
                 container.innerHTML = '<div class="card p-6 text-center"><p class="text-white-60">No announcements</p></div>';
                 return;
             }
             
-            // Sort: pinned announcements first, then by date (newest first)
             const sorted = [...announcementsData].sort((a, b) => {
                 const aPinned = isPinnedFlag(a.Pinned);
                 const bPinned = isPinnedFlag(b.Pinned);
@@ -984,172 +1287,21 @@
             }).join('');
         }
 
-        function switchTab(tabName) {
+        // =============================================
+        // TAB NAVIGATION
+        // =============================================
+        function switchTab(tabName, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('tab-' + tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
+            
+            const target = document.getElementById('tab-' + tabName);
+            if (target) target.classList.add('active');
+            if (el) el.classList.add('active');
         }
 
-        async function handleAttend(classId, studentId, btn) {
-            const originalText = btn.textContent;
-            btn.disabled = true;
-            btn.textContent = 'Confirming...';
-            
-            try {
-                const today = new Date().toISOString().split('T')[0];
-                const attendanceId = 'ATT-' + Date.now();
-                
-                // Save to Attendance sheet
-                const response = await fetch(SHEETDB_API + '?sheet=Attendance', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: { 
-                        Attendance_Id: attendanceId,
-                        Class_Id: classId, 
-                        Student_Id: studentId,
-                        Date: today, 
-                        Status: 'Confirmed' 
-                    }})
-                });
-                
-                if (!response.ok) throw new Error('Failed to confirm');
-                
-                btn.textContent = '✓ Confirmed';
-                btn.style.background = '#16a34a';
-                btn.disabled = true;
-                
-                showToast('Attendance confirmed!', 'success');
-                
-            } catch (error) {
-                console.error('Error:', error);
-                btn.textContent = originalText;
-                btn.disabled = false;
-                showToast('Failed to confirm', 'error');
-            }
-        }
-
-        // Toast notifications
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    ${type === 'success' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>' : 
-                      type === 'error' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' :
-                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'}
-                </svg>
-                ${message}
-            `;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // Profile functions
-        let parentData = null;
-
-        async function loadProfile() {
-            if (!currentUser) return;
-            
-            try {
-                const response = await fetch(`${SHEETDB_API}/search?Email=${currentUser.email}&sheet=Parents`);
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    parentData = data[0];
-                    
-                    // Compute full name and initials. Fall back to email initials if name parts are missing.
-                    const firstName = parentData.First_Name || '';
-                    const lastName  = parentData.Last_Name  || '';
-                    const fullName  = `${firstName} ${lastName}`.trim() || 'Parent';
-                    let initials = '';
-                    if (firstName || lastName) {
-                        initials = ((firstName[0] || '') + (lastName[0] || '')).toUpperCase();
-                    } else {
-                        const email = currentUser.email || '';
-                        initials = email.substring(0, 2).toUpperCase();
-                    }
-
-                    // Update profile card
-                    document.getElementById('profile-avatar').textContent = initials || '--';
-                    document.getElementById('profile-name').textContent = fullName;
-                    document.getElementById('profile-email-display').textContent = currentUser.email;
-
-                    // Update header and dropdown with name and initials
-                    const headerNameEl = document.getElementById('header-parent-name');
-                    if (headerNameEl) headerNameEl.textContent = fullName;
-                    const dropdownNameEl = document.getElementById('user-name-dropdown');
-                    if (dropdownNameEl) dropdownNameEl.textContent = fullName;
-                    const initialsEl = document.getElementById('user-initials');
-                    if (initialsEl) initialsEl.textContent = initials;
-                    const emailEl = document.getElementById('user-email');
-                    if (emailEl) emailEl.textContent = currentUser.email;
-
-                    // Fill form fields
-                    document.getElementById('profile-first').value     = firstName;
-                    document.getElementById('profile-last').value      = lastName;
-                    document.getElementById('profile-phone').value     = parentData.Phone || '';
-                    document.getElementById('profile-emergency').value = parentData.Emergency_Contact || '';
-                }
-            } catch (error) {
-                console.error('Error loading profile:', error);
-            }
-            
-            renderProfileStudents();
-        }
-
-        function renderProfileStudents() {
-            const container = document.getElementById('profile-students');
-            
-            if (!studentsData.length) {
-                container.innerHTML = '<p class="text-white-60 text-sm">No students linked yet</p>';
-                return;
-            }
-            
-            container.innerHTML = studentsData.map(s => `
-                <div class="flex items-center justify-between p-3 bg-tiger-blue-600 rounded-lg">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-tiger-blue-500 flex items-center justify-center text-xs font-bold text-white">
-                            ${(s.First_Name || '')[0] || ''}${(s.Last_Name || '')[0] || ''}
-                        </div>
-                        <span class="text-white text-sm">${s.First_Name} ${s.Last_Name}</span>
-                    </div>
-                    <span class="text-xs px-2 py-1 ${getBeltClass(s.Belt_Rank)} rounded">${s.Belt_Rank || 'White Belt'}</span>
-                </div>
-            `).join('');
-        }
-
-        async function saveProfile() {
-            if (!parentData) {
-                showToast('Profile not found', 'error');
-                return;
-            }
-            
-            const data = {
-                First_Name: document.getElementById('profile-first').value,
-                Last_Name: document.getElementById('profile-last').value,
-                Phone: document.getElementById('profile-phone').value,
-                Emergency_Contact: document.getElementById('profile-emergency').value
-            };
-            
-            try {
-                const response = await fetch(`${SHEETDB_API}/Parent_Id/${parentData.Parent_Id}?sheet=Parents`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data })
-                });
-                
-                if (!response.ok) throw new Error('Failed to save');
-                
-                showToast('Profile updated!', 'success');
-                await loadProfile();
-                
-            } catch (error) {
-                showToast('Failed to save profile', 'error');
-            }
-        }
-
-        // Add Student Modal
+        // =============================================
+        // MODALS
+        // =============================================
         function openAddStudentModal() {
             document.getElementById('add-student-modal').classList.add('active');
         }
@@ -1175,16 +1327,17 @@
                 Last_Name: document.getElementById('add-student-last').value,
                 Age: document.getElementById('add-student-age').value,
                 Belt_Rank: 'White Belt',
-                Parent_Email: currentUser?.email || '',
-                // Link the student row to the parent by Parent_Id if available. This allows owners to group students by parent.
                 Parent_Id: parentData?.Parent_Id || '',
+                Parent_Email: currentUser?.email || '',
+                Parent_Phone: parentData?.Phone || '',
+                Parent_Name: `${parentData?.First_Name || ''} ${parentData?.Last_Name || ''}`.trim(),
                 Medical_Conditions: document.getElementById('add-student-medical').value,
                 Enrollment_Date: today,
                 Status: 'Active'
             };
             
             try {
-                const response = await fetch(SHEETDB_API + '?sheet=Students', {
+                const response = await fetch(`${SHEETDB_API}?sheet=Students`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ data: studentData })
@@ -1204,7 +1357,6 @@
             btn.textContent = 'Add Student';
         }
 
-        // Edit Student Modal
         function openEditStudentModal(studentId) {
             const student = studentsData.find(s => s.Student_Id === studentId);
             if (!student) return;
@@ -1239,7 +1391,7 @@
             };
             
             try {
-                const response = await fetch(SHEETDB_API + '/Student_Id/' + studentId + '?sheet=Students', {
+                const response = await fetch(`${SHEETDB_API}/Student_Id/${studentId}?sheet=Students`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ data })
@@ -1259,17 +1411,10 @@
             btn.textContent = 'Save Changes';
         }
 
-        // Logout confirmation
-        async function handleLogout() {
-            if (confirm('Are you sure you want to sign out?')) {
-                await supabase.auth.signOut();
-                window.location.href = 'index.html';
-            }
-        }
-
+        // =============================================
+        // INITIALIZATION
+        // =============================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Start the portal only after authentication; this ensures currentUser
-            // is available before any fetches occur.
             initParentPortal();
         });
     </script>
@@ -1313,7 +1458,7 @@
     <div id="edit-student-modal" class="modal-overlay" onclick="if(event.target === this) closeEditStudentModal()">
         <div class="modal-content p-6">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white">Edit Student</h3>
+                <h3 class="text-lg font-bold text-white">Student Details</h3>
                 <button onclick="closeEditStudentModal()" class="text-white-60 hover:text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>

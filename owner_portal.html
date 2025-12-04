@@ -60,11 +60,9 @@
 
         .card { background: #013378; border-radius: 16px; color: white; }
 
-        .text-white-100 { color: rgba(255,255,255,1); }
         .text-white-80 { color: rgba(255,255,255,0.8); }
         .text-white-60 { color: rgba(255,255,255,0.6); }
 
-        /* Belt colors */
         .belt-white { background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%); color: #0f172a; }
         .belt-yellow { background: linear-gradient(135deg, #fde047 0%, #eab308 100%); color: #0f172a; }
         .belt-orange { background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%); color: #0f172a; }
@@ -78,7 +76,6 @@
         .belt-white-stripe { background: linear-gradient(90deg, #ffffff 50%, #1f2937 50%); color: #0f172a; }
         .belt-yellow-stripe { background: linear-gradient(90deg, #fde047 50%, #1f2937 50%); color: #0f172a; }
 
-        /* Belt header colors for pipeline */
         .belt-header-white { background: linear-gradient(135deg, #f8fafc, #e2e8f0); color: #0f172a; }
         .belt-header-yellow { background: linear-gradient(135deg, #fef9c3, #fde047); color: #0f172a; }
         .belt-header-orange { background: linear-gradient(135deg, #fed7aa, #fb923c); color: #0f172a; }
@@ -89,8 +86,8 @@
         .belt-header-red { background: linear-gradient(135deg, #fecaca, #f87171); color: #0f172a; }
         .belt-header-black { background: linear-gradient(135deg, #475569, #1e293b); color: white; }
         .belt-header-poom { background: linear-gradient(135deg, #f87171 50%, #1f2937 50%); color: white; }
-        .belt-header-white-stripe { background: linear-gradient(135deg, #ffffff 50%, #1f2937 50%); color: #0f172a; font-weight: 600; }
-        .belt-header-yellow-stripe { background: linear-gradient(135deg, #fde047 50%, #1f2937 50%); color: #0f172a; font-weight: 600; }
+        .belt-header-white-stripe { background: linear-gradient(135deg, #ffffff 50%, #1f2937 50%); color: #0f172a; }
+        .belt-header-yellow-stripe { background: linear-gradient(135deg, #fde047 50%, #1f2937 50%); color: #0f172a; }
 
         .nav-item {
             position: relative;
@@ -110,14 +107,6 @@
             border-radius: 50%;
         }
 
-        .btn-primary {
-            background: #ce0707;
-            color: white;
-            transition: all 0.2s ease;
-        }
-        .btn-primary:hover { background: #b80606; }
-
-        /* Pipeline horizontal scroll */
         .pipeline-scroll {
             display: flex;
             gap: 16px;
@@ -142,7 +131,6 @@
             transform: translateY(-2px);
         }
 
-        /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -173,7 +161,6 @@
             transform: translateY(0);
         }
 
-        /* Calendar */
         .calendar-day {
             transition: all 0.15s ease;
             cursor: pointer;
@@ -203,7 +190,6 @@
             border-radius: 50%;
         }
 
-        /* Add menu */
         .add-menu {
             position: absolute;
             top: 100%;
@@ -226,7 +212,6 @@
             background: rgba(255,255,255,0.1);
         }
 
-        /* Toast Notifications */
         .toast-container {
             position: fixed;
             top: 20px;
@@ -258,7 +243,6 @@
             to { opacity: 0; transform: translateX(100%); }
         }
 
-        /* Loading Spinner */
         .spinner {
             width: 40px;
             height: 40px;
@@ -275,7 +259,6 @@
 
 <body>
 
-    <!-- Toast Container -->
     <div id="toast-container" class="toast-container"></div>
 
     <div id="app" class="max-w-none mx-auto min-h-screen flex flex-col">
@@ -329,9 +312,7 @@
                     </button>
                 </div>
 
-                <!-- Desktop Grid Layout -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                    <!-- Stats Cards -->
                     <div class="card p-4">
                         <div class="flex items-center justify-between">
                             <div>
@@ -357,61 +338,17 @@
                     <div class="card p-4">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-xs text-white-60 mb-1">Monthly Revenue</p>
-                                <p id="stat-revenue" class="text-2xl font-bold text-green-400">$--</p>
-                                <p id="stat-revenue-change" class="text-xs text-white-60">--</p>
+                                <p class="text-xs text-white-60 mb-1">Classes Today</p>
+                                <p id="stat-classes-today" class="text-2xl font-bold text-white">--</p>
                             </div>
                             <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
-                                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <svg class="w-5 h-5 text-pine-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Next Class & Revenue Row -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="card p-4">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-xs text-white-60 mb-1">Next Upcoming Class</p>
-                                <p id="stat-next-class" class="text-lg font-bold text-white">--</p>
-                                <p id="stat-next-class-time" class="text-xs text-pine-500">--</p>
-                            </div>
-                            <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
-                                <svg class="w-5 h-5 text-pine-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card p-4">
-                        <h3 class="text-sm font-semibold text-white-60 mb-3">REVENUE BREAKDOWN</h3>
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-white-80">Tuition</span>
-                                <span id="rev-tuition" class="text-sm text-white font-medium">$--</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-white-80">Belt Testing</span>
-                                <span id="rev-testing" class="text-sm text-white font-medium">$--</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-white-80">Tournaments</span>
-                                <span id="rev-tournaments" class="text-sm text-white font-medium">$--</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bottom Row: Promotions, Quick Actions, Activity -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Recent Promotions -->
-                    <div class="card p-4">
-                        <h3 class="text-sm font-semibold text-white-60 mb-4">RECENT PROMOTIONS</h3>
-                        <div id="belt-chart" class="space-y-2">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions -->
                     <div class="card p-4">
                         <h3 class="text-sm font-semibold text-white-60 mb-4">QUICK ACTIONS</h3>
                         <div class="grid grid-cols-2 gap-2">
@@ -434,11 +371,10 @@
                         </div>
                     </div>
 
-                    <!-- Recent Activity -->
                     <div class="card p-4">
                         <h3 class="text-sm font-semibold text-white-60 mb-4">RECENT ACTIVITY</h3>
                         <div id="recent-activity" class="space-y-2">
-                            <!-- Populated by JS -->
+                            <p class="text-white-60 text-sm">Loading...</p>
                         </div>
                     </div>
                 </div>
@@ -447,34 +383,17 @@
             <!-- Students Tab -->
             <div id="tab-students" class="tab-content p-4">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold text-tiger-blue-500">Student(s)</h2>
+                    <h2 class="text-xl font-bold text-tiger-blue-500">Students</h2>
                     <div class="flex items-center gap-3">
                         <span id="total-students" class="text-sm text-pine-500 font-semibold">0 total</span>
-                        <div class="relative">
-                            <button onclick="toggleAddMenu('student')" class="p-2 bg-pine-500 rounded-lg hover:bg-pine-600 transition-colors">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
-                            </button>
-                            <div id="add-menu-student" class="add-menu hidden">
-                                <button onclick="openModal('new-student')">
-                                    <span class="flex items-center gap-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-                                        New Student
-                                    </span>
-                                </button>
-                                <button onclick="openModal('new-belt')">
-                                    <span class="flex items-center gap-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-                                        New Belt Stage
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
+                        <button onclick="openModal('new-student')" class="p-2 bg-pine-500 rounded-lg hover:bg-pine-600 transition-colors">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
                 
-                <!-- Status Filter & Search -->
                 <div class="flex gap-3 mb-4">
                     <div class="flex bg-gray-100 rounded-lg p-1">
                         <button onclick="setStatusFilter('all')" id="filter-all" class="px-3 py-1 text-xs font-medium rounded-md bg-pine-500 text-white">All</button>
@@ -489,7 +408,6 @@
                     </div>
                 </div>
 
-                <!-- Pipeline View -->
                 <div id="pipeline-container" class="pipeline-scroll">
                     <div class="text-center py-8 text-tiger-blue-500 opacity-60 w-full">Loading students...</div>
                 </div>
@@ -511,36 +429,13 @@
             <div id="tab-classes" class="tab-content p-4">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-bold text-tiger-blue-500">Classes</h2>
-                    <div class="relative">
-                        <button onclick="toggleAddMenu('class')" class="p-2 bg-pine-500 rounded-lg hover:bg-pine-600 transition-colors">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                            </svg>
-                        </button>
-                        <div id="add-menu-class" class="add-menu hidden">
-                            <button onclick="openModal('new-class')">
-                                <span class="flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-                                    Add Class
-                                </span>
-                            </button>
-                            <button onclick="openModal('new-tournament')">
-                                <span class="flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                                    Add Tournament
-                                </span>
-                            </button>
-                            <button onclick="openModal('block-time')">
-                                <span class="flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
-                                    Block Time
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+                    <button onclick="openModal('new-class')" class="p-2 bg-pine-500 rounded-lg hover:bg-pine-600 transition-colors">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </button>
                 </div>
 
-                <!-- Month Calendar -->
                 <div class="card p-4 mb-6">
                     <div class="flex items-center justify-between mb-4">
                         <button onclick="changeMonth(-1)" class="p-1 hover:bg-tiger-blue-600 rounded text-white">
@@ -567,8 +462,7 @@
                     <div id="month-days" class="grid grid-cols-7 gap-1"></div>
                 </div>
 
-                <!-- Classes List -->
-                <h3 class="text-sm font-medium text-tiger-blue-500 mb-3">SCHEDULE</h3>
+                <h3 class="text-sm font-medium text-tiger-blue-500 mb-3">CLASS SCHEDULE</h3>
                 <div id="classes-container" class="space-y-3">
                     <div class="text-center py-8 text-tiger-blue-500 opacity-60">Loading classes...</div>
                 </div>
@@ -593,7 +487,6 @@
             <div id="tab-settings" class="tab-content p-4">
                 <h2 class="text-xl font-bold text-tiger-blue-500 mb-6">Settings</h2>
 
-                <!-- Studio Settings -->
                 <div class="card p-5 mb-4">
                     <h3 class="text-sm font-semibold text-white-60 mb-4">STUDIO SETTINGS</h3>
                     <div class="space-y-4">
@@ -601,68 +494,7 @@
                             <label class="block text-sm text-white-80 mb-2">Studio Name</label>
                             <input type="text" id="setting-studio-name" value="Twin Tigers" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500">
                         </div>
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">Studio Logo</label>
-                            <div class="flex items-center gap-4">
-                                <div id="settings-logo-preview" class="w-16 h-16 bg-tiger-blue-600 rounded-xl flex items-center justify-center overflow-hidden">
-                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <input type="file" id="logo-upload" accept="image/*" onchange="handleLogoUpload(event)" class="hidden">
-                                    <button onclick="document.getElementById('logo-upload').click()" class="px-4 py-2 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white-80 rounded-lg text-sm">Upload Photo</button>
-                                    <p class="text-xs text-white-60 mt-1">PNG, JPG up to 2MB</p>
-                                </div>
-                            </div>
-                        </div>
                         <button onclick="saveStudioSettings()" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg transition-colors">Save Settings</button>
-                    </div>
-                </div>
-
-                <!-- Belt Stages -->
-                <div class="card p-5 mb-4">
-                    <h3 class="text-sm font-semibold text-white-60 mb-4">BELT STAGES</h3>
-                    <div class="space-y-2" id="belt-stages-list">
-                        <!-- Populated by JS -->
-                    </div>
-                    <button onclick="openModal('new-belt')" class="mt-4 w-full py-2 border border-dashed border-tiger-blue-500 text-white-60 rounded-lg text-sm hover:border-white hover:text-white transition-colors">+ Add Belt Stage</button>
-                </div>
-
-                <!-- Notifications -->
-                <div class="card p-5 mb-4">
-                    <h3 class="text-sm font-semibold text-white-60 mb-4">NOTIFICATIONS</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-white-80 text-sm">Email notifications</span>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" checked class="sr-only peer">
-                                <div class="w-11 h-6 bg-tiger-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pine-500"></div>
-                            </label>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-white-80 text-sm">Push notifications</span>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" class="sr-only peer">
-                                <div class="w-11 h-6 bg-tiger-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pine-500"></div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Invitations -->
-                <div class="card p-5">
-                    <h3 class="text-sm font-semibold text-white-60 mb-4">INVITATIONS</h3>
-                    <p class="text-sm text-white-60 mb-4">Send access invitations to parents or instructors.</p>
-                    <div class="space-y-3">
-                        <button onclick="openModal('invite-parent')" class="w-full py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white rounded-lg text-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                            Invite Parent
-                        </button>
-                        <button onclick="openModal('invite-instructor')" class="w-full py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white rounded-lg text-sm flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-                            Invite Instructor
-                        </button>
                     </div>
                 </div>
             </div>
@@ -682,7 +514,7 @@
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
-                    <span class="text-xs font-medium">Student(s)</span>
+                    <span class="text-xs font-medium">Students</span>
                 </button>
                 <button class="nav-item flex flex-col items-center py-1 px-3" onclick="switchTab('parents', this)">
                     <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -782,38 +614,27 @@
                             </select>
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Medical Conditions</label>
-                        <textarea id="new-student-medical" rows="2" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500 resize-none" placeholder="Allergies, asthma, etc."></textarea>
-                    </div>
                     
                     <h4 class="text-sm font-semibold text-white-60 pt-4">PARENT/GUARDIAN INFO</h4>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-sm text-white-80 mb-2">First Name *</label>
+                            <label class="block text-sm text-white-80 mb-2">Parent First Name *</label>
                             <input type="text" id="new-parent-first" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="John">
                         </div>
                         <div>
-                            <label class="block text-sm text-white-80 mb-2">Last Name *</label>
+                            <label class="block text-sm text-white-80 mb-2">Parent Last Name *</label>
                             <input type="text" id="new-parent-last" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="Doe">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm text-white-80 mb-2">Email *</label>
-                        <input type="email" id="new-parent-email" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="parent@email.com">
+                        <label class="block text-sm text-white-80 mb-2">Parent Email</label>
+                        <input type="email" id="new-parent-email" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="parent@email.com">
                     </div>
                     <div>
-                        <label class="block text-sm text-white-80 mb-2">Phone</label>
-                        <input type="tel" id="new-parent-phone" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="(555) 123-4567">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Notes</label>
-                        <textarea id="new-student-notes" rows="2" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500 resize-none" placeholder="Any additional notes..."></textarea>
+                        <label class="block text-sm text-white-80 mb-2">Parent Phone *</label>
+                        <input type="tel" id="new-parent-phone" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="(555) 123-4567">
                     </div>
                 </div>
-                
-                <p id="new-student-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
-                <p id="new-student-success" class="text-green-400 text-sm text-center mt-4 hidden"></p>
                 
                 <button type="submit" id="new-student-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">
                     Add Student
@@ -843,25 +664,7 @@
                         <label class="block text-sm text-white-80 mb-2">Message *</label>
                         <textarea id="announcement-content" required rows="4" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500 resize-none" placeholder="Write your announcement..."></textarea>
                     </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Type</label>
-                        <select id="announcement-type" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                            <option value="General">General</option>
-                            <option value="Event">Event</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="Reminder">Reminder</option>
-                        </select>
-                    </div>
-
-                    <!-- Photo upload input for the announcement (optional) -->
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Photo (optional)</label>
-                        <input type="file" id="announcement-photo" accept="image/*" class="w-full text-white text-sm">
-                    </div>
                 </div>
-                
-                <p id="announcement-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
-                <p id="announcement-success" class="text-green-400 text-sm text-center mt-4 hidden"></p>
                 
                 <button type="submit" id="announcement-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">
                     Post Announcement
@@ -887,10 +690,6 @@
                         <label class="block text-sm text-white-80 mb-2">Class Name *</label>
                         <input type="text" id="class-name" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="Little Tigers (Ages 4-6)">
                     </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Description</label>
-                        <input type="text" id="class-description" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="Beginner class for young students">
-                    </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-sm text-white-80 mb-2">Day *</label>
@@ -910,22 +709,10 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm text-white-80 mb-2">Duration (minutes)</label>
-                        <select id="class-duration" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                            <option value="30">30 minutes</option>
-                            <option value="45">45 minutes</option>
-                            <option value="60" selected>60 minutes</option>
-                            <option value="90">90 minutes</option>
-                        </select>
-                    </div>
-                    <div>
                         <label class="block text-sm text-white-80 mb-2">Instructor</label>
                         <input type="text" id="class-instructor" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="Master Kim">
                     </div>
                 </div>
-                
-                <p id="class-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
-                <p id="class-success" class="text-green-400 text-sm text-center mt-4 hidden"></p>
                 
                 <button type="submit" id="class-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">
                     Add Class
@@ -934,263 +721,25 @@
         </div>
     </div>
 
-    <!-- Edit Student Modal -->
-    <div id="edit-student-modal" class="modal-overlay" onclick="if(event.target === this) closeEditStudentModal()">
+    <!-- Attendance Modal (View/Add Attendees) -->
+    <div id="attendance-modal" class="modal-overlay" onclick="if(event.target === this) closeAttendanceModal()">
         <div class="modal-content p-6">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white">Edit Student</h3>
-                <button onclick="closeEditStudentModal()" class="text-white-60 hover:text-white">
+                <h3 id="attendance-modal-title" class="text-lg font-bold text-white">Class Attendance</h3>
+                <button onclick="closeAttendanceModal()" class="text-white-60 hover:text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
             </div>
-            <form id="edit-student-form" onsubmit="handleEditStudent(event)">
-                <input type="hidden" id="edit-student-id">
-                <div class="space-y-4">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">First Name *</label>
-                            <input type="text" id="edit-student-first" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">Last Name *</label>
-                            <input type="text" id="edit-student-last" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">Age *</label>
-                            <input type="number" id="edit-student-age" required min="3" max="99" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">Status</label>
-                            <select id="edit-student-status" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                                <option value="On Hold">On Hold</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Medical Conditions</label>
-                        <textarea id="edit-student-medical" rows="2" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500 resize-none"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Notes</label>
-                        <textarea id="edit-student-notes" rows="2" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500 resize-none"></textarea>
-                    </div>
-                </div>
-                
-                <p id="edit-student-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
-                <p id="edit-student-success" class="text-green-400 text-sm text-center mt-4 hidden"></p>
-                
-                <button type="submit" id="edit-student-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">
-                    Save Changes
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Class Modal -->
-    <div id="edit-class-modal" class="modal-overlay" onclick="if(event.target === this) closeEditClassModal()">
-        <div class="modal-content p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white">Edit Class</h3>
-                <button onclick="closeEditClassModal()" class="text-white-60 hover:text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <form id="edit-class-form" onsubmit="handleEditClass(event)">
-                <input type="hidden" id="edit-class-id">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Class Name *</label>
-                        <input type="text" id="edit-class-name" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Description</label>
-                        <input type="text" id="edit-class-description" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">Day *</label>
-                            <select id="edit-class-day" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                                <option value="Sunday">Sunday</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">Time *</label>
-                            <input type="text" id="edit-class-time" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500" placeholder="4:00 PM">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Instructor</label>
-                        <input type="text" id="edit-class-instructor" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                    </div>
-                </div>
-                <button type="submit" id="edit-class-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">Save Changes</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Announcement Modal -->
-    <div id="edit-announcement-modal" class="modal-overlay" onclick="if(event.target === this) closeEditAnnouncementModal()">
-        <div class="modal-content p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white">Edit Announcement</h3>
-                <button onclick="closeEditAnnouncementModal()" class="text-white-60 hover:text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <form id="edit-announcement-form" onsubmit="handleEditAnnouncement(event)">
-                <input type="hidden" id="edit-announcement-id">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Title *</label>
-                        <input type="text" id="edit-announcement-title" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Message *</label>
-                        <textarea id="edit-announcement-content" required rows="4" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500 resize-none"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Type</label>
-                        <select id="edit-announcement-type" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                            <option value="General">General</option>
-                            <option value="Event">Event</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="Reminder">Reminder</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" id="edit-announcement-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">Save Changes</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- New Belt Stage Modal -->
-    <div id="new-belt-modal" class="modal-overlay" onclick="if(event.target === this) closeBeltModal()">
-        <div class="modal-content p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white">Add Belt Stage</h3>
-                <button onclick="closeBeltModal()" class="text-white-60 hover:text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <form id="new-belt-form" onsubmit="handleNewBelt(event)">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Belt Name *</label>
-                        <input type="text" id="new-belt-name" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="e.g., Purple Belt">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Primary Color *</label>
-                        <div class="flex items-center gap-3">
-                            <input type="color" id="new-belt-color1" value="#ffffff" class="w-12 h-12 rounded-lg cursor-pointer border-0">
-                            <span id="new-belt-color1-label" class="text-white-60 text-sm">#ffffff</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="flex items-center gap-2 text-sm text-white-80 mb-2">
-                            <input type="checkbox" id="new-belt-has-stripe" onchange="toggleStripeColor()" class="rounded">
-                            Has Stripe (Secondary Color)
-                        </label>
-                        <div id="stripe-color-container" class="hidden flex items-center gap-3 mt-2">
-                            <input type="color" id="new-belt-color2" value="#1f2937" class="w-12 h-12 rounded-lg cursor-pointer border-0">
-                            <span id="new-belt-color2-label" class="text-white-60 text-sm">#1f2937</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Preview</label>
-                        <div id="belt-preview" class="h-8 rounded-lg" style="background: #ffffff;"></div>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Order (Position in Pipeline)</label>
-                        <input type="number" id="new-belt-order" min="1" max="20" value="13" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                    </div>
-                </div>
-                <p id="belt-error" class="text-pine-500 text-sm mt-4 hidden"></p>
-                <p id="belt-success" class="text-green-400 text-sm mt-4 hidden"></p>
-                <button type="submit" id="belt-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">Add Belt Stage</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Custom Confirmation Modal -->
-    <div id="confirm-modal" class="modal-overlay" onclick="if(event.target === this) closeConfirmModal()">
-        <div class="modal-content p-6 max-w-sm">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 rounded-full bg-red-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                    </svg>
-                </div>
-                <h3 id="confirm-title" class="text-lg font-bold text-white mb-2">Delete Item?</h3>
-                <p id="confirm-message" class="text-sm text-white-60">This action cannot be undone.</p>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="closeConfirmModal()" class="flex-1 py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white rounded-lg transition-colors">Cancel</button>
-                <button onclick="executeConfirmAction()" id="confirm-action-btn" class="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tournament Modal -->
-    <div id="new-tournament-modal" class="modal-overlay" onclick="if(event.target === this) closeTournamentModal()">
-        <div class="modal-content p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-white">Add Tournament</h3>
-                <button onclick="closeTournamentModal()" class="text-white-60 hover:text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <form id="new-tournament-form" onsubmit="handleNewTournament(event)">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Tournament Name *</label>
-                        <input type="text" id="tournament-name" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="e.g., Spring Championship">
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">Start Date *</label>
-                            <input type="date" id="tournament-start" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-white-80 mb-2">End Date *</label>
-                            <input type="date" id="tournament-end" required class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white focus:outline-none focus:border-pine-500">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Location</label>
-                        <input type="text" id="tournament-location" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500" placeholder="e.g., Salt Lake City Convention Center">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-white-80 mb-2">Description</label>
-                        <textarea id="tournament-desc" rows="2" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500 resize-none"></textarea>
-                    </div>
-                </div>
-                <p id="tournament-error" class="text-pine-500 text-sm mt-4 hidden"></p>
-                <button type="submit" id="tournament-btn" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg mt-6 transition-colors">Add Tournament</button>
-            </form>
+            <div id="attendance-modal-content"></div>
         </div>
     </div>
 
     <script>
+        // =============================================
+        // CONFIGURATION
+        // =============================================
         const SUPABASE_URL = 'https://ipvutcoacitpcaeynexr.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwdnV0Y29hY2l0cGNhZXluZXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ0NjU4ODUsImV4cCI6MjA4MDA0MTg4NX0.WvUbmShhsLo_kGKZzEAAZPWqEaKf9haO0MeKvyPSZZc';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -1211,15 +760,21 @@
             { key: 'black', name: 'Black', headerClass: 'belt-header-black' }
         ];
 
+        // =============================================
+        // GLOBAL STATE
+        // =============================================
         let currentUser = null;
         let studentsData = [];
         let parentsData = [];
         let classesData = [];
         let announcementsData = [];
+        let attendanceData = [];
         let currentMonth = new Date();
         let currentStatusFilter = 'all';
 
-        // Date formatting helper
+        // =============================================
+        // UTILITY FUNCTIONS
+        // =============================================
         function formatDate(dateStr) {
             if (!dateStr) return 'N/A';
             const date = new Date(dateStr);
@@ -1227,53 +782,10 @@
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
-        async function checkAuth() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) { window.location.href = 'index.html'; return; }
-            currentUser = session.user;
-            const email = currentUser.email || '';
-            document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
-            document.getElementById('user-email').textContent = email;
-            
-            // Set welcome message with time of day
-            const hour = new Date().getHours();
-            let greeting = 'Good evening';
-            if (hour < 12) greeting = 'Good morning';
-            else if (hour < 17) greeting = 'Good afternoon';
-            
-            const welcomeEl = document.getElementById('welcome-message');
-            if (welcomeEl) {
-                welcomeEl.textContent = `${greeting}! Here's your studio overview.`;
-            }
+        function normalizeString(str) {
+            return (str || '').toString().trim().toLowerCase();
         }
 
-        function toggleProfileMenu() { document.getElementById('profile-menu').classList.toggle('hidden'); }
-        
-        function toggleAddMenu(type) {
-            const menu = document.getElementById('add-menu-' + type);
-            document.querySelectorAll('.add-menu').forEach(m => {
-                if (m !== menu) m.classList.add('hidden');
-            });
-            menu.classList.toggle('hidden');
-        }
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.relative')) {
-                document.querySelectorAll('.add-menu').forEach(m => m.classList.add('hidden'));
-            }
-            const menu = document.getElementById('profile-menu');
-            const btn = document.getElementById('profile-btn');
-            if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) menu.classList.add('hidden');
-        });
-
-        async function handleLogout() {
-            if (confirm('Are you sure you want to sign out?')) {
-                await supabase.auth.signOut();
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Toast notifications
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -1290,18 +802,89 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
+        function getBeltClass(belt) {
+            if (!belt) return 'bg-gray-500';
+            const b = belt.toLowerCase();
+            if (b.includes('white') && b.includes('stripe')) return 'belt-white-stripe';
+            if (b.includes('yellow') && b.includes('stripe')) return 'belt-yellow-stripe';
+            if (b.includes('white')) return 'belt-white';
+            if (b.includes('yellow')) return 'belt-yellow';
+            if (b.includes('orange')) return 'belt-orange';
+            if (b.includes('green')) return 'belt-green';
+            if (b.includes('blue')) return 'belt-blue';
+            if (b.includes('purple')) return 'belt-purple';
+            if (b.includes('brown')) return 'belt-brown';
+            if (b.includes('red')) return 'belt-red';
+            if (b.includes('poom')) return 'belt-poom';
+            if (b.includes('black')) return 'belt-black';
+            return 'bg-gray-500';
+        }
+
+        function isPinnedFlag(value) {
+            if (value === undefined || value === null) return false;
+            const v = value.toString().trim().toLowerCase();
+            return v === 'true' || v === 'yes' || v === 'y' || v === '1';
+        }
+
+        // =============================================
+        // AUTHENTICATION
+        // =============================================
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'index.html';
+                return;
+            }
+            currentUser = session.user;
+            const email = currentUser.email || '';
+            document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
+            document.getElementById('user-email').textContent = email;
+            
+            const hour = new Date().getHours();
+            let greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+            document.getElementById('welcome-message').textContent = `${greeting}! Here's your studio overview.`;
+        }
+
+        function toggleProfileMenu() {
+            document.getElementById('profile-menu').classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('profile-menu');
+            const btn = document.getElementById('profile-btn');
+            if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        async function handleLogout() {
+            if (confirm('Are you sure you want to sign out?')) {
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+            }
+        }
+
+        // =============================================
+        // DATA FETCHING
+        // =============================================
         async function fetchAllData() {
             try {
-                const [students, parents, classes, announcements] = await Promise.all([
+                const [students, parents, classes, announcements, attendance] = await Promise.all([
                     fetch(`${SHEETDB_API}?sheet=Students`).then(r => r.json()),
                     fetch(`${SHEETDB_API}?sheet=Parents`).then(r => r.json()),
                     fetch(`${SHEETDB_API}?sheet=Classes`).then(r => r.json()),
-                    fetch(`${SHEETDB_API}?sheet=Announcements`).then(r => r.json())
+                    fetch(`${SHEETDB_API}?sheet=Announcements`).then(r => r.json()),
+                    fetch(`${SHEETDB_API}?sheet=Attendance`).then(r => r.json()).catch(() => [])
                 ]);
-                studentsData = students;
-                parentsData = parents;
-                classesData = classes;
-                announcementsData = announcements;
+                
+                studentsData = students || [];
+                parentsData = parents || [];
+                classesData = classes || [];
+                announcementsData = announcements || [];
+                attendanceData = attendance || [];
+                
+                // Link students to parents
+                linkStudentsToParents();
                 
                 renderPipeline();
                 renderParents();
@@ -1310,162 +893,84 @@
                 renderAnnouncements();
                 renderDashboard();
                 updateStats();
-            } catch (error) { console.error('Error:', error); }
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showToast('Failed to load data', 'error');
+            }
         }
 
-        function renderDashboard() {
-            // Update stats
-            const activeStudents = studentsData.filter(s => s.Status !== 'Inactive').length;
-            document.getElementById('stat-students').textContent = activeStudents;
-            document.getElementById('stat-parents').textContent = parentsData.length;
+        // FIXED: Proper parent-student linking
+        function linkStudentsToParents() {
+            // Create a lookup for parents
+            const parentLookup = {};
+            parentsData.forEach(p => {
+                if (p.Parent_Id) parentLookup[p.Parent_Id] = p;
+                if (p.Email) parentLookup[normalizeString(p.Email)] = p;
+                if (p.Phone) parentLookup[normalizeString(p.Phone)] = p;
+                const fullName = normalizeString(`${p.First_Name || ''} ${p.Last_Name || ''}`);
+                if (fullName) parentLookup[fullName] = p;
+            });
             
-            // Calculate revenue (estimate based on active students)
-            renderRevenue(activeStudents);
-            
-            // Find next upcoming class
-            renderNextClass();
-            
-            // Recent promotions
-            renderRecentPromotions();
-            
-            // Recent activity
-            renderRecentActivity();
-            
-            // Belt stages in settings
-            renderBeltStages();
-        }
-
-        function renderRevenue(activeStudents) {
-            // Revenue estimates - can be customized or pulled from a Settings/Revenue sheet
-            const monthlyTuition = 150; // Average per student
-            const beltTestingFee = 75;
-            const tournamentFee = 50;
-            
-            // Calculate estimates
-            const tuitionRevenue = activeStudents * monthlyTuition;
-            const testingRevenue = Math.floor(activeStudents * 0.2) * beltTestingFee; // ~20% test per month
-            const tournamentRevenue = Math.floor(activeStudents * 0.1) * tournamentFee; // ~10% compete
-            
-            const totalRevenue = tuitionRevenue + testingRevenue + tournamentRevenue;
-            
-            // Update UI
-            document.getElementById('stat-revenue').textContent = '$' + totalRevenue.toLocaleString();
-            document.getElementById('stat-revenue-change').textContent = activeStudents + ' active students';
-            
-            document.getElementById('rev-tuition').textContent = '$' + tuitionRevenue.toLocaleString();
-            document.getElementById('rev-testing').textContent = '$' + testingRevenue.toLocaleString();
-            document.getElementById('rev-tournaments').textContent = '$' + tournamentRevenue.toLocaleString();
-        }
-
-        function renderBeltStages() {
-            const container = document.getElementById('belt-stages-list');
-            if (!container) return;
-            
-            container.innerHTML = BELT_ORDER.map(belt => `
-                <div class="flex items-center justify-between p-3 bg-tiger-blue-600 rounded-lg">
-                    <div class="flex items-center gap-3">
-                        <div class="w-6 h-3 rounded ${belt.headerClass.replace('belt-header-', 'belt-')}"></div>
-                        <span class="text-white-80 text-sm">${belt.name}</span>
-                    </div>
-                    <span class="text-white-60 text-xs">${belt.key}</span>
-                </div>
-            `).join('');
-        }
-
-        function renderNextClass() {
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const today = new Date();
-            const currentDay = days[today.getDay()];
-            const currentHour = today.getHours();
-            const currentMin = today.getMinutes();
-            
-            // Sort classes by day and time to find next one
-            const dayOrder = {};
-            days.forEach((d, i) => dayOrder[d.toLowerCase().substring(0,3)] = i);
-            
-            let nextClass = null;
-            let daysUntil = 7;
-            
-            classesData.forEach(cls => {
-                const classDay = (cls.Day_Of_Week || '').toLowerCase().substring(0,3);
-                const classDayIndex = dayOrder[classDay];
-                if (classDayIndex === undefined) return;
+            // Link each student to their parent
+            studentsData.forEach(s => {
+                let linkedParent = null;
                 
-                // Parse class time
-                const timeMatch = (cls.Start_Time || '').match(/(\d+):?(\d*)?\s*(AM|PM)?/i);
-                if (!timeMatch) return;
-                
-                let classHour = parseInt(timeMatch[1]);
-                const classMin = parseInt(timeMatch[2]) || 0;
-                const ampm = (timeMatch[3] || '').toUpperCase();
-                
-                if (ampm === 'PM' && classHour < 12) classHour += 12;
-                if (ampm === 'AM' && classHour === 12) classHour = 0;
-                
-                // Calculate days until this class
-                let daysAway = classDayIndex - today.getDay();
-                if (daysAway < 0) daysAway += 7;
-                if (daysAway === 0) {
-                    // Same day - check if class already passed
-                    if (classHour < currentHour || (classHour === currentHour && classMin <= currentMin)) {
-                        daysAway = 7; // Next week
-                    }
+                // Try Parent_Id first
+                if (s.Parent_Id && parentLookup[s.Parent_Id]) {
+                    linkedParent = parentLookup[s.Parent_Id];
+                }
+                // Try Parent_Email
+                else if (s.Parent_Email && parentLookup[normalizeString(s.Parent_Email)]) {
+                    linkedParent = parentLookup[normalizeString(s.Parent_Email)];
+                }
+                // Try Parent_Phone
+                else if (s.Parent_Phone && parentLookup[normalizeString(s.Parent_Phone)]) {
+                    linkedParent = parentLookup[normalizeString(s.Parent_Phone)];
+                }
+                // Try Parent_Name
+                else if (s.Parent_Name && parentLookup[normalizeString(s.Parent_Name)]) {
+                    linkedParent = parentLookup[normalizeString(s.Parent_Name)];
                 }
                 
-                if (daysAway < daysUntil || (daysAway === daysUntil && !nextClass)) {
-                    daysUntil = daysAway;
-                    nextClass = cls;
+                if (linkedParent) {
+                    s._linkedParent = linkedParent;
+                    s._parentName = `${linkedParent.First_Name || ''} ${linkedParent.Last_Name || ''}`.trim();
                 }
             });
             
-            if (nextClass) {
-                document.getElementById('stat-next-class').textContent = nextClass.Class_Name || 'Class';
-                const dayLabel = daysUntil === 0 ? 'Today' : daysUntil === 1 ? 'Tomorrow' : days[(today.getDay() + daysUntil) % 7];
-                document.getElementById('stat-next-class-time').textContent = `${dayLabel} at ${nextClass.Start_Time || ''}`;
-            } else {
-                document.getElementById('stat-next-class').textContent = 'No classes';
-                document.getElementById('stat-next-class-time').textContent = 'Schedule a class to get started';
-            }
+            // Update parent's related students display
+            parentsData.forEach(p => {
+                const relatedStudents = studentsData.filter(s => s._linkedParent === p);
+                p._relatedStudents = relatedStudents;
+                p.Related_Students = relatedStudents.map(s => `${s.First_Name} ${s.Last_Name}`).join(', ') || 'None';
+            });
         }
 
-        function renderRecentPromotions() {
-            const container = document.getElementById('belt-chart');
+        function updateStats() {
+            const activeStudents = studentsData.filter(s => s.Status !== 'Inactive').length;
+            document.getElementById('stat-students').textContent = activeStudents;
+            document.getElementById('stat-parents').textContent = parentsData.length;
+            document.getElementById('total-students').textContent = studentsData.length + ' total';
+            document.getElementById('total-parents').textContent = parentsData.length + ' total';
             
-            // Filter students who have a Previous_Belt field (indicating they were promoted)
-            const promotedStudents = studentsData.filter(s => s.Previous_Belt && s.Previous_Belt !== s.Belt_Rank);
-            
-            if (promotedStudents.length === 0) {
-                container.innerHTML = '<p class="text-white-60 text-sm text-center py-4">No recent promotions yet</p>';
-                return;
-            }
-            
-            // Show most recent promotions (up to 5)
-            const recent = promotedStudents.slice(0, 5);
-            
-            container.innerHTML = recent.map(s => `
-                <div class="flex items-center gap-3 p-2 bg-tiger-blue-600 rounded-lg">
-                    <div class="w-8 h-8 rounded-full bg-tiger-blue-800 flex items-center justify-center text-xs font-bold text-white">
-                        ${(s.First_Name||'').charAt(0)}${(s.Last_Name||'').charAt(0)}
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm text-white font-medium">${s.First_Name} ${s.Last_Name}</p>
-                        <p class="text-xs text-white-60">${s.Previous_Belt?.replace(' Belt', '')} → <span class="text-pine-500">${s.Belt_Rank?.replace(' Belt', '')}</span></p>
-                    </div>
-                    <span class="text-lg">🎉</span>
-                </div>
-            `).join('');
+            // Count today's classes
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const todayName = days[new Date().getDay()].toLowerCase().substring(0, 3);
+            const todaysClasses = classesData.filter(c => (c.Day_Of_Week || '').toLowerCase().includes(todayName));
+            document.getElementById('stat-classes-today').textContent = todaysClasses.length;
+        }
+
+        function renderDashboard() {
+            renderRecentActivity();
         }
 
         function renderRecentActivity() {
             const container = document.getElementById('recent-activity');
-            
-            // Combine and sort recent items
             const activities = [];
             
-            // Recent students (by enrollment date)
-            studentsData.forEach(s => {
+            studentsData.slice(0, 5).forEach(s => {
                 activities.push({
-                    type: 'student',
                     name: `${s.First_Name} ${s.Last_Name}`,
                     date: s.Enrollment_Date || '',
                     icon: '👤',
@@ -1473,18 +978,6 @@
                 });
             });
             
-            // Recent announcements
-            announcementsData.forEach(a => {
-                activities.push({
-                    type: 'announcement',
-                    name: a.Title || 'Announcement',
-                    date: a.Date_Posted || '',
-                    icon: '📢',
-                    text: 'posted'
-                });
-            });
-            
-            // Sort by date (newest first) and take top 5
             activities.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
             const recent = activities.slice(0, 5);
             
@@ -1504,55 +997,14 @@
             `).join('');
         }
 
-        function exportStudentsCSV() {
-            if (!studentsData.length) {
-                showToast('No students to export', 'error');
-                return;
-            }
-            
-            // CSV headers
-            const headers = ['First Name', 'Last Name', 'Age', 'Belt Rank', 'Parent Email', 'Enrollment Date', 'Status'];
-            
-            // CSV rows
-            const rows = studentsData.map(s => [
-                s.First_Name || '',
-                s.Last_Name || '',
-                s.Age || '',
-                s.Belt_Rank || '',
-                s.Parent_Email || '',
-                s.Enrollment_Date || '',
-                s.Status || ''
-            ]);
-            
-            // Build CSV string
-            let csv = headers.join(',') + '\n';
-            rows.forEach(row => {
-                csv += row.map(cell => `"${cell}"`).join(',') + '\n';
-            });
-            
-            // Download
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `students_export_${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            showToast('Students exported!', 'success');
-        }
-
-        function updateStats() {
-            document.getElementById('total-students').textContent = studentsData.length + ' total';
-            document.getElementById('total-parents').textContent = parentsData.length + ' total';
-        }
-
+        // =============================================
+        // STUDENTS PIPELINE
+        // =============================================
         function groupStudentsByBelt() {
             const groups = {};
             BELT_ORDER.forEach(b => groups[b.key] = []);
             groups['other'] = [];
             
-            // Filter students by status
             let filtered = studentsData;
             if (currentStatusFilter === 'active') {
                 filtered = studentsData.filter(s => s.Status !== 'Inactive');
@@ -1564,7 +1016,6 @@
                 const belt = (s.Belt_Rank || '').toLowerCase();
                 let placed = false;
                 
-                // Check for stripe belts first (more specific)
                 if (belt.includes('white') && belt.includes('stripe')) {
                     groups['white stripe'].push(s);
                     placed = true;
@@ -1572,7 +1023,6 @@
                     groups['yellow stripe'].push(s);
                     placed = true;
                 } else {
-                    // Check other belts
                     for (const b of BELT_ORDER) {
                         if (b.key !== 'white stripe' && b.key !== 'yellow stripe' && belt.includes(b.key)) {
                             groups[b.key].push(s);
@@ -1601,23 +1051,19 @@
                         </div>
                         <div class="bg-tiger-blue-700 rounded-b-xl p-2 min-h-[200px] max-h-[400px] overflow-y-auto space-y-2">
                             ${students.length === 0 ? '<p class="text-center text-white-60 text-xs py-4">No students</p>' :
-                                students.map(s => {
-                                    const isInactive = s.Status === 'Inactive';
-                                    const isOnHold = s.Status === 'On Hold';
-                                    const statusDot = isInactive ? '<span class="w-2 h-2 rounded-full bg-red-400 ml-2"></span>' : (isOnHold ? '<span class="w-2 h-2 rounded-full bg-yellow-400 ml-2"></span>' : '');
-                                    return `
-                                    <div class="student-card ${isInactive ? 'opacity-50' : ''}" onclick="showStudentModal('${s.Student_Id}')">
+                                students.map(s => `
+                                    <div class="student-card" onclick="showStudentModal('${s.Student_Id}')">
                                         <div class="flex items-center gap-3">
                                             <div class="w-10 h-10 rounded-full bg-tiger-blue-800 flex items-center justify-center text-sm font-bold text-white">
-                                                ${(s.First_Name||'').charAt(0)}${(s.Last_Name||'').charAt(0)}
+                                                ${(s.First_Name || '').charAt(0)}${(s.Last_Name || '').charAt(0)}
                                             </div>
                                             <div class="flex-1 min-w-0">
-                                                <p class="font-medium text-white text-sm truncate flex items-center">${s.First_Name||''} ${s.Last_Name||''}${statusDot}</p>
-                                                <p class="text-xs text-white-60 truncate">${s.Age ? s.Age + ' yrs' : ''} ${s.Status && s.Status !== 'Active' ? '• ' + s.Status : ''}</p>
+                                                <p class="font-medium text-white text-sm truncate">${s.First_Name || ''} ${s.Last_Name || ''}</p>
+                                                <p class="text-xs text-white-60 truncate">${s._parentName || 'No parent linked'}</p>
                                             </div>
                                         </div>
                                     </div>
-                                `}).join('')
+                                `).join('')
                             }
                         </div>
                     </div>
@@ -1626,8 +1072,116 @@
             container.innerHTML = html;
         }
 
+        function filterStudents() {
+            const searchTerm = document.getElementById('student-search').value.toLowerCase();
+            const cards = document.querySelectorAll('.student-card');
+            cards.forEach(card => {
+                const name = card.textContent.toLowerCase();
+                card.style.display = name.includes(searchTerm) ? 'block' : 'none';
+            });
+        }
+
+        function setStatusFilter(filter) {
+            currentStatusFilter = filter;
+            ['all', 'active', 'inactive'].forEach(f => {
+                const btn = document.getElementById('filter-' + f);
+                if (f === filter) {
+                    btn.className = 'px-3 py-1 text-xs font-medium rounded-md bg-pine-500 text-white';
+                } else {
+                    btn.className = 'px-3 py-1 text-xs font-medium rounded-md text-tiger-blue-500 hover:bg-gray-200';
+                }
+            });
+            renderPipeline();
+        }
+
+        function showStudentModal(studentId) {
+            const student = studentsData.find(s => s.Student_Id === studentId);
+            if (!student) return;
+            
+            const modal = document.getElementById('student-modal');
+            const content = document.getElementById('modal-content');
+            document.getElementById('modal-title').textContent = 'Student Details';
+            
+            content.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 rounded-full bg-tiger-blue-600 flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
+                        ${(student.First_Name || '').charAt(0)}${(student.Last_Name || '').charAt(0)}
+                    </div>
+                    <h2 class="text-xl font-bold text-white">${student.First_Name || ''} ${student.Last_Name || ''}</h2>
+                    <span class="inline-block mt-2 px-3 py-1 ${getBeltClass(student.Belt_Rank)} text-xs font-semibold rounded-full">${student.Belt_Rank || 'No Belt'}</span>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
+                        <span class="text-white-60 text-sm">Status</span>
+                        <span class="text-white text-sm">${student.Status || 'Active'}</span>
+                    </div>
+                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
+                        <span class="text-white-60 text-sm">Age</span>
+                        <span class="text-white text-sm">${student.Age || 'N/A'}</span>
+                    </div>
+                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
+                        <span class="text-white-60 text-sm">Enrolled</span>
+                        <span class="text-white text-sm">${formatDate(student.Enrollment_Date)}</span>
+                    </div>
+                    <div class="bg-tiger-blue-600 rounded-lg p-3">
+                        <span class="text-white-60 text-sm block mb-1">Parent/Guardian</span>
+                        <span class="text-white text-sm">${student._parentName || student.Parent_Name || 'Not linked'}</span>
+                        ${student.Parent_Email ? `<br><span class="text-white-60 text-xs">${student.Parent_Email}</span>` : ''}
+                        ${student.Parent_Phone ? `<br><span class="text-white-60 text-xs">${student.Parent_Phone}</span>` : ''}
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="closeModal()" class="flex-1 py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white rounded-lg text-sm">Close</button>
+                    <button onclick="promoteBelt('${studentId}')" class="flex-1 py-3 bg-pine-500 hover:bg-pine-600 text-white rounded-lg text-sm">Promote Belt</button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        async function promoteBelt(studentId) {
+            const student = studentsData.find(s => s.Student_Id === studentId);
+            if (!student) return;
+            
+            const beltNames = BELT_ORDER.map(b => b.name + ' Belt');
+            const currentBelt = (student.Belt_Rank || 'White Belt').toLowerCase();
+            let currentIndex = beltNames.findIndex(b => b.toLowerCase().includes(currentBelt.replace(' belt', '')));
+            if (currentIndex === -1) currentIndex = 0;
+            
+            if (currentIndex >= beltNames.length - 1) {
+                showToast('Already at highest belt!', 'info');
+                return;
+            }
+            
+            const newBelt = beltNames[currentIndex + 1];
+            if (!confirm(`Promote ${student.First_Name} to ${newBelt}?`)) return;
+            
+            try {
+                const response = await fetch(`${SHEETDB_API}/Student_Id/${studentId}?sheet=Students`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: { Belt_Rank: newBelt, Previous_Belt: student.Belt_Rank } })
+                });
+                
+                if (!response.ok) throw new Error('Failed to promote');
+                
+                showToast(`Promoted to ${newBelt}!`, 'success');
+                closeModal();
+                await fetchAllData();
+                
+            } catch (error) {
+                showToast('Failed to promote', 'error');
+            }
+        }
+
+        // =============================================
+        // PARENTS
+        // =============================================
         function renderParents() {
             const container = document.getElementById('parents-container');
+            
             if (!parentsData.length) {
                 container.innerHTML = '<div class="text-center py-8 text-tiger-blue-500 opacity-60 col-span-full">No parents found</div>';
                 return;
@@ -1636,28 +1190,28 @@
             container.innerHTML = parentsData.map(p => `
                 <div class="card p-4">
                     <div class="flex items-start justify-between mb-3">
-                        <div class="flex items-center gap-3 cursor-pointer" onclick="showParentModal('${p.Parent_Id}')">
+                        <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-tiger-blue-600 flex items-center justify-center text-lg font-bold text-white">
-                                ${(p.First_Name||'').charAt(0)}${(p.Last_Name||'').charAt(0)}
+                                ${(p.First_Name || '').charAt(0)}${(p.Last_Name || '').charAt(0)}
                             </div>
                             <div>
-                                <p class="font-semibold text-white">${p.First_Name||''} ${p.Last_Name||''}</p>
-                                <p class="text-sm text-white-60">${p.Email||''}</p>
+                                <p class="font-semibold text-white">${p.First_Name || ''} ${p.Last_Name || ''}</p>
+                                <p class="text-sm text-white-60">${p.Email || p.Phone || 'No contact'}</p>
                             </div>
                         </div>
-                        <button onclick="confirmDeleteParent('${p.Parent_Id}', '${p.First_Name} ${p.Last_Name}')" class="p-2 text-white-60 hover:text-red-400 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                        </button>
                     </div>
                     <div class="pt-3 border-t border-tiger-blue-600">
                         <p class="text-xs text-white-60 mb-1">Students</p>
                         <p class="text-sm text-white-80">${p.Related_Students || 'None linked'}</p>
                     </div>
-                    ${p.Phone ? `<p class="text-xs text-white-60 mt-2">${p.Phone}</p>` : ''}
+                    ${p.Phone ? `<p class="text-xs text-white-60 mt-2">📞 ${p.Phone}</p>` : ''}
                 </div>
             `).join('');
         }
 
+        // =============================================
+        // CLASSES
+        // =============================================
         function changeMonth(delta) {
             currentMonth.setMonth(currentMonth.getMonth() + delta);
             renderMonthCalendar();
@@ -1666,7 +1220,7 @@
         function renderMonthCalendar() {
             const container = document.getElementById('month-days');
             const label = document.getElementById('month-label');
-            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             
             label.textContent = `${months[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
             
@@ -1675,7 +1229,8 @@
             const startPadding = firstDay.getDay();
             
             let html = '';
-            const today = new Date(); today.setHours(0,0,0,0);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
             
             for (let i = 0; i < startPadding; i++) {
                 html += '<div class="text-center py-2"></div>';
@@ -1684,8 +1239,8 @@
             for (let d = 1; d <= lastDay.getDate(); d++) {
                 const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), d);
                 const isToday = date.toDateString() === today.toDateString();
-                const dayName = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][date.getDay()];
-                const hasClass = classesData.some(c => (c.Day_Of_Week||'').toLowerCase().includes(dayName.toLowerCase().substring(0,3)));
+                const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
+                const hasClass = classesData.some(c => (c.Day_Of_Week || '').toLowerCase().includes(dayName.toLowerCase().substring(0, 3)));
                 
                 html += `
                     <div class="text-center py-2 calendar-day ${isToday ? 'today active' : ''} ${hasClass ? 'has-event' : ''}">
@@ -1698,51 +1253,38 @@
 
         function renderClasses() {
             const container = document.getElementById('classes-container');
+            
             if (!classesData.length) {
                 container.innerHTML = `
                     <div class="card p-6 text-center">
-                        <svg class="w-12 h-12 mx-auto text-white opacity-30 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
                         <p class="text-white-60">No classes scheduled</p>
+                        <button onclick="openModal('new-class')" class="mt-3 px-4 py-2 bg-pine-500 text-white rounded-lg text-sm">Add First Class</button>
                     </div>
                 `;
                 return;
             }
             
             container.innerHTML = classesData.map(c => {
-                const capacity = parseInt(c.Capacity) || 20;
-                const attending = parseInt(c.Attending) || 0;
-                const spotsLeft = capacity - attending;
-                const isFull = spotsLeft <= 0;
-                
+                const classId = c.Class_Id || c.Class_Name || 'unknown';
                 return `
                 <div class="card p-4">
                     <div class="flex items-start justify-between">
                         <div class="flex-1">
                             <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-semibold text-white">${c.Class_Name||'Class'}</h4>
-                                <span class="px-2 py-0.5 bg-tiger-blue-600 text-white text-xs rounded">${c.Day_Of_Week||''}</span>
+                                <h4 class="font-semibold text-white">${c.Class_Name || 'Class'}</h4>
+                                <span class="px-2 py-0.5 bg-tiger-blue-600 text-white text-xs rounded">${c.Day_Of_Week || ''}</span>
                             </div>
-                            <p class="text-sm text-white-60 mb-2">${c.Description||''}</p>
                             <div class="flex items-center gap-4 text-sm">
-                                <span class="text-white-80">${c.Start_Time||''}</span>
-                                <span class="text-white-60">${c.Duration||'60'} min</span>
+                                <span class="text-white-80">${c.Start_Time || ''}</span>
                                 ${c.Instructor ? `<span class="text-white-60">${c.Instructor}</span>` : ''}
-                            </div>
-                            <div class="mt-2 flex items-center gap-3">
-                                <span class="text-xs ${isFull ? 'text-red-400' : 'text-pine-500'} font-medium">
-                                    ${isFull ? 'Class Full' : `${spotsLeft}/${capacity} spots`}
-                                </span>
-                                <button onclick="showAttendanceModal('${c.Class_Id || c.Class_Name}')" class="text-xs text-white-60 hover:text-white underline">View attendees</button>
                             </div>
                         </div>
                         <div class="flex gap-2">
-                            <button onclick="openEditClassModal('${c.Class_Id}')" class="p-2 text-white-60 hover:text-white transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                            <button onclick="openAttendanceModal('${classId}')" class="px-3 py-1 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white text-xs rounded transition-colors">
+                                Attendees
                             </button>
-                            <button onclick="confirmDeleteClass('${c.Class_Id}', '${c.Class_Name}')" class="p-2 text-white-60 hover:text-red-400 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            <button onclick="deleteClass('${classId}')" class="p-2 text-white-60 hover:text-red-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                             </button>
                         </div>
                     </div>
@@ -1750,254 +1292,18 @@
             `}).join('');
         }
 
-        function renderAnnouncements() {
-            const container = document.getElementById('announcements-container');
-            if (!announcementsData.length) {
-                container.innerHTML = `
-                    <div class="card p-6 text-center">
-                        <svg class="w-12 h-12 mx-auto text-white opacity-30 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
-                        </svg>
-                        <p class="text-white-60">No announcements</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Sort: pinned items first (case-insensitive), then by date (newest first)
-            const isPinned = (val) => String(val || '').toLowerCase() === 'true';
-            const sorted = [...announcementsData].sort((a, b) => {
-                const aPinned = isPinned(a.Pinned);
-                const bPinned = isPinned(b.Pinned);
-                if (aPinned && !bPinned) return -1;
-                if (bPinned && !aPinned) return 1;
-                // Then by date (newest first)
-                return new Date(b.Date_Posted || 0) - new Date(a.Date_Posted || 0);
-            });
-            
-            container.innerHTML = sorted.map(a => {
-                // Determine if pinned using a case-insensitive check
-                const pinned = String(a.Pinned || '').toLowerCase() === 'true';
-                return `
-                <div class="card p-4 ${pinned ? 'ring-2 ring-pine-500' : ''}">
-                    <div class="flex items-start justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
-                                ${pinned ? `
-                                    <svg class="w-5 h-5 text-pine-500" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/>
-                                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-                                    </svg>
-                                ` : `
-                                    <svg class="w-5 h-5 text-pine-500" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z"/>
-                                    </svg>
-                                `}
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <h4 class="font-semibold text-sm text-white">${a.Author||'Twin Tigers'}</h4>
-                                    ${pinned ? '<span class="text-xs text-pine-500 font-medium">📌 Pinned</span>' : ''}
-                                </div>
-                                <p class="text-xs text-white-60">${formatDate(a.Date_Posted)}</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-1">
-                            <button onclick="togglePinAnnouncement('${a.Announcement_Id}', ${pinned})" class="p-2 ${pinned ? 'text-pine-500' : 'text-white-60'} hover:text-pine-500 transition-colors" title="${pinned ? 'Unpin' : 'Pin to top'}">
-                                <svg class="w-5 h-5" fill="${pinned ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
-                            </button>
-                            <button onclick="openEditAnnouncementModal('${a.Announcement_Id}')" class="p-2 text-white-60 hover:text-white transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-                            </button>
-                            <!-- Pass only the announcement ID to avoid string escaping issues -->
-                            <button onclick="confirmDeleteAnnouncement('${a.Announcement_Id}')" class="p-2 text-white-60 hover:text-red-400 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <h3 class="font-semibold text-white mb-2">${a.Title||''}</h3>
-                    <p class="text-sm text-white-80">${a.Content||''}</p>
-                    ${a.Photo ? `<img src="${a.Photo}" alt="Announcement photo" class="w-full mt-3 rounded-lg">` : ''}
-                    ${a.Type ? `<span class="inline-block mt-2 px-2 py-1 bg-tiger-blue-600 text-xs text-white-60 rounded">${a.Type}</span>` : ''}
-                    </div>
-                    `;
-                }).join('');
-        }
-
-        function showStudentModal(studentId) {
-            const student = studentsData.find(s => s.Student_Id === studentId);
-            if (!student) return;
-            
-            const modal = document.getElementById('student-modal');
-            const content = document.getElementById('modal-content');
-            
-            // Get next belt
-            const currentBelt = (student.Belt_Rank || '').toLowerCase();
-            const beltNames = ['white belt', 'white stripe', 'yellow belt', 'yellow stripe', 'orange belt', 'green belt', 'blue belt', 'purple belt', 'brown belt', 'red belt', 'poom belt', 'black belt'];
-            const currentIndex = beltNames.findIndex(b => currentBelt.includes(b.replace(' belt', '').replace(' stripe', ' stripe')));
-            const nextBelt = currentIndex < beltNames.length - 1 ? beltNames[currentIndex + 1] : null;
-            const nextBeltDisplay = nextBelt ? nextBelt.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : null;
-            
-            content.innerHTML = `
-                <div class="text-center mb-6">
-                    <div class="w-20 h-20 rounded-full bg-tiger-blue-600 flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
-                        ${(student.First_Name||'').charAt(0)}${(student.Last_Name||'').charAt(0)}
-                    </div>
-                    <h2 class="text-xl font-bold text-white">${student.First_Name||''} ${student.Last_Name||''}</h2>
-                    <span class="inline-block mt-2 px-3 py-1 ${getBeltClass(student.Belt_Rank)} text-xs font-semibold rounded-full">${student.Belt_Rank||'No Belt'}</span>
-                </div>
-                
-                <div class="space-y-3 mb-6">
-                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
-                        <span class="text-white-60 text-sm">Status</span>
-                        <span class="text-white text-sm">${student.Status||'Active'}</span>
-                    </div>
-                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
-                        <span class="text-white-60 text-sm">Enrolled</span>
-                        <span class="text-white text-sm">${student.Enrollment_Date||'N/A'}</span>
-                    </div>
-                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
-                        <span class="text-white-60 text-sm">Age</span>
-                        <span class="text-white text-sm">${student.Age||'N/A'}</span>
-                    </div>
-                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
-                        <span class="text-white-60 text-sm">Parent Email</span>
-                        <span class="text-white text-sm">${student.Parent_Email||'N/A'}</span>
-                    </div>
-                </div>
-
-                <div class="bg-tiger-blue-600 rounded-lg p-4 mb-6">
-                    <h4 class="text-sm font-semibold text-white mb-3">Waivers</h4>
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-white-80">Annual Liability Waiver</span>
-                            <span class="text-xs text-green-400">✓ Signed</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-white-80">Tournament Waiver</span>
-                            <span class="text-xs text-pine-500">⚠ Pending</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex gap-3">
-                    <button onclick="editStudent('${studentId}')" class="flex-1 py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white rounded-lg text-sm">Edit</button>
-                    ${nextBeltDisplay ? `
-                        <button onclick="confirmPromoteBelt('${studentId}', '${nextBeltDisplay}', '${student.First_Name}')" id="promote-btn-${studentId}" class="flex-1 py-3 bg-pine-500 hover:bg-pine-600 text-white rounded-lg text-sm">
-                            Promote
-                        </button>
-                    ` : `
-                        <button disabled class="flex-1 py-3 bg-gray-600 text-white-60 rounded-lg text-sm cursor-not-allowed">
-                            Max Belt
-                        </button>
-                    `}
-                    <button onclick="confirmDeleteStudent('${studentId}', '${student.First_Name} ${student.Last_Name}')" class="py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                    </button>
-                </div>
-            `;
-            
-            modal.classList.add('active');
-        }
-
-        function confirmPromoteBelt(studentId, newBelt, studentName) {
-            if (confirm(`Promote ${studentName} to ${newBelt}?`)) {
-                promoteBelt(studentId, newBelt);
-            }
-        }
-
-        async function promoteBelt(studentId, newBelt) {
-            const btn = document.getElementById('promote-btn-' + studentId);
-            if (btn) {
-                btn.disabled = true;
-                btn.textContent = 'Promoting...';
-            }
-            
-            // Find current belt to save as previous
-            const student = studentsData.find(s => s.Student_Id === studentId);
-            const previousBelt = student?.Belt_Rank || 'White Belt';
-            
-            try {
-                // Update student belt and save previous belt in Google Sheets
-                const response = await fetch(SHEETDB_API + '/Student_Id/' + studentId + '?sheet=Students', {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: { Belt_Rank: newBelt, Previous_Belt: previousBelt } })
-                });
-                
-                if (!response.ok) throw new Error('Failed to promote');
-                
-                showToast(`Promoted to ${newBelt}!`, 'success');
-                
-                // Refresh data and close modal
-                await fetchAllData();
-                closeModal();
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showToast('Failed to promote', 'error');
-                if (btn) {
-                    btn.textContent = 'Promote';
-                    btn.disabled = false;
-                }
-            }
-        }
-
-        function showParentModal(parentId) {
-            const parent = parentsData.find(p => p.Parent_Id === parentId);
-            if (!parent) return;
-            
-            const modal = document.getElementById('student-modal');
-            const content = document.getElementById('modal-content');
-            document.getElementById('modal-title').textContent = 'Parent Details';
-            
-            // Find related students
-            const relatedStudents = studentsData.filter(s => s.Parent_Email === parent.Email);
-            
-            content.innerHTML = `
-                <div class="text-center mb-6">
-                    <div class="w-20 h-20 rounded-full bg-tiger-blue-600 flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
-                        ${(parent.First_Name||'').charAt(0)}${(parent.Last_Name||'').charAt(0)}
-                    </div>
-                    <h2 class="text-xl font-bold text-white">${parent.First_Name||''} ${parent.Last_Name||''}</h2>
-                    <p class="text-sm text-white-60">${parent.Email||''}</p>
-                </div>
-                
-                <div class="space-y-3 mb-6">
-                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
-                        <span class="text-white-60 text-sm">Phone</span>
-                        <span class="text-white text-sm">${parent.Phone||'N/A'}</span>
-                    </div>
-                    <div class="bg-tiger-blue-600 rounded-lg p-3 flex justify-between">
-                        <span class="text-white-60 text-sm">Emergency Contact</span>
-                        <span class="text-white text-sm">${parent.Emergency_Contact||'N/A'}</span>
-                    </div>
-                </div>
-
-                <div class="bg-tiger-blue-600 rounded-lg p-4 mb-6">
-                    <h4 class="text-sm font-semibold text-white mb-3">Related Students (${relatedStudents.length})</h4>
-                    <div class="space-y-2">
-                        ${relatedStudents.length ? relatedStudents.map(s => `
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-white-80">${s.First_Name} ${s.Last_Name}</span>
-                                <span class="text-xs px-2 py-1 ${getBeltClass(s.Belt_Rank)} rounded">${s.Belt_Rank||'White Belt'}</span>
-                            </div>
-                        `).join('') : '<p class="text-sm text-white-60">No students linked</p>'}
-                    </div>
-                </div>
-            `;
-            
-            modal.classList.add('active');
-        }
-
-        async function showAttendanceModal(classId) {
+        // =============================================
+        // ATTENDANCE MODAL - VIEW & ADD ATTENDEES
+        // =============================================
+        async function openAttendanceModal(classId) {
             const cls = classesData.find(c => (c.Class_Id || c.Class_Name) === classId);
+            const modal = document.getElementById('attendance-modal');
+            const content = document.getElementById('attendance-modal-content');
+            const title = document.getElementById('attendance-modal-title');
             
-            const modal = document.getElementById('student-modal');
-            const content = document.getElementById('modal-content');
-            document.getElementById('modal-title').textContent = 'Class Attendance';
+            title.textContent = cls ? `${cls.Class_Name} - Attendance` : 'Class Attendance';
             
-            // Show loading state
+            // Show loading
             content.innerHTML = `
                 <div class="text-center py-8">
                     <div class="spinner mx-auto mb-4" style="width:30px;height:30px;border-width:2px;"></div>
@@ -2007,33 +1313,45 @@
             modal.classList.add('active');
             
             try {
-                // Fetch attendance records for this class
-                const response = await fetch(`${SHEETDB_API}/search?Class_Id=${classId}&sheet=Attendance`);
-                const attendanceData = await response.json();
+                // Fetch fresh attendance data
+                const response = await fetch(`${SHEETDB_API}?sheet=Attendance`);
+                const allAttendance = await response.json();
                 
-                // Get student details for each attendee
-                const attendees = attendanceData.map(a => {
-                    const student = studentsData.find(s => s.Student_Id === a.Student_Id);
-                    return student ? { ...student, rsvp_date: a.Date } : null;
+                // Filter for this class
+                const classAttendance = (allAttendance || []).filter(a => 
+                    a.Class_Id === classId || a.Class_Name === classId
+                );
+                
+                // Get unique students who have attended
+                const attendeeIds = [...new Set(classAttendance.map(a => a.Student_Id))];
+                const attendees = attendeeIds.map(id => {
+                    const student = studentsData.find(s => s.Student_Id === id);
+                    const lastAttendance = classAttendance.filter(a => a.Student_Id === id).sort((a, b) => new Date(b.Date || 0) - new Date(a.Date || 0))[0];
+                    return student ? { ...student, lastDate: lastAttendance?.Date } : null;
                 }).filter(Boolean);
+                
+                // Get students NOT in attendance for adding
+                const nonAttendeeStudents = studentsData.filter(s => 
+                    !attendeeIds.includes(s.Student_Id) && s.Status !== 'Inactive'
+                );
                 
                 content.innerHTML = `
                     <div class="mb-4">
-                        <h3 class="font-semibold text-white">${cls?.Class_Name || 'Class'}</h3>
                         <p class="text-sm text-white-60">${cls?.Day_Of_Week || ''} at ${cls?.Start_Time || ''}</p>
                     </div>
                     
+                    <!-- Current Attendees -->
                     <div class="bg-tiger-blue-600 rounded-lg p-4 mb-4">
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-sm font-semibold text-white">RSVPs</span>
+                            <span class="text-sm font-semibold text-white">Current RSVPs</span>
                             <span class="text-sm text-pine-500 font-bold">${attendees.length}</span>
                         </div>
                         ${attendees.length ? `
-                            <div class="space-y-2">
+                            <div class="space-y-2 max-h-40 overflow-y-auto">
                                 ${attendees.map(s => `
                                     <div class="flex items-center gap-3 p-2 bg-tiger-blue-700 rounded-lg">
                                         <div class="w-8 h-8 rounded-full bg-tiger-blue-500 flex items-center justify-center text-xs font-bold text-white">
-                                            ${(s.First_Name||'').charAt(0)}${(s.Last_Name||'').charAt(0)}
+                                            ${(s.First_Name || '').charAt(0)}${(s.Last_Name || '').charAt(0)}
                                         </div>
                                         <div class="flex-1">
                                             <p class="text-sm text-white">${s.First_Name} ${s.Last_Name}</p>
@@ -2047,80 +1365,87 @@
                             <p class="text-sm text-white-60 text-center py-4">No RSVPs yet</p>
                         `}
                     </div>
-                `;
-            } catch (error) {
-                console.error('Error fetching attendance:', error);
-                content.innerHTML = `
-                    <div class="mb-4">
-                        <h3 class="font-semibold text-white">${cls?.Class_Name || 'Class'}</h3>
-                        <p class="text-sm text-white-60">${cls?.Day_Of_Week || ''} at ${cls?.Start_Time || ''}</p>
-                    </div>
+                    
+                    <!-- Add Attendee Section -->
                     <div class="bg-tiger-blue-600 rounded-lg p-4">
-                        <p class="text-sm text-white-60 text-center py-4">No attendance data yet</p>
+                        <h4 class="text-sm font-semibold text-white mb-3">Add Student to Class</h4>
+                        ${nonAttendeeStudents.length ? `
+                            <select id="add-attendee-select" class="w-full px-4 py-3 bg-tiger-blue-700 border border-tiger-blue-500 rounded-lg text-white mb-3 focus:outline-none focus:border-pine-500">
+                                <option value="">Select a student...</option>
+                                ${nonAttendeeStudents.map(s => `
+                                    <option value="${s.Student_Id}">${s.First_Name} ${s.Last_Name} (${s.Belt_Rank || 'White Belt'})</option>
+                                `).join('')}
+                            </select>
+                            <button onclick="addAttendeeToClass('${classId}')" class="w-full py-2 bg-pine-500 hover:bg-pine-600 text-white rounded-lg text-sm transition-colors">
+                                Add to Class
+                            </button>
+                        ` : `
+                            <p class="text-sm text-white-60 text-center py-2">All students already added</p>
+                        `}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading attendance:', error);
+                content.innerHTML = `
+                    <div class="text-center py-8">
+                        <p class="text-white-60">Failed to load attendance data</p>
+                        <button onclick="openAttendanceModal('${classId}')" class="mt-3 px-4 py-2 bg-pine-500 text-white rounded-lg text-sm">Retry</button>
                     </div>
                 `;
             }
         }
 
-        function filterStudents() {
-            const searchTerm = document.getElementById('student-search').value.toLowerCase();
-            const cards = document.querySelectorAll('.student-card');
+        async function addAttendeeToClass(classId) {
+            const select = document.getElementById('add-attendee-select');
+            const studentId = select?.value;
             
-            cards.forEach(card => {
-                const name = card.textContent.toLowerCase();
-                card.style.display = name.includes(searchTerm) ? 'block' : 'none';
-            });
-        }
-
-        function setStatusFilter(filter) {
-            currentStatusFilter = filter;
-            
-            // Update button styles
-            ['all', 'active', 'inactive'].forEach(f => {
-                const btn = document.getElementById('filter-' + f);
-                if (f === filter) {
-                    btn.className = 'px-3 py-1 text-xs font-medium rounded-md bg-pine-500 text-white';
-                } else {
-                    btn.className = 'px-3 py-1 text-xs font-medium rounded-md text-tiger-blue-500 hover:bg-gray-200';
-                }
-            });
-            
-            // Re-render pipeline with filter
-            renderPipeline();
-        }
-
-        function confirmDeleteStudent(studentId, name) {
-            if (confirm(`Are you sure you want to delete ${name}? This cannot be undone.`)) {
-                deleteStudent(studentId);
+            if (!studentId) {
+                showToast('Please select a student', 'error');
+                return;
             }
-        }
-
-        async function deleteStudent(studentId) {
+            
+            const student = studentsData.find(s => s.Student_Id === studentId);
+            const today = new Date().toISOString().split('T')[0];
+            const attendanceId = 'ATT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
+            
             try {
-                const response = await fetch(SHEETDB_API + '/Student_Id/' + studentId + '?sheet=Students', {
-                    method: 'DELETE'
+                const response = await fetch(`${SHEETDB_API}?sheet=Attendance`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: {
+                        Attendance_Id: attendanceId,
+                        Class_Id: classId,
+                        Student_Id: studentId,
+                        Student_Name: student ? `${student.First_Name} ${student.Last_Name}` : '',
+                        Date: today,
+                        Status: 'Confirmed',
+                        Added_By: 'Owner'
+                    }})
                 });
                 
-                if (!response.ok) throw new Error('Failed to delete');
+                if (!response.ok) throw new Error('Failed to add');
                 
-                showToast('Student deleted', 'success');
-                closeModal();
-                await fetchAllData();
+                showToast('Student added to class!', 'success');
+                
+                // Refresh the modal
+                openAttendanceModal(classId);
                 
             } catch (error) {
-                showToast('Failed to delete student', 'error');
+                console.error('Error adding attendee:', error);
+                showToast('Failed to add student', 'error');
             }
         }
 
-        function confirmDeleteClass(classId, name) {
-            if (confirm(`Are you sure you want to delete "${name}"? This cannot be undone.`)) {
-                deleteClass(classId);
-            }
+        function closeAttendanceModal() {
+            document.getElementById('attendance-modal').classList.remove('active');
         }
 
         async function deleteClass(classId) {
+            if (!confirm('Delete this class? This cannot be undone.')) return;
+            
             try {
-                const response = await fetch(SHEETDB_API + '/Class_Id/' + classId + '?sheet=Classes', {
+                const response = await fetch(`${SHEETDB_API}/Class_Id/${classId}?sheet=Classes`, {
                     method: 'DELETE'
                 });
                 
@@ -2134,28 +1459,61 @@
             }
         }
 
-        /**
-         * Show a confirmation dialog before deleting an announcement.
-         * Only the announcement ID is passed; the title is looked up from
-         * announcementsData to avoid having to escape quotes in the HTML template.
-         * This function will display a custom confirm modal and, upon
-         * confirmation, call deleteAnnouncement().
-         */
-        function confirmDeleteAnnouncement(announcementId) {
-            // Find the announcement by ID to retrieve its title
-            const announcement = (Array.isArray(announcementsData) ? announcementsData : []).find(a => a.Announcement_Id === announcementId);
-            const title = announcement && announcement.Title ? announcement.Title : '';
-            // Use the custom confirm modal for a consistent user experience
-            showConfirmModal(
-                'Delete Announcement?',
-                `Are you sure you want to delete "${title}"? This action cannot be undone.`,
-                () => deleteAnnouncement(announcementId)
-            );
+        // =============================================
+        // ANNOUNCEMENTS
+        // =============================================
+        function renderAnnouncements() {
+            const container = document.getElementById('announcements-container');
+            
+            if (!announcementsData.length) {
+                container.innerHTML = `
+                    <div class="card p-6 text-center">
+                        <p class="text-white-60">No announcements</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const sorted = [...announcementsData].sort((a, b) => {
+                const aPinned = isPinnedFlag(a.Pinned);
+                const bPinned = isPinnedFlag(b.Pinned);
+                if (aPinned && !bPinned) return -1;
+                if (bPinned && !aPinned) return 1;
+                return new Date(b.Date_Posted || 0) - new Date(a.Date_Posted || 0);
+            });
+            
+            container.innerHTML = sorted.map(a => {
+                const pinned = isPinnedFlag(a.Pinned);
+                return `
+                <div class="card p-4 ${pinned ? 'ring-2 ring-pine-500' : ''}">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-pine-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-sm text-white">${a.Author || 'Twin Tigers'}</h4>
+                                <p class="text-xs text-white-60">${formatDate(a.Date_Posted)}</p>
+                            </div>
+                        </div>
+                        <button onclick="deleteAnnouncement('${a.Announcement_Id}')" class="p-2 text-white-60 hover:text-red-400 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2">${a.Title || ''}</h3>
+                    <p class="text-sm text-white-80">${a.Content || ''}</p>
+                </div>
+                `;
+            }).join('');
         }
 
         async function deleteAnnouncement(announcementId) {
+            if (!confirm('Delete this announcement?')) return;
+            
             try {
-                const response = await fetch(SHEETDB_API + '/Announcement_Id/' + announcementId + '?sheet=Announcements', {
+                const response = await fetch(`${SHEETDB_API}/Announcement_Id/${announcementId}?sheet=Announcements`, {
                     method: 'DELETE'
                 });
                 
@@ -2169,381 +1527,102 @@
             }
         }
 
-        function confirmDeleteParent(parentId, name) {
-            if (confirm(`Are you sure you want to delete ${name}? This cannot be undone.`)) {
-                deleteParent(parentId);
-            }
-        }
-
-        async function deleteParent(parentId) {
-            try {
-                const response = await fetch(SHEETDB_API + '/Parent_Id/' + parentId + '?sheet=Parents', {
-                    method: 'DELETE'
-                });
-                
-                if (!response.ok) throw new Error('Failed to delete');
-                
-                showToast('Parent deleted', 'success');
-                await fetchAllData();
-                
-            } catch (error) {
-                showToast('Failed to delete parent', 'error');
-            }
-        }
-
-        function getBeltClass(belt) {
-            if (!belt) return 'bg-gray-500';
-            const b = belt.toLowerCase();
-            if (b.includes('white') && b.includes('stripe')) return 'belt-white-stripe';
-            if (b.includes('yellow') && b.includes('stripe')) return 'belt-yellow-stripe';
-            if (b.includes('white')) return 'belt-white';
-            if (b.includes('yellow')) return 'belt-yellow';
-            if (b.includes('orange')) return 'belt-orange';
-            if (b.includes('green')) return 'belt-green';
-            if (b.includes('blue')) return 'belt-blue';
-            if (b.includes('purple')) return 'belt-purple';
-            if (b.includes('brown')) return 'belt-brown';
-            if (b.includes('red')) return 'belt-red';
-            if (b.includes('poom')) return 'belt-poom';
-            if (b.includes('black')) return 'belt-black';
-            return 'bg-gray-500';
-        }
-
+        // =============================================
+        // MODAL HANDLERS
+        // =============================================
         function closeModal() {
             document.getElementById('student-modal').classList.remove('active');
         }
 
         function openModal(type) {
-            document.querySelectorAll('.add-menu').forEach(m => m.classList.add('hidden'));
-            
             if (type === 'new-student') {
                 document.getElementById('new-student-modal').classList.add('active');
             } else if (type === 'new-announcement') {
                 document.getElementById('new-announcement-modal').classList.add('active');
             } else if (type === 'new-class') {
                 document.getElementById('new-class-modal').classList.add('active');
-            } else if (type === 'new-belt') {
-                document.getElementById('new-belt-modal').classList.add('active');
-            } else if (type === 'new-tournament') {
-                document.getElementById('new-tournament-modal').classList.add('active');
-            } else if (type === 'block-time') {
-                alert('Block Time form coming soon');
-            } else if (type === 'invite-parent') {
-                showInviteModal('parent');
-            } else if (type === 'invite-instructor') {
-                showInviteModal('instructor');
             }
         }
 
         function closeNewStudentModal() {
             document.getElementById('new-student-modal').classList.remove('active');
             document.getElementById('new-student-form').reset();
-            document.getElementById('new-student-error').classList.add('hidden');
-            document.getElementById('new-student-success').classList.add('hidden');
         }
 
         function closeAnnouncementModal() {
             document.getElementById('new-announcement-modal').classList.remove('active');
             document.getElementById('new-announcement-form').reset();
-            document.getElementById('announcement-error').classList.add('hidden');
-            document.getElementById('announcement-success').classList.add('hidden');
         }
 
         function closeClassModal() {
             document.getElementById('new-class-modal').classList.remove('active');
             document.getElementById('new-class-form').reset();
-            document.getElementById('class-error').classList.add('hidden');
-            document.getElementById('class-success').classList.add('hidden');
         }
 
-        function closeBeltModal() {
-            document.getElementById('new-belt-modal').classList.remove('active');
-            document.getElementById('new-belt-form').reset();
-            document.getElementById('belt-error').classList.add('hidden');
-            document.getElementById('belt-success').classList.add('hidden');
-        }
-
-        function closeTournamentModal() {
-            document.getElementById('new-tournament-modal').classList.remove('active');
-            document.getElementById('new-tournament-form').reset();
-            document.getElementById('tournament-error').classList.add('hidden');
-        }
-
-        function toggleStripeColor() {
-            const hasStripe = document.getElementById('new-belt-has-stripe').checked;
-            const container = document.getElementById('stripe-color-container');
-            container.classList.toggle('hidden', !hasStripe);
-            updateBeltPreview();
-        }
-
-        function updateBeltPreview() {
-            const color1 = document.getElementById('new-belt-color1').value;
-            const color2 = document.getElementById('new-belt-color2').value;
-            const hasStripe = document.getElementById('new-belt-has-stripe').checked;
-            const preview = document.getElementById('belt-preview');
-            
-            document.getElementById('new-belt-color1-label').textContent = color1;
-            document.getElementById('new-belt-color2-label').textContent = color2;
-            
-            if (hasStripe) {
-                preview.style.background = `linear-gradient(90deg, ${color1} 50%, ${color2} 50%)`;
-            } else {
-                preview.style.background = color1;
-            }
-        }
-
-        // Add event listeners for color pickers
-        document.getElementById('new-belt-color1')?.addEventListener('input', updateBeltPreview);
-        document.getElementById('new-belt-color2')?.addEventListener('input', updateBeltPreview);
-
-        async function handleNewBelt(e) {
+        // =============================================
+        // FORM HANDLERS
+        // =============================================
+        async function handleNewStudent(e) {
             e.preventDefault();
-            const btn = document.getElementById('belt-btn');
+            
+            const btn = document.getElementById('new-student-btn');
             btn.disabled = true;
             btn.textContent = 'Adding...';
             
-            const name = document.getElementById('new-belt-name').value;
-            const color1 = document.getElementById('new-belt-color1').value;
-            const color2 = document.getElementById('new-belt-color2').value;
-            const hasStripe = document.getElementById('new-belt-has-stripe').checked;
-            const order = document.getElementById('new-belt-order').value;
+            const studentId = 'STU-' + Date.now();
+            const parentId = 'PAR-' + Date.now();
+            const today = new Date().toISOString().split('T')[0];
             
-            const beltId = 'BELT-' + Date.now();
+            const parentFirst = document.getElementById('new-parent-first').value.trim();
+            const parentLast = document.getElementById('new-parent-last').value.trim();
+            const parentEmail = document.getElementById('new-parent-email').value.trim();
+            const parentPhone = document.getElementById('new-parent-phone').value.trim();
+            const parentName = `${parentFirst} ${parentLast}`;
             
-            try {
-                const response = await fetch(SHEETDB_API + '?sheet=BeltStages', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: {
-                        Belt_Id: beltId,
-                        Belt_Name: name,
-                        Primary_Color: color1,
-                        Secondary_Color: hasStripe ? color2 : '',
-                        Order: order
-                    }})
-                });
-                
-                if (!response.ok) throw new Error('Failed to add belt');
-                
-                showToast('Belt stage added!', 'success');
-                closeBeltModal();
-                
-            } catch (error) {
-                document.getElementById('belt-error').textContent = error.message;
-                document.getElementById('belt-error').classList.remove('hidden');
-            }
-            
-            btn.disabled = false;
-            btn.textContent = 'Add Belt Stage';
-        }
-
-        async function handleNewTournament(e) {
-            e.preventDefault();
-            const btn = document.getElementById('tournament-btn');
-            btn.disabled = true;
-            btn.textContent = 'Adding...';
-            
-            const name = document.getElementById('tournament-name').value;
-            const startDate = document.getElementById('tournament-start').value;
-            const endDate = document.getElementById('tournament-end').value;
-            const location = document.getElementById('tournament-location').value;
-            const desc = document.getElementById('tournament-desc').value;
-            
-            const tournamentId = 'TOURN-' + Date.now();
-            
-            try {
-                const response = await fetch(SHEETDB_API + '?sheet=Tournaments', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: {
-                        Tournament_Id: tournamentId,
-                        Name: name,
-                        Start_Date: startDate,
-                        End_Date: endDate,
-                        Location: location,
-                        Description: desc
-                    }})
-                });
-                
-                if (!response.ok) throw new Error('Failed to add tournament');
-                
-                showToast('Tournament added!', 'success');
-                closeTournamentModal();
-                
-            } catch (error) {
-                document.getElementById('tournament-error').textContent = error.message;
-                document.getElementById('tournament-error').classList.remove('hidden');
-            }
-            
-            btn.disabled = false;
-            btn.textContent = 'Add Tournament';
-        }
-
-        // Custom confirmation modal
-        let confirmCallback = null;
-
-        function showConfirmModal(title, message, callback) {
-            document.getElementById('confirm-title').textContent = title;
-            document.getElementById('confirm-message').textContent = message;
-            confirmCallback = callback;
-            document.getElementById('confirm-modal').classList.add('active');
-        }
-
-        function closeConfirmModal() {
-            document.getElementById('confirm-modal').classList.remove('active');
-            confirmCallback = null;
-        }
-
-        function executeConfirmAction() {
-            if (confirmCallback) {
-                confirmCallback();
-            }
-            closeConfirmModal();
-        }
-
-        // Update delete functions to use custom modal
-        function confirmDeleteStudent(studentId, name) {
-            showConfirmModal(
-                'Delete Student?',
-                `Are you sure you want to delete ${name}? This action cannot be undone.`,
-                () => deleteStudent(studentId)
-            );
-        }
-
-        function confirmDeleteClass(classId, name) {
-            showConfirmModal(
-                'Delete Class?',
-                `Are you sure you want to delete "${name}"? This action cannot be undone.`,
-                () => deleteClass(classId)
-            );
-        }
-
-        // Legacy overload of confirmDeleteAnnouncement used by older code passing both ID and title.
-        // The title parameter is optional; if provided we ignore it and lookup the title from announcementsData.
-        function confirmDeleteAnnouncement(announcementId, title) {
-            // Find the announcement to derive the proper title; fallback to the provided title
-            const announcement = (Array.isArray(announcementsData) ? announcementsData : []).find(a => a.Announcement_Id === announcementId);
-            const resolvedTitle = (announcement && announcement.Title) ? announcement.Title : (title || '');
-            showConfirmModal(
-                'Delete Announcement?',
-                `Are you sure you want to delete "${resolvedTitle}"? This action cannot be undone.`,
-                () => deleteAnnouncement(announcementId)
-            );
-        }
-
-        // Invite modal
-        function showInviteModal(type) {
-            const email = prompt(`Enter ${type} email address:`);
-            if (email && email.includes('@')) {
-                showToast(`Invite sent to ${email}!`, 'success');
-            } else if (email) {
-                showToast('Please enter a valid email', 'error');
-            }
-        }
-
-        // Logo upload
-        function handleLogoUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            if (file.size > 2 * 1024 * 1024) {
-                showToast('File too large. Max 2MB.', 'error');
-                return;
-            }
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const logoData = e.target.result;
-                
-                // Update settings preview
-                const preview = document.getElementById('settings-logo-preview');
-                preview.innerHTML = `<img src="${logoData}" class="w-full h-full object-cover">`;
-                
-                // Update header logo immediately
-                const headerLogo = document.getElementById('studio-logo');
-                if (headerLogo) {
-                    headerLogo.innerHTML = `<img src="${logoData}" class="w-full h-full object-cover rounded-xl">`;
-                }
-                
-                // Store in localStorage
-                localStorage.setItem('studioLogo', logoData);
-                showToast('Logo uploaded!', 'success');
+            const studentData = {
+                Student_Id: studentId,
+                First_Name: document.getElementById('new-student-first').value.trim(),
+                Last_Name: document.getElementById('new-student-last').value.trim(),
+                Age: document.getElementById('new-student-age').value,
+                Belt_Rank: document.getElementById('new-student-belt').value,
+                Parent_Id: parentId,
+                Parent_Email: parentEmail,
+                Parent_Phone: parentPhone,
+                Parent_Name: parentName,
+                Enrollment_Date: today,
+                Status: 'Active'
             };
-            reader.readAsDataURL(file);
-        }
-
-        // Load saved logo on page load
-        function loadSavedLogo() {
-            const savedLogo = localStorage.getItem('studioLogo');
-            if (savedLogo) {
-                const preview = document.getElementById('settings-logo-preview');
-                if (preview) {
-                    preview.innerHTML = `<img src="${savedLogo}" class="w-full h-full object-cover">`;
-                }
-                const headerLogo = document.getElementById('studio-logo');
-                if (headerLogo) {
-                    headerLogo.innerHTML = `<img src="${savedLogo}" class="w-full h-full object-cover rounded-xl">`;
-                }
-            }
-        }
-
-        function closeEditStudentModal() {
-            document.getElementById('edit-student-modal').classList.remove('active');
-            document.getElementById('edit-student-form').reset();
-        }
-
-        function closeEditClassModal() {
-            document.getElementById('edit-class-modal').classList.remove('active');
-            document.getElementById('edit-class-form').reset();
-        }
-
-        function closeEditAnnouncementModal() {
-            document.getElementById('edit-announcement-modal').classList.remove('active');
-            document.getElementById('edit-announcement-form').reset();
-        }
-
-        function openEditClassModal(classId) {
-            const cls = classesData.find(c => c.Class_Id === classId);
-            if (!cls) return;
             
-            document.getElementById('edit-class-id').value = classId;
-            document.getElementById('edit-class-name').value = cls.Class_Name || '';
-            document.getElementById('edit-class-description').value = cls.Description || '';
-            document.getElementById('edit-class-day').value = cls.Day_Of_Week || 'Monday';
-            document.getElementById('edit-class-time').value = cls.Start_Time || '';
-            document.getElementById('edit-class-instructor').value = cls.Instructor || '';
-            
-            document.getElementById('edit-class-modal').classList.add('active');
-        }
-
-        async function handleEditClass(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('edit-class-btn');
-            const classId = document.getElementById('edit-class-id').value;
-            
-            btn.disabled = true;
-            btn.textContent = 'Saving...';
-            
-            const data = {
-                Class_Name: document.getElementById('edit-class-name').value,
-                Description: document.getElementById('edit-class-description').value,
-                Day_Of_Week: document.getElementById('edit-class-day').value,
-                Start_Time: document.getElementById('edit-class-time').value,
-                Instructor: document.getElementById('edit-class-instructor').value
+            const parentData = {
+                Parent_Id: parentId,
+                First_Name: parentFirst,
+                Last_Name: parentLast,
+                Email: parentEmail,
+                Phone: parentPhone,
+                Related_Students: `${studentData.First_Name} ${studentData.Last_Name}`
             };
             
             try {
-                const response = await fetch(SHEETDB_API + '/Class_Id/' + classId + '?sheet=Classes', {
-                    method: 'PATCH',
+                // Add student
+                const studentRes = await fetch(`${SHEETDB_API}?sheet=Students`, {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data })
+                    body: JSON.stringify({ data: studentData })
                 });
                 
-                if (!response.ok) throw new Error('Failed to save');
+                if (!studentRes.ok) throw new Error('Failed to add student');
                 
-                showToast('Class updated!', 'success');
-                closeEditClassModal();
+                // Add parent
+                const parentRes = await fetch(`${SHEETDB_API}?sheet=Parents`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: parentData })
+                });
+                
+                if (!parentRes.ok) throw new Error('Failed to add parent');
+                
+                showToast('Student & parent added!', 'success');
+                closeNewStudentModal();
                 await fetchAllData();
                 
             } catch (error) {
@@ -2551,124 +1630,28 @@
             }
             
             btn.disabled = false;
-            btn.textContent = 'Save Changes';
-        }
-
-        function openEditAnnouncementModal(announcementId) {
-            const ann = announcementsData.find(a => a.Announcement_Id === announcementId);
-            if (!ann) return;
-            
-            document.getElementById('edit-announcement-id').value = announcementId;
-            document.getElementById('edit-announcement-title').value = ann.Title || '';
-            document.getElementById('edit-announcement-content').value = ann.Content || '';
-            document.getElementById('edit-announcement-type').value = ann.Type || 'General';
-            
-            document.getElementById('edit-announcement-modal').classList.add('active');
-        }
-
-        async function handleEditAnnouncement(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('edit-announcement-btn');
-            const announcementId = document.getElementById('edit-announcement-id').value;
-            
-            btn.disabled = true;
-            btn.textContent = 'Saving...';
-            
-            const data = {
-                Title: document.getElementById('edit-announcement-title').value,
-                Content: document.getElementById('edit-announcement-content').value,
-                Type: document.getElementById('edit-announcement-type').value
-            };
-            
-            try {
-                const response = await fetch(SHEETDB_API + '/Announcement_Id/' + announcementId + '?sheet=Announcements', {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data })
-                });
-                
-                if (!response.ok) throw new Error('Failed to save');
-                
-                showToast('Announcement updated!', 'success');
-                closeEditAnnouncementModal();
-                await fetchAllData();
-                
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-            
-            btn.disabled = false;
-            btn.textContent = 'Save Changes';
-        }
-
-        async function togglePinAnnouncement(announcementId, isPinned) {
-            if (!announcementId) {
-                showToast('Cannot pin: Missing ID', 'error');
-                return;
-            }
-            
-            try {
-                const response = await fetch(SHEETDB_API + '/Announcement_Id/' + announcementId + '?sheet=Announcements', {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: { Pinned: isPinned ? 'false' : 'true' } })
-                });
-                
-                if (!response.ok) throw new Error('Failed to update');
-                
-                showToast(isPinned ? 'Announcement unpinned' : 'Announcement pinned!', 'success');
-                await fetchAllData();
-                
-            } catch (error) {
-                showToast('Failed to pin announcement', 'error');
-            }
+            btn.textContent = 'Add Student';
         }
 
         async function handleNewAnnouncement(e) {
             e.preventDefault();
             
             const btn = document.getElementById('announcement-btn');
-            const errorEl = document.getElementById('announcement-error');
-            const successEl = document.getElementById('announcement-success');
-            
             btn.disabled = true;
             btn.textContent = 'Posting...';
-            errorEl.classList.add('hidden');
-            successEl.classList.add('hidden');
             
             const today = new Date().toISOString().split('T')[0];
             
             const data = {
                 Announcement_Id: 'ANN-' + Date.now(),
-                Title: document.getElementById('announcement-title').value,
-                Content: document.getElementById('announcement-content').value,
-                Type: document.getElementById('announcement-type').value,
+                Title: document.getElementById('announcement-title').value.trim(),
+                Content: document.getElementById('announcement-content').value.trim(),
                 Author: 'Twin Tigers',
                 Date_Posted: today
             };
-            // If a photo is selected, convert it to a base64 Data URL and include it in the announcement.
-            try {
-                const photoInput = document.getElementById('announcement-photo');
-                if (photoInput && photoInput.files && photoInput.files[0]) {
-                    const file = photoInput.files[0];
-                    const reader = new FileReader();
-                    await new Promise((resolve, reject) => {
-                        reader.onload = () => {
-                            data.Photo = reader.result;
-                            resolve();
-                        };
-                        reader.onerror = () => reject('Failed to read photo');
-                        reader.readAsDataURL(file);
-                    });
-                }
-            } catch (err) {
-                console.error(err);
-                // Continue without photo if conversion fails
-            }
             
             try {
-                const response = await fetch(SHEETDB_API + '?sheet=Announcements', {
+                const response = await fetch(`${SHEETDB_API}?sheet=Announcements`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ data })
@@ -2692,15 +1675,9 @@
             e.preventDefault();
             
             const btn = document.getElementById('class-btn');
-            const errorEl = document.getElementById('class-error');
-            const successEl = document.getElementById('class-success');
-            
             btn.disabled = true;
             btn.textContent = 'Adding...';
-            errorEl.classList.add('hidden');
-            successEl.classList.add('hidden');
             
-            // Convert 24h time to 12h format
             const time24 = document.getElementById('class-time').value;
             const [hours, minutes] = time24.split(':');
             const h = parseInt(hours);
@@ -2710,16 +1687,14 @@
             
             const data = {
                 Class_Id: 'CLS-' + Date.now(),
-                Class_Name: document.getElementById('class-name').value,
-                Description: document.getElementById('class-description').value,
+                Class_Name: document.getElementById('class-name').value.trim(),
                 Day_Of_Week: document.getElementById('class-day').value,
                 Start_Time: time12,
-                Duration: document.getElementById('class-duration').value,
-                Instructor: document.getElementById('class-instructor').value
+                Instructor: document.getElementById('class-instructor').value.trim()
             };
             
             try {
-                const response = await fetch(SHEETDB_API + '?sheet=Classes', {
+                const response = await fetch(`${SHEETDB_API}?sheet=Classes`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ data })
@@ -2739,172 +1714,57 @@
             btn.textContent = 'Add Class';
         }
 
-        function editStudent(studentId) {
-            const student = studentsData.find(s => s.Student_Id === studentId);
-            if (!student) return;
-            
-            closeModal();
-            
-            document.getElementById('edit-student-id').value = studentId;
-            document.getElementById('edit-student-first').value = student.First_Name || '';
-            document.getElementById('edit-student-last').value = student.Last_Name || '';
-            document.getElementById('edit-student-age').value = student.Age || '';
-            document.getElementById('edit-student-status').value = student.Status || 'Active';
-            document.getElementById('edit-student-medical').value = student.Medical_Conditions || '';
-            document.getElementById('edit-student-notes').value = student.Notes || '';
-            
-            document.getElementById('edit-student-modal').classList.add('active');
-        }
-
-        async function handleEditStudent(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('edit-student-btn');
-            const errorEl = document.getElementById('edit-student-error');
-            const successEl = document.getElementById('edit-student-success');
-            const studentId = document.getElementById('edit-student-id').value;
-            
-            btn.disabled = true;
-            btn.textContent = 'Saving...';
-            errorEl.classList.add('hidden');
-            successEl.classList.add('hidden');
-            
-            const data = {
-                First_Name: document.getElementById('edit-student-first').value,
-                Last_Name: document.getElementById('edit-student-last').value,
-                Age: document.getElementById('edit-student-age').value,
-                Status: document.getElementById('edit-student-status').value,
-                Medical_Conditions: document.getElementById('edit-student-medical').value,
-                Notes: document.getElementById('edit-student-notes').value
-            };
-            
-            try {
-                const response = await fetch(SHEETDB_API + '/Student_Id/' + studentId + '?sheet=Students', {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data })
-                });
-                
-                if (!response.ok) throw new Error('Failed to save');
-                
-                showToast('Changes saved!', 'success');
-                closeEditStudentModal();
-                await fetchAllData();
-                
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-            
-            btn.disabled = false;
-            btn.textContent = 'Save Changes';
-        }
-
-        async function handleNewStudent(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('new-student-btn');
-            const errorEl = document.getElementById('new-student-error');
-            const successEl = document.getElementById('new-student-success');
-            
-            btn.disabled = true;
-            btn.textContent = 'Adding...';
-            errorEl.classList.add('hidden');
-            successEl.classList.add('hidden');
-            
-            // Generate IDs
-            const studentId = 'STU-' + Date.now();
-            const parentId = 'PAR-' + Date.now();
-            const today = new Date().toISOString().split('T')[0];
-            
-            // Get form values
-            const studentFirst = document.getElementById('new-student-first').value;
-            const studentLast = document.getElementById('new-student-last').value;
-            const parentFirst = document.getElementById('new-parent-first').value;
-            const parentLast = document.getElementById('new-parent-last').value;
-            const parentEmail = document.getElementById('new-parent-email').value;
-            const parentPhone = document.getElementById('new-parent-phone').value;
-            
-            const studentData = {
-                Student_Id: studentId,
-                First_Name: studentFirst,
-                Last_Name: studentLast,
-                Age: document.getElementById('new-student-age').value,
-                Belt_Rank: document.getElementById('new-student-belt').value,
-                Parent_Email: parentEmail,
-                Medical_Conditions: document.getElementById('new-student-medical').value,
-                Notes: document.getElementById('new-student-notes').value,
-                Enrollment_Date: today,
-                Status: 'Active'
-            };
-            
-            const parentData = {
-                Parent_Id: parentId,
-                First_Name: parentFirst,
-                Last_Name: parentLast,
-                Email: parentEmail,
-                Phone: parentPhone,
-                Related_Students: `${studentFirst} ${studentLast}`,
-                Emergency_Contact: parentPhone
-            };
-            
-            try {
-                // Add student to Google Sheets
-                const studentRes = await fetch(SHEETDB_API + '?sheet=Students', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: studentData })
-                });
-                
-                if (!studentRes.ok) throw new Error('Failed to add student');
-                
-                // Add parent to Google Sheets
-                const parentRes = await fetch(SHEETDB_API + '?sheet=Parents', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: parentData })
-                });
-                
-                if (!parentRes.ok) throw new Error('Failed to add parent');
-                
-                showToast('Student & parent added!', 'success');
-                closeNewStudentModal();
-                await fetchAllData();
-                
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-            
-            btn.disabled = false;
-            btn.textContent = 'Add Student';
-        }
-
-        // Switch between different tabs in the owner portal. Accepts the tab name and the
-        // element that was clicked (passing `this` in the onclick). Falls back gracefully
-        // if no element is provided.
+        // =============================================
+        // NAVIGATION & UTILITIES
+        // =============================================
         function switchTab(tabName, el) {
-            // Hide all tab contents and remove active state from nav items
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            // Show the selected tab
+            
             const target = document.getElementById('tab-' + tabName);
-            if (target) {
-                target.classList.add('active');
+            if (target) target.classList.add('active');
+            if (el) el.classList.add('active');
+        }
+
+        function exportStudentsCSV() {
+            if (!studentsData.length) {
+                showToast('No students to export', 'error');
+                return;
             }
-            // Add active class to the clicked nav item if provided
-            if (el) {
-                el.classList.add('active');
-            }
+            
+            const headers = ['First Name', 'Last Name', 'Age', 'Belt Rank', 'Parent Name', 'Parent Email', 'Parent Phone', 'Enrollment Date', 'Status'];
+            const rows = studentsData.map(s => [
+                s.First_Name || '',
+                s.Last_Name || '',
+                s.Age || '',
+                s.Belt_Rank || '',
+                s.Parent_Name || s._parentName || '',
+                s.Parent_Email || '',
+                s.Parent_Phone || '',
+                s.Enrollment_Date || '',
+                s.Status || ''
+            ]);
+            
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csv += row.map(cell => `"${cell}"`).join(',') + '\n';
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `students_export_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('Students exported!', 'success');
         }
 
         function saveStudioSettings() {
             const studioName = document.getElementById('setting-studio-name').value;
-            
-            // Update header
             document.getElementById('studio-name').textContent = studioName.toUpperCase();
-            
-            // Save to localStorage for persistence
             localStorage.setItem('studioName', studioName);
-            
             showToast('Settings saved!', 'success');
         }
 
@@ -2916,11 +1776,13 @@
             }
         }
 
+        // =============================================
+        // INITIALIZATION
+        // =============================================
         document.addEventListener('DOMContentLoaded', function() {
             checkAuth();
             fetchAllData();
             loadStudioSettings();
-            loadSavedLogo();
         });
     </script>
 
