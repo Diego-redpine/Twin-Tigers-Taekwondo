@@ -312,7 +312,9 @@
                     </button>
                 </div>
 
+                <!-- Desktop Grid Layout -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <!-- Stats Cards -->
                     <div class="card p-4">
                         <div class="flex items-center justify-between">
                             <div>
@@ -338,17 +340,61 @@
                     <div class="card p-4">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-xs text-white-60 mb-1">Classes Today</p>
-                                <p id="stat-classes-today" class="text-2xl font-bold text-white">--</p>
+                                <p class="text-xs text-white-60 mb-1">Monthly Revenue</p>
+                                <p id="stat-revenue" class="text-2xl font-bold text-green-400">$--</p>
+                                <p id="stat-revenue-change" class="text-xs text-white-60">--</p>
                             </div>
                             <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
-                                <svg class="w-5 h-5 text-pine-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Next Class & Revenue Row -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="card p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-white-60 mb-1">Next Upcoming Class</p>
+                                <p id="stat-next-class" class="text-lg font-bold text-white">--</p>
+                                <p id="stat-next-class-time" class="text-xs text-pine-500">--</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-tiger-blue-600 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-pine-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-4">
+                        <h3 class="text-sm font-semibold text-white-60 mb-3">REVENUE BREAKDOWN</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-white-80">Tuition</span>
+                                <span id="rev-tuition" class="text-sm text-white font-medium">$--</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-white-80">Belt Testing</span>
+                                <span id="rev-testing" class="text-sm text-white font-medium">$--</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-white-80">Tournaments</span>
+                                <span id="rev-tournaments" class="text-sm text-white font-medium">$--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row: Promotions, Quick Actions, Activity -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Recent Promotions -->
+                    <div class="card p-4">
+                        <h3 class="text-sm font-semibold text-white-60 mb-4">RECENT PROMOTIONS</h3>
+                        <div id="belt-chart" class="space-y-2">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
                     <div class="card p-4">
                         <h3 class="text-sm font-semibold text-white-60 mb-4">QUICK ACTIONS</h3>
                         <div class="grid grid-cols-2 gap-2">
@@ -371,10 +417,11 @@
                         </div>
                     </div>
 
+                    <!-- Recent Activity -->
                     <div class="card p-4">
                         <h3 class="text-sm font-semibold text-white-60 mb-4">RECENT ACTIVITY</h3>
                         <div id="recent-activity" class="space-y-2">
-                            <p class="text-white-60 text-sm">Loading...</p>
+                            <!-- Populated by JS -->
                         </div>
                     </div>
                 </div>
@@ -487,6 +534,7 @@
             <div id="tab-settings" class="tab-content p-4">
                 <h2 class="text-xl font-bold text-tiger-blue-500 mb-6">Settings</h2>
 
+                <!-- Studio Settings -->
                 <div class="card p-5 mb-4">
                     <h3 class="text-sm font-semibold text-white-60 mb-4">STUDIO SETTINGS</h3>
                     <div class="space-y-4">
@@ -494,7 +542,68 @@
                             <label class="block text-sm text-white-80 mb-2">Studio Name</label>
                             <input type="text" id="setting-studio-name" value="Twin Tigers" class="w-full px-4 py-3 bg-tiger-blue-600 border border-tiger-blue-500 rounded-lg text-white placeholder-white-60 focus:outline-none focus:border-pine-500">
                         </div>
+                        <div>
+                            <label class="block text-sm text-white-80 mb-2">Studio Logo</label>
+                            <div class="flex items-center gap-4">
+                                <div id="settings-logo-preview" class="w-16 h-16 bg-tiger-blue-600 rounded-xl flex items-center justify-center overflow-hidden">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <input type="file" id="logo-upload" accept="image/*" onchange="handleLogoUpload(event)" class="hidden">
+                                    <button onclick="document.getElementById('logo-upload').click()" class="px-4 py-2 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white-80 rounded-lg text-sm">Upload Photo</button>
+                                    <p class="text-xs text-white-60 mt-1">PNG, JPG up to 2MB</p>
+                                </div>
+                            </div>
+                        </div>
                         <button onclick="saveStudioSettings()" class="w-full py-3 bg-pine-500 hover:bg-pine-600 text-white font-semibold rounded-lg transition-colors">Save Settings</button>
+                    </div>
+                </div>
+
+                <!-- Belt Stages -->
+                <div class="card p-5 mb-4">
+                    <h3 class="text-sm font-semibold text-white-60 mb-4">BELT STAGES</h3>
+                    <div class="space-y-2" id="belt-stages-list">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button onclick="openModal('new-belt')" class="mt-4 w-full py-2 border border-dashed border-tiger-blue-500 text-white-60 rounded-lg text-sm hover:border-white hover:text-white transition-colors">+ Add Belt Stage</button>
+                </div>
+
+                <!-- Notifications -->
+                <div class="card p-5 mb-4">
+                    <h3 class="text-sm font-semibold text-white-60 mb-4">NOTIFICATIONS</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-white-80 text-sm">Email notifications</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-tiger-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pine-500"></div>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-white-80 text-sm">Push notifications</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-tiger-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pine-500"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invitations -->
+                <div class="card p-5">
+                    <h3 class="text-sm font-semibold text-white-60 mb-4">INVITATIONS</h3>
+                    <p class="text-sm text-white-60 mb-4">Send access invitations to parents or instructors.</p>
+                    <div class="space-y-3">
+                        <button onclick="openModal('invite-parent')" class="w-full py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white rounded-lg text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            Invite Parent
+                        </button>
+                        <button onclick="openModal('invite-instructor')" class="w-full py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 text-white rounded-lg text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                            Invite Instructor
+                        </button>
                     </div>
                 </div>
             </div>
@@ -962,30 +1071,52 @@
         }
 
         function renderDashboard() {
+            // Update stats and render full dashboard metrics restored from v10.7
+            updateStats();
+            const activeStudents = studentsData.filter(s => s.Status !== 'Inactive').length;
+            // Calculate and display revenue based on active students
+            renderRevenue(activeStudents);
+            // Find next upcoming class and update UI
+            renderNextClass();
+            // Show recent promotions (belt advancements)
+            renderRecentPromotions();
+            // Show recent combined activity (students and announcements)
             renderRecentActivity();
+            // Render belt stages list in settings
+            renderBeltStages();
         }
 
         function renderRecentActivity() {
             const container = document.getElementById('recent-activity');
+            // Combine and sort recent items from students and announcements
             const activities = [];
-            
-            studentsData.slice(0, 5).forEach(s => {
+            // Recent students (by enrollment date)
+            studentsData.forEach(s => {
                 activities.push({
+                    type: 'student',
                     name: `${s.First_Name} ${s.Last_Name}`,
                     date: s.Enrollment_Date || '',
                     icon: '👤',
                     text: 'enrolled'
                 });
             });
-            
+            // Recent announcements
+            announcementsData.forEach(a => {
+                activities.push({
+                    type: 'announcement',
+                    name: a.Title || 'Announcement',
+                    date: a.Date_Posted || '',
+                    icon: '📢',
+                    text: 'posted'
+                });
+            });
+            // Sort by date (newest first) and take top 5
             activities.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
             const recent = activities.slice(0, 5);
-            
             if (recent.length === 0) {
                 container.innerHTML = '<p class="text-white-60 text-sm text-center py-4">No recent activity</p>';
                 return;
             }
-            
             container.innerHTML = recent.map(a => `
                 <div class="flex items-center gap-3 p-2 bg-tiger-blue-600 rounded-lg">
                     <span class="text-lg">${a.icon}</span>
@@ -993,6 +1124,111 @@
                         <p class="text-sm text-white">${a.name}</p>
                         <p class="text-xs text-white-60">${a.text} ${a.date ? '• ' + formatDate(a.date) : ''}</p>
                     </div>
+                </div>
+            `).join('');
+        }
+
+        // Revenue, next class, promotions and belt stages helpers (restored from v10.7)
+        function renderRevenue(activeStudents) {
+            // Revenue estimates - can be customized or pulled from a Settings/Revenue sheet
+            const monthlyTuition = 150; // Average per student
+            const beltTestingFee = 75;
+            const tournamentFee = 50;
+            // Calculate estimates
+            const tuitionRevenue = activeStudents * monthlyTuition;
+            const testingRevenue = Math.floor(activeStudents * 0.2) * beltTestingFee; // ~20% test per month
+            const tournamentRevenue = Math.floor(activeStudents * 0.1) * tournamentFee; // ~10% compete
+            const totalRevenue = tuitionRevenue + testingRevenue + tournamentRevenue;
+            // Update UI
+            document.getElementById('stat-revenue').textContent = '$' + totalRevenue.toLocaleString();
+            document.getElementById('stat-revenue-change').textContent = activeStudents + ' active students';
+            document.getElementById('rev-tuition').textContent = '$' + tuitionRevenue.toLocaleString();
+            document.getElementById('rev-testing').textContent = '$' + testingRevenue.toLocaleString();
+            document.getElementById('rev-tournaments').textContent = '$' + tournamentRevenue.toLocaleString();
+        }
+
+        function renderNextClass() {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const today = new Date();
+            const currentDayIndex = today.getDay();
+            const currentHour = today.getHours();
+            const currentMin = today.getMinutes();
+            // Map three-letter day keys to index
+            const dayOrder = {};
+            days.forEach((d, i) => dayOrder[d.toLowerCase().substring(0, 3)] = i);
+            let nextClass = null;
+            let daysUntil = 7;
+            classesData.forEach(cls => {
+                const classDay = (cls.Day_Of_Week || '').toLowerCase().substring(0, 3);
+                const classDayIndex = dayOrder[classDay];
+                if (classDayIndex === undefined) return;
+                // Parse class time (e.g. 5:30 PM)
+                const timeMatch = (cls.Start_Time || '').match(/(\d+):?(\d*)?\s*(AM|PM)?/i);
+                if (!timeMatch) return;
+                let classHour = parseInt(timeMatch[1]);
+                const classMin = parseInt(timeMatch[2]) || 0;
+                const ampm = (timeMatch[3] || '').toUpperCase();
+                if (ampm === 'PM' && classHour < 12) classHour += 12;
+                if (ampm === 'AM' && classHour === 12) classHour = 0;
+                // Calculate days until this class
+                let diff = classDayIndex - currentDayIndex;
+                if (diff < 0) diff += 7;
+                if (diff === 0) {
+                    // Same day - check if class already passed
+                    if (classHour < currentHour || (classHour === currentHour && classMin <= currentMin)) {
+                        diff = 7; // Next week
+                    }
+                }
+                if (diff < daysUntil || (diff === daysUntil && !nextClass)) {
+                    daysUntil = diff;
+                    nextClass = cls;
+                }
+            });
+            if (nextClass) {
+                document.getElementById('stat-next-class').textContent = nextClass.Class_Name || 'Class';
+                const dayLabel = daysUntil === 0 ? 'Today' : daysUntil === 1 ? 'Tomorrow' : days[(currentDayIndex + daysUntil) % 7];
+                document.getElementById('stat-next-class-time').textContent = `${dayLabel} at ${nextClass.Start_Time || ''}`;
+            } else {
+                document.getElementById('stat-next-class').textContent = 'No classes';
+                document.getElementById('stat-next-class-time').textContent = 'Schedule a class to get started';
+            }
+        }
+
+        function renderRecentPromotions() {
+            const container = document.getElementById('belt-chart');
+            if (!container) return;
+            // Filter students who have a Previous_Belt field (indicating they were promoted)
+            const promotedStudents = studentsData.filter(s => s.Previous_Belt && s.Previous_Belt !== s.Belt_Rank);
+            if (promotedStudents.length === 0) {
+                container.innerHTML = '<p class="text-white-60 text-sm text-center py-4">No recent promotions yet</p>';
+                return;
+            }
+            // Show most recent promotions (up to 5)
+            const recent = promotedStudents.slice(0, 5);
+            container.innerHTML = recent.map(s => `
+                <div class="flex items-center gap-3 p-2 bg-tiger-blue-600 rounded-lg">
+                    <div class="w-8 h-8 rounded-full bg-tiger-blue-800 flex items-center justify-center text-xs font-bold text-white">
+                        ${(s.First_Name||'').charAt(0)}${(s.Last_Name||'').charAt(0)}
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-white font-medium">${s.First_Name} ${s.Last_Name}</p>
+                        <p class="text-xs text-white-60">${s.Previous_Belt?.replace(' Belt', '')} → <span class="text-pine-500">${s.Belt_Rank?.replace(' Belt', '')}</span></p>
+                    </div>
+                    <span class="text-lg">🎉</span>
+                </div>
+            `).join('');
+        }
+
+        function renderBeltStages() {
+            const container = document.getElementById('belt-stages-list');
+            if (!container) return;
+            container.innerHTML = BELT_ORDER.map(belt => `
+                <div class="flex items-center justify-between p-3 bg-tiger-blue-600 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-3 rounded ${belt.headerClass.replace('belt-header-', 'belt-')}"></div>
+                        <span class="text-white-80 text-sm">${belt.name}</span>
+                    </div>
+                    <span class="text-white-60 text-xs">${belt.key}</span>
                 </div>
             `).join('');
         }
