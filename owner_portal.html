@@ -1056,7 +1056,7 @@
             });
         }
 
-        function updateStats() {
+       function updateStats() {
             const activeStudents = studentsData.filter(s => s.Status !== 'Inactive').length;
             const totalParents = parentsData.length;
 
@@ -1070,12 +1070,14 @@
             if (totalStudentsEl) totalStudentsEl.textContent = studentsData.length + ' total';
             if (totalParentsEl) totalParentsEl.textContent = totalParents + ' total';
 
-            // Count today's classes only if the element exists
+            // Optional: today's classes, only if the element exists
             const classesTodayEl = document.getElementById('stat-classes-today');
             if (classesTodayEl) {
                 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                 const todayName = days[new Date().getDay()].toLowerCase().substring(0, 3);
-                const todaysClasses = classesData.filter(c => (c.Day_Of_Week || '').toLowerCase().includes(todayName));
+                const todaysClasses = classesData.filter(
+                    c => (c.Day_Of_Week || '').toLowerCase().includes(todayName)
+                );
                 classesTodayEl.textContent = todaysClasses.length;
             }
         }
