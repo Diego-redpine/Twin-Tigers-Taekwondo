@@ -1058,16 +1058,26 @@
 
         function updateStats() {
             const activeStudents = studentsData.filter(s => s.Status !== 'Inactive').length;
-            document.getElementById('stat-students').textContent = activeStudents;
-            document.getElementById('stat-parents').textContent = parentsData.length;
-            document.getElementById('total-students').textContent = studentsData.length + ' total';
-            document.getElementById('total-parents').textContent = parentsData.length + ' total';
-            
-            // Count today's classes
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const todayName = days[new Date().getDay()].toLowerCase().substring(0, 3);
-            const todaysClasses = classesData.filter(c => (c.Day_Of_Week || '').toLowerCase().includes(todayName));
-            document.getElementById('stat-classes-today').textContent = todaysClasses.length;
+            const totalParents = parentsData.length;
+
+            const statStudentsEl = document.getElementById('stat-students');
+            const statParentsEl = document.getElementById('stat-parents');
+            const totalStudentsEl = document.getElementById('total-students');
+            const totalParentsEl = document.getElementById('total-parents');
+
+            if (statStudentsEl) statStudentsEl.textContent = activeStudents;
+            if (statParentsEl) statParentsEl.textContent = totalParents;
+            if (totalStudentsEl) totalStudentsEl.textContent = studentsData.length + ' total';
+            if (totalParentsEl) totalParentsEl.textContent = totalParents + ' total';
+
+            // Count today's classes only if the element exists
+            const classesTodayEl = document.getElementById('stat-classes-today');
+            if (classesTodayEl) {
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const todayName = days[new Date().getDay()].toLowerCase().substring(0, 3);
+                const todaysClasses = classesData.filter(c => (c.Day_Of_Week || '').toLowerCase().includes(todayName));
+                classesTodayEl.textContent = todaysClasses.length;
+            }
         }
 
         function renderDashboard() {
@@ -1997,23 +2007,76 @@
             showToast('Students exported!', 'success');
         }
 
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                showToast('Please upload an image file', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dataUrl = e.target.result;
+
+                // Save to localStorage so it persists in this browser
+                localStorage.setItem('studioLogo', dataUrl);
+
+                // Update preview in Settings
+                const preview = document.getElementById('settings-logo-preview');
+                if (preview) {
+                    preview.innerHTML = `<img src="${dataUrl}" alt="Studio logo" class="w-full h-full object-cover">`;
+                }
+
+                // Update logo in sidebar
+                const navLogo = document.getElementById('studio-logo');
+                if (navLogo) {
+                    navLogo.innerHTML = `<img src="${dataUrl}" alt="Studio logo" class="w-full h-full object-cover rounded-xl">`;
+                }
+            };
+
+            reader.readAsDataURL(file);
+        }
+
         function saveStudioSettings() {
-            const studioName = document.getElementById('setting-studio-name').value;
-            document.getElementById('studio-name').textContent = studioName.toUpperCase();
+            const studioNameInput = document.getElementById('setting-studio-name');
+            const studioName = studioNameInput ? studioNameInput.value : '';
+            const studioTitleEl = document.getElementById('studio-name');
+
+            if (studioTitleEl) {
+                studioTitleEl.textContent = studioName.toUpperCase();
+            }
+
             localStorage.setItem('studioName', studioName);
             showToast('Settings saved!', 'success');
         }
 
         function loadStudioSettings() {
             const savedName = localStorage.getItem('studioName');
+            const savedLogo = localStorage.getItem('studioLogo');
+
+            const nameInput = document.getElementById('setting-studio-name');
+            const titleEl = document.getElementById('studio-name');
+
             if (savedName) {
-                document.getElementById('setting-studio-name').value = savedName;
-                document.getElementById('studio-name').textContent = savedName.toUpperCase();
+                if (nameInput) nameInput.value = savedName;
+                if (titleEl) titleEl.textContent = savedName.toUpperCase();
+            }
+
+            if (savedLogo) {
+                const navLogo = document.getElementById('studio-logo');
+                const preview = document.getElementById('settings-logo-preview');
+
+                if (navLogo) {
+                    navLogo.innerHTML = `<img src="${savedLogo}" alt="Studio logo" class="w-full h-full object-cover rounded-xl">`;
+                }
+                if (preview) {
+                    preview.innerHTML = `<img src="${savedLogo}" alt="Studio logo" class="w-full h-full object-cover">`;
+                }
             }
         }
 
-        // =============================================
-        // INITIALIZATION
         // =============================================
         document.addEventListener('DOMContentLoaded', function() {
             checkAuth();
