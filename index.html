@@ -1,1 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twin Tigers Portal - Login & Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <style>
+        :root {
+            --tiger-blue-900: #020617;
+            --tiger-blue-800: #0f172a;
+            --tiger-blue-700: #1d2951;
+            --tiger-blue-600: #1e40af;
+            --tiger-blue-500: #2563eb;
+            --pine-500: #00ff99;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+            min-height: 100vh;
+            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(15,23,42,0.95));
+            border-radius: 24px;
+            border: 1px solid rgba(148,163,184,0.25);
+            box-shadow:
+                0 24px 80px rgba(15,23,42,0.9),
+                0 0 0 1px rgba(148,163,184,0.2);
+        }
+
+        .input-field {
+            background: rgba(15,23,42,0.85);
+            border: 1px solid rgba(148,163,184,0.35);
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--pine-500);
+            box-shadow: 0 0 0 1px var(--pine-500), 0 0 0 4px rgba(56,189,248,0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            box-shadow: 0 10px 40px rgba(239,68,68,0.65);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #f97373, #dc2626);
+            transform: translateY(-1px);
+            box-shadow: 0 14px 45px rgba(248,113,113,0.85);
+        }
+
+        .auth-tab {
+            border-bottom-width: 2px;
+            border-color: transparent;
+        }
+
+        .auth-tab.active {
+            border-color: var(--pine-500);
+            color: white;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(148,163,184,0.35);
+            transition: all 0.2s ease;
+        }
+
+        .step-dot.active {
+            width: 32px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            box-shadow: 0 0 15px rgba(34,197,94,0.85);
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .gradient-border {
+            position: relative;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(56,189,248,0.4), rgba(34,197,94,0.5));
+            -webkit-mask: 
+                linear-gradient(#000 0 0) content-box, 
+                linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .text-white-60 { color: rgba(255,255,255,0.6); }
+        .text-white-80 { color: rgba(255,255,255,0.8); }
+
+    </style>
+</head>
+<body class="flex items-center justify-center px-4 py-10">
+
+    <div class="max-w-5xl w-full grid md:grid-cols-[1.1fr,1.2fr] gap-8 items-stretch">
+
+        <!-- Left side: Branding / Pitch -->
+        <div class="hidden md:flex flex-col justify-between">
+            <div>
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
+                    <div id="studio-logo" class="w-9 h-9 rounded-2xl bg-white/10 flex items-center justify-center overflow-hidden">
+                        <span class="text-xl">🐯</span>
+                    </div>
+                    <div class="text-xs uppercase tracking-[0.18em] text-white-60">
+                        Twin Tigers Taekwondo
+                    </div>
+                </div>
+
+                <h1 class="text-3xl lg:text-4xl font-semibold mb-4 leading-tight">
+                    Modern Parent & Owner Portal
+                    <span class="block text-lg text-white-60 mt-2">
+                        Sign in to manage students, belts, and classes — all in one place.
+                    </span>
+                </h1>
+
+                <div class="mt-6 space-y-3 text-sm text-white-80">
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-400 text-base">●</span>
+                        <span>Parents: see classes, announcements, and student progress.</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-400 text-base">●</span>
+                        <span>Owners: track belts, memberships, and student pipeline.</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-400 text-base">●</span>
+                        <span>Simple login with email and password — no apps to install.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 text-xs text-white-60">
+                Scan the QR code in the studio to open this page.
+            </div>
+        </div>
+
+        <!-- Right side: Auth Card -->
+        <div class="glass-card p-6 md:p-8 relative overflow-hidden gradient-border">
+            <div class="absolute -top-32 -right-16 w-72 h-72 bg-gradient-to-br from-red-500/20 via-amber-400/10 to-blue-500/0 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10">
+                <!-- Tabs -->
+                <div class="flex items-center justify-between mb-6">
+                    <div class="inline-flex bg-slate-900/80 rounded-full p-1 gap-1 border border-slate-700/80">
+                        <button 
+                            id="tab-login"
+                            class="auth-tab px-4 py-1.5 rounded-full text-xs font-medium text-white-80 active"
+                            onclick="switchAuthTab('login')"
+                            type="button"
+                        >
+                            Log In
+                        </button>
+                        <button 
+                            id="tab-signup"
+                            class="auth-tab px-4 py-1.5 rounded-full text-xs font-medium text-white-60"
+                            onclick="switchAuthTab('signup')"
+                            type="button"
+                        >
+                            New Parent
+                        </button>
+                    </div>
+
+                    <span class="text-xs text-white-60">
+                        Owner? Use your email & password to log in.
+                    </span>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-white-80 mb-2">Email</label>
+                            <input 
+                                type="email" 
+                                id="login-email" 
+                                required
+                                class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                placeholder="your@email.com"
+                            >
+                        </div>
+                        <div>
+                            <label class="block text-sm text-white-80 mb-2">Password</label>
+                            <input 
+                                type="password" 
+                                id="login-password" 
+                                required
+                                class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                placeholder="••••••••"
+                            >
+                        </div>
+                    </div>
+
+                    <p id="login-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
+
+                    <button 
+                        id="login-btn"
+                        type="submit"
+                        class="btn-primary w-full mt-6 py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2"
+                    >
+                        <span>Continue</span>
+                    </button>
+
+                    <button type="button" onclick="showForgotPassword()" class="block mx-auto text-sm text-white-60 hover:text-white mt-4 transition-colors">
+                        Forgot your password?
+                    </button>
+                </form>
+
+                <!-- Forgot Password Form -->
+                <form id="forgot-form" class="hidden" onsubmit="handleForgotPassword(event)">
+                    <div class="text-center mb-6">
+                        <h3 class="text-lg font-semibold text-white mb-2">Reset Password</h3>
+                        <p class="text-sm text-white-60">Enter your email and we'll send you a reset link</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-white-80 mb-2">Email</label>
+                            <input 
+                                type="email" 
+                                id="forgot-email" 
+                                required
+                                class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                placeholder="your@email.com"
+                            >
+                        </div>
+                    </div>
+
+                    <p id="forgot-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
+                    <p id="forgot-success" class="text-green-400 text-sm text-center mt-4 hidden"></p>
+
+                    <div class="flex gap-3 mt-6">
+                        <button 
+                            type="button"
+                            onclick="showLoginForm()"
+                            class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg text-white font-semibold"
+                        >
+                            ← Back to login
+                        </button>
+                        <button 
+                            type="submit"
+                            id="forgot-btn"
+                            class="btn-primary flex-1 py-3 rounded-lg text-white font-semibold"
+                        >
+                            Send reset link
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Signup Form -->
+                <form 
+                    id="signup-form" 
+                    class="hidden" 
+                    onsubmit="handleSignup(event)"
+                >
+                    <!-- Step Indicators -->
+                    <div class="step-indicator">
+                        <div id="step-dot-1" class="step-dot active"></div>
+                        <div id="step-dot-2" class="step-dot"></div>
+                    </div>
+
+                    <!-- Step 1: Parent Info -->
+                    <div id="signup-step-1" class="form-step active">
+                        <h3 class="text-lg font-semibold text-white mb-4">Parent Information</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-sm text-white-80 mb-2">First Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="parent-first-name" 
+                                        required
+                                        class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                        placeholder="Jane"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-white-80 mb-2">Last Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="parent-last-name" 
+                                        required
+                                        class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                        placeholder="Doe"
+                                    >
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white-80 mb-2">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="signup-email" 
+                                    required
+                                    class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                    placeholder="your@email.com"
+                                >
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white-80 mb-2">Phone</label>
+                                <input 
+                                    type="tel" 
+                                    id="parent-phone" 
+                                    class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                    placeholder="(555) 123-4567"
+                                >
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white-80 mb-2">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="signup-password" 
+                                    required
+                                    minlength="6"
+                                    class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                    placeholder="Min 6 characters"
+                                >
+                            </div>
+                        </div>
+
+                        <button 
+                            type="button"
+                            onclick="nextStep()"
+                            class="btn-primary w-full mt-6 py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2"
+                        >
+                            <span>Next: Student Info</span>
+                            <span>→</span>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Student Info + Membership -->
+                    <div id="signup-step-2" class="form-step">
+                        <h3 class="text-lg font-semibold text-white mb-4">Student & Membership</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-sm text-white-80 mb-2">Student First Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="student-first-name" 
+                                        required
+                                        class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                        placeholder="Alex"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-white-80 mb-2">Last Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="student-last-name" 
+                                        required
+                                        class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                        placeholder="Doe"
+                                    >
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-sm text-white-80 mb-2">Age</label>
+                                    <input 
+                                        type="number" 
+                                        id="student-age" 
+                                        required
+                                        min="3"
+                                        max="99"
+                                        class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                        placeholder="8"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-white-80 mb-2">Date of Birth</label>
+                                    <input 
+                                        type="date" 
+                                        id="student-dob" 
+                                        required
+                                        class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                    >
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white-80 mb-2">Medical Conditions (if any)</label>
+                                <textarea 
+                                    id="student-medical" 
+                                    rows="2"
+                                    class="input-field w-full px-4 py-3 rounded-lg text-white resize-none"
+                                    placeholder="Allergies, asthma, etc."
+                                ></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-white-80 mb-2">Emergency Contact</label>
+                                <input 
+                                    type="tel" 
+                                    id="emergency-contact" 
+                                    class="input-field w-full px-4 py-3 rounded-lg text-white"
+                                    placeholder="(555) 123-4567"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Membership selection -->
+                        <div class="mt-4">
+                            <label class="block text-sm text-white-80 mb-2">Membership Plan</label>
+                            <select 
+                                id="membership-plan" 
+                                required
+                                class="input-field w-full px-4 py-3 rounded-lg text-white bg-tiger-blue-700 border border-tiger-blue-400"
+                            >
+                                <option value="">Select a plan</option>
+                                <option value="Standard">Standard - $75 / month</option>
+                                <option value="Silver">Silver - $100 / month</option>
+                                <option value="Gold">Gold - $120 / month</option>
+                            </select>
+                        </div>
+
+                        <div class="flex gap-3 mt-6">
+                            <button 
+                                type="button"
+                                onclick="prevStep()"
+                                class="flex-1 py-3 bg-tiger-blue-600 hover:bg-tiger-blue-700 rounded-lg text-white font-semibold"
+                            >
+                                ← Back
+                            </button>
+                            <button 
+                                type="submit" 
+                                id="signup-btn"
+                                class="btn-primary flex-1 py-3 rounded-lg text-white font-semibold"
+                            >
+                                Create Account
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="signup-error" class="text-pine-500 text-sm text-center mt-4 hidden"></p>
+                    <p id="signup-success" class="text-green-400 text-sm text-center mt-4 hidden"></p>
+                </form>
+
+            </div>
+
+            <!-- Footer -->
+            <p class="text-center text-sm mt-6">
+                <span class="text-tiger-blue-500 opacity-60">Powered by</span>
+                <span class="text-pine-500 font-bold"> RED PINE</span>
+            </p>
+
+        </div>
+    </div>
+
+    <script>
+        // Supabase config
+        const SUPABASE_URL = 'https://ipvutcoacitpcaeynexr.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlwdnV0Y29hY2l0cGNhZXluZXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ0NjU4ODUsImV4cCI6MjA4MDA0MTg4NX0.WvUbmShhsLo_kGKZzEAAZPWqEaKf9haO0MeKvyPSZZc';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentStep = 1;
+
+        // Check if already logged in
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (session) {
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', session.user.id)
+                    .single();
+
+                if (profile?.role === 'owner') {
+                    window.location.href = 'owner_portal.html';
+                } else {
+                    window.location.href = 'parent_portal.html';
+                }
+            }
+        }
+
+        checkAuth();
+
+        // Switch tabs
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const loginTab = document.getElementById('tab-login');
+            const signupTab = document.getElementById('tab-signup');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+            }
+        }
+
+        // Step navigation
+        function nextStep() {
+            currentStep = 2;
+            document.getElementById('signup-step-1').classList.remove('active');
+            document.getElementById('signup-step-2').classList.add('active');
+            document.getElementById('step-dot-1').classList.remove('active');
+            document.getElementById('step-dot-2').classList.add('active');
+        }
+
+        function prevStep() {
+            currentStep = 1;
+            document.getElementById('signup-step-1').classList.add('active');
+            document.getElementById('signup-step-2').classList.remove('active');
+            document.getElementById('step-dot-1').classList.add('active');
+            document.getElementById('step-dot-2').classList.remove('active');
+        }
+
+        function showError(id, message) {
+            const el = document.getElementById(id);
+            el.textContent = message;
+            el.classList.remove('hidden');
+        }
+
+        function hideError(id) {
+            const el = document.getElementById(id);
+            el.classList.add('hidden');
+        }
+
+        function showForgotPassword() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('signup-form').classList.add('hidden');
+            document.getElementById('forgot-form').classList.remove('hidden');
+
+            document.getElementById('tab-login').classList.remove('active');
+            document.getElementById('tab-signup').classList.remove('active');
+        }
+
+        function showLoginForm() {
+            document.getElementById('forgot-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('tab-login').classList.add('active');
+        }
+
+        // Handle login
+        async function handleLogin(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('login-btn');
+
+            btn.disabled = true;
+            btn.textContent = 'Signing in...';
+            hideError('login-error');
+
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+                if (error) throw error;
+
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', data.user.id)
+                    .single();
+
+                if (profile?.role === 'owner') {
+                    window.location.href = 'owner_portal.html';
+                } else {
+                    window.location.href = 'parent_portal.html';
+                }
+
+            } catch (error) {
+                showError('login-error', error.message);
+                btn.disabled = false;
+                btn.textContent = 'Continue';
+            }
+        }
+
+        // Forgot password handler
+        async function handleForgotPassword(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('forgot-email').value;
+            const btn = document.getElementById('forgot-btn');
+
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            hideError('forgot-error');
+            document.getElementById('forgot-success').classList.add('hidden');
+
+            try {
+                const { error } = await supabase.auth.resetPasswordForEmail(email);
+                if (error) throw error;
+
+                const successEl = document.getElementById('forgot-success');
+                successEl.textContent = 'Check your email for a reset link.';
+                successEl.classList.remove('hidden');
+            } catch (error) {
+                showError('forgot-error', error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Send reset link';
+            }
+        }
+
+        // Handle signup
+        async function handleSignup(e) {
+            e.preventDefault();
+
+            // Gather all data
+            const parentFirstName = document.getElementById('parent-first-name').value;
+            const parentLastName = document.getElementById('parent-last-name').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('parent-phone').value;
+            const password = document.getElementById('signup-password').value;
+
+            const studentFirstName = document.getElementById('student-first-name').value;
+            const studentLastName = document.getElementById('student-last-name').value;
+            const studentAge = document.getElementById('student-age').value;
+            const studentDob = document.getElementById('student-dob').value;
+            const studentMedical = document.getElementById('student-medical').value;
+            const emergencyContact = document.getElementById('emergency-contact').value;
+
+            // Membership selection
+            const membershipPlan = document.getElementById('membership-plan').value;
+            const MEMBERSHIP_PRICES = {
+                'Standard': 75,
+                'Silver': 100,
+                'Gold': 120
+            };
+            const membershipPrice = MEMBERSHIP_PRICES[membershipPlan] ?? null;
+
+            // Validate student info & membership
+            if (!studentFirstName || !studentLastName || !studentAge || !membershipPlan) {
+                showError('signup-error', 'Please fill in student info and choose a membership plan.');
+                return;
+            }
+
+            const btn = document.getElementById('signup-btn');
+            btn.disabled = true;
+            btn.textContent = 'Creating...';
+            hideError('signup-error');
+
+            try {
+                // Create auth user
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            full_name: `${parentFirstName} ${parentLastName}`,
+                            role: 'parent',
+                            phone: phone
+                        }
+                    }
+                });
+
+                if (error) throw error;
+
+                // Create profile
+                if (data.user) {
+                    await supabase.from('profiles').insert({
+                        id: data.user.id,
+                        email: email,
+                        full_name: `${parentFirstName} ${parentLastName}`,
+                        role: 'parent',
+                        studio_id: 'twin-tigers'
+                    });
+
+                    // Sync student to Google Sheets
+                    const timestamp = Date.now();
+                    const studentId = 'STU-' + timestamp;
+                    const parentId = 'PAR-' + timestamp;
+                    const today = new Date().toISOString().split('T')[0];
+
+                    const studentData = {
+                        Student_Id: studentId,
+                        First_Name: studentFirstName,
+                        Last_Name: studentLastName,
+                        Age: studentAge,
+                        Date_of_Birth: studentDob,
+                        Belt_Rank: 'White Belt',
+                        Parent_Email: email,
+                        Parent_Id: parentId,
+                        Medical_Conditions: studentMedical,
+                        Emergency_Contact: emergencyContact,
+                        Enrollment_Date: today,
+                        Status: 'Active',
+                        Notes: '',
+                        Membership_Plan: membershipPlan
+                    };
+
+                    // Add student to Google Sheets
+                    await fetch('https://sheetdb.io/api/v1/7gridxho6ejta?sheet=Students', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ data: studentData })
+                    });
+
+                    // Add parent to Google Sheets
+                    const parentData = {
+                        Parent_Id: parentId,
+                        First_Name: parentFirstName,
+                        Last_Name: parentLastName,
+                        Email: email,
+                        Phone: phone,
+                        Related_Students: `${studentFirstName} ${studentLastName}`,
+                        Emergency_Contact: emergencyContact,
+                        Membership_Plan: membershipPlan,
+                        Membership_Price: membershipPrice,
+                        Membership_Status: 'unpaid'
+                    };
+
+                    await fetch('https://sheetdb.io/api/v1/7gridxho6ejta?sheet=Parents', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ data: parentData })
+                    });
+                }
+
+                const successEl = document.getElementById('signup-success');
+                successEl.textContent = 'Account created! You can now log in.';
+                successEl.classList.remove('hidden');
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+
+            } catch (error) {
+                console.error(error);
+                showError('signup-error', error.message || 'Something went wrong. Please try again.');
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+            }
+        }
+
+        // Load studio name & logo into header (from owner portal settings)
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const studioName = localStorage.getItem('studioName');
+                const studioNameEls = document.querySelectorAll('.studio-name-text');
+                if (studioName && studioNameEls.length) {
+                    studioNameEls.forEach(el => el.textContent = studioName);
+                }
+
+                const savedLogo = localStorage.getItem('studioLogo');
+                const logoEl = document.getElementById('studio-logo');
+                if (logoEl && savedLogo) {
+                    logoEl.innerHTML = `<img src="${savedLogo}" class="w-full h-full object-cover rounded-2xl">`;
+                }
+            } catch (err) {
+                console.error('Error loading studio settings:', err);
+            }
+        });
+    </script>
+</body>
+</html>
