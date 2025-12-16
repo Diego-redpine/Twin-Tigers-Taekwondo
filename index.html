@@ -22,6 +22,8 @@
     </script>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@600;700&display=swap');
+        
         * { 
             margin: 0; 
             padding: 0; 
@@ -29,7 +31,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #013378 0%, #012a63 100%);
+            background: #ffffff;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -290,16 +292,19 @@
 
         .red-pine-badge {
             text-align: center;
-            padding: 16px;
-            font-size: 11px;
-            color: #9ca3af;
+            padding: 20px 16px;
+            font-size: 12px;
+            color: #6b7280;
             border-top: 1px solid #e5e7eb;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .red-pine-badge a {
             color: #ce0707;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
         }
 
         .red-pine-badge a:hover {
@@ -472,46 +477,27 @@
             <div id="step-3" class="signup-step hidden">
                 <div class="step-title">Student Information</div>
 
-                <form id="student-form" onsubmit="handleSignup(event)">
-                    <div class="input-group">
-                        <label class="input-label">First Name</label>
-                        <input type="text" class="input-field" id="student-first-name" required>
-                    </div>
+                <div id="students-container">
+                    <!-- Student form will be dynamically added here -->
+                </div>
 
-                    <div class="input-group">
-                        <label class="input-label">Last Name</label>
-                        <input type="text" class="input-field" id="student-last-name" required>
-                    </div>
+                <button type="button" class="btn-secondary" onclick="addAnotherStudent()" id="add-student-btn">
+                    + Add Another Student
+                </button>
 
-                    <div class="input-group">
-                        <label class="input-label">Age</label>
-                        <input type="number" class="input-field" id="student-age" required min="4" max="99">
-                    </div>
+                <button type="button" class="btn-primary" onclick="handleSignup()" id="complete-signup-btn" style="margin-top: 16px;">
+                    Complete Sign Up
+                </button>
 
-                    <div class="input-group">
-                        <label class="input-label">Date of Birth</label>
-                        <input type="date" class="input-field" id="student-dob" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label class="input-label">Medical Conditions (optional)</label>
-                        <textarea class="input-field" id="student-medical" rows="2" placeholder="Any medical conditions we should know about"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-primary" id="signup-btn">
-                        Create Account
-                    </button>
-
-                    <button type="button" class="btn-secondary" onclick="goToStep2()">
-                        Back
-                    </button>
-                </form>
+                <button type="button" class="btn-secondary" onclick="goToStep2()">
+                    Back
+                </button>
             </div>
         </div>
 
         <!-- Red Pine Badge -->
         <div class="red-pine-badge">
-            Powered by <a href="https://redpinemarketing.com" target="_blank">Red Pine Marketing</a>
+            POWERED BY <a href="https://redpinemarketing.com" target="_blank">RED PINE</a>
         </div>
     </div>
 
@@ -524,8 +510,11 @@
         // Global signup data
         let signupData = {
             plan: null,
-            planPrice: null
+            planPrice: null,
+            students: []
         };
+
+        let studentCounter = 0;
 
         // Check auth on load
         async function checkAuth() {
@@ -627,10 +616,93 @@
                 return;
             }
 
+            // Add first student form if none exist
+            if (studentCounter === 0) {
+                addStudentForm();
+            }
+
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.add('hidden');
             document.getElementById('step-3').classList.remove('hidden');
             updateStepIndicator(3);
+        }
+
+        function addStudentForm() {
+            studentCounter++;
+            const container = document.getElementById('students-container');
+            
+            const studentDiv = document.createElement('div');
+            studentDiv.className = 'student-form-section';
+            studentDiv.id = `student-${studentCounter}`;
+            studentDiv.style.marginBottom = '24px';
+            studentDiv.style.paddingBottom = '24px';
+            studentDiv.style.borderBottom = '1px solid #e5e7eb';
+            
+            studentDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="font-weight: 600; color: #111827;">Student ${studentCounter}</h3>
+                    ${studentCounter > 1 ? `<button type="button" onclick="removeStudent(${studentCounter})" style="color: #ef4444; font-size: 14px; background: none; border: none; cursor: pointer; font-weight: 500;">Remove</button>` : ''}
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">First Name</label>
+                    <input type="text" class="input-field student-input" data-field="firstName" data-student="${studentCounter}" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Last Name</label>
+                    <input type="text" class="input-field student-input" data-field="lastName" data-student="${studentCounter}" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Age</label>
+                    <input type="number" class="input-field student-input" data-field="age" data-student="${studentCounter}" required min="4" max="99">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Date of Birth</label>
+                    <input type="date" class="input-field student-input" data-field="dob" data-student="${studentCounter}" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Medical Conditions (optional)</label>
+                    <textarea class="input-field student-input" data-field="medical" data-student="${studentCounter}" rows="2" placeholder="Any medical conditions we should know about"></textarea>
+                </div>
+            `;
+            
+            container.appendChild(studentDiv);
+        }
+
+        function addAnotherStudent() {
+            addStudentForm();
+        }
+
+        function removeStudent(studentNum) {
+            const studentDiv = document.getElementById(`student-${studentNum}`);
+            if (studentDiv) {
+                studentDiv.remove();
+            }
+        }
+
+        function collectStudentData() {
+            const students = [];
+            const studentSections = document.querySelectorAll('.student-form-section');
+            
+            studentSections.forEach(section => {
+                const inputs = section.querySelectorAll('.student-input');
+                const student = {};
+                
+                inputs.forEach(input => {
+                    const field = input.getAttribute('data-field');
+                    student[field] = input.value;
+                });
+                
+                if (student.firstName) { // Only add if has data
+                    students.push(student);
+                }
+            });
+            
+            return students;
         }
 
         function updateStepIndicator(step) {
@@ -711,35 +783,49 @@
         }
 
         // Signup handler
-        async function handleSignup(e) {
-            e.preventDefault();
-            
-            // Validate student form
-            const form = document.getElementById('student-form');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            const btn = document.getElementById('signup-btn');
+        async function handleSignup() {
+            const btn = document.getElementById('complete-signup-btn');
             btn.disabled = true;
             btn.textContent = 'Creating account...';
             hideError('signup-error');
             
             try {
-                // Gather all data
+                // Collect student data
+                const students = collectStudentData();
+                
+                if (students.length === 0) {
+                    showError('signup-error', 'Please add at least one student.');
+                    btn.disabled = false;
+                    btn.textContent = 'Complete Sign Up';
+                    return;
+                }
+
+                // Validate all student forms
+                const allInputs = document.querySelectorAll('.student-input[required]');
+                let isValid = true;
+                allInputs.forEach(input => {
+                    if (!input.value) {
+                        input.style.borderColor = '#ef4444';
+                        isValid = false;
+                    } else {
+                        input.style.borderColor = '';
+                    }
+                });
+
+                if (!isValid) {
+                    showError('signup-error', 'Please fill in all required student fields.');
+                    btn.disabled = false;
+                    btn.textContent = 'Complete Sign Up';
+                    return;
+                }
+
+                // Gather parent data
                 const parentFirstName = document.getElementById('parent-first-name').value;
                 const parentLastName = document.getElementById('parent-last-name').value;
                 const email = document.getElementById('parent-email').value;
                 const phone = document.getElementById('parent-phone').value;
                 const password = document.getElementById('parent-password').value;
                 const emergencyContact = document.getElementById('emergency-contact').value;
-
-                const studentFirstName = document.getElementById('student-first-name').value;
-                const studentLastName = document.getElementById('student-last-name').value;
-                const studentAge = document.getElementById('student-age').value;
-                const studentDob = document.getElementById('student-dob').value;
-                const studentMedical = document.getElementById('student-medical').value;
 
                 // Create Supabase auth user
                 const { data, error } = await supabase.auth.signUp({
@@ -766,35 +852,42 @@
                         studio_id: 'twin-tigers'
                     });
 
-                    // Generate IDs
+                    // Generate Parent ID
                     const timestamp = Date.now();
-                    const studentId = 'STU-' + timestamp;
                     const parentId = 'PAR-' + timestamp;
                     const today = new Date().toISOString().split('T')[0];
 
-                    // Create student record in Sheets
-                    const studentData = {
-                        Student_Id: studentId,
-                        First_Name: studentFirstName,
-                        Last_Name: studentLastName,
-                        Age: studentAge,
-                        Date_of_Birth: studentDob,
-                        Belt_Rank: 'White Belt',
-                        Parent_Email: email,
-                        Parent_Id: parentId,
-                        Medical_Conditions: studentMedical,
-                        Emergency_Contact: emergencyContact,
-                        Enrollment_Date: today,
-                        Status: 'Active',
-                        Notes: '',
-                        Membership_Plan: signupData.plan
-                    };
+                    // Create student records in Sheets
+                    const studentNames = [];
+                    for (let i = 0; i < students.length; i++) {
+                        const student = students[i];
+                        const studentId = 'STU-' + (timestamp + i);
+                        
+                        studentNames.push(`${student.firstName} ${student.lastName}`);
 
-                    await fetch('https://sheetdb.io/api/v1/7gridxho6ejta?sheet=Students', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ data: studentData })
-                    });
+                        const studentData = {
+                            Student_Id: studentId,
+                            First_Name: student.firstName,
+                            Last_Name: student.lastName,
+                            Age: student.age,
+                            Date_of_Birth: student.dob,
+                            Belt_Rank: 'White Belt',
+                            Parent_Email: email,
+                            Parent_Id: parentId,
+                            Medical_Conditions: student.medical || '',
+                            Emergency_Contact: emergencyContact,
+                            Enrollment_Date: today,
+                            Status: 'Active',
+                            Notes: '',
+                            Membership_Plan: signupData.plan
+                        };
+
+                        await fetch('https://sheetdb.io/api/v1/7gridxho6ejta?sheet=Students', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ data: studentData })
+                        });
+                    }
 
                     // Create parent record in Sheets
                     const parentData = {
@@ -803,7 +896,7 @@
                         Last_Name: parentLastName,
                         Email: email,
                         Phone: phone,
-                        Related_Students: `${studentFirstName} ${studentLastName}`,
+                        Related_Students: studentNames.join(', '),
                         Emergency_Contact: emergencyContact,
                         Membership_Plan: signupData.plan,
                         Membership_Price: signupData.planPrice,
@@ -817,19 +910,26 @@
                     });
                 }
                 
-                showSuccess('signup-success', 'Account created successfully! You can now log in.');
+                // Show success and redirect to parent portal
+                showSuccess('signup-success', 'Account created! Redirecting to your portal...');
                 
-                // Reset form and go back to login after 2 seconds
-                setTimeout(() => {
-                    switchTab('login');
-                    document.querySelectorAll('.tab')[0].click();
-                }, 2000);
+                // Auto-login and redirect to parent portal
+                setTimeout(async () => {
+                    const { error: loginError } = await supabase.auth.signInWithPassword({
+                        email,
+                        password
+                    });
+                    
+                    if (!loginError) {
+                        window.location.href = 'parent_portal.html';
+                    }
+                }, 1500);
                 
             } catch (error) {
                 console.error(error);
                 showError('signup-error', error.message || 'Something went wrong. Please try again.');
                 btn.disabled = false;
-                btn.textContent = 'Create Account';
+                btn.textContent = 'Complete Sign Up';
             }
         }
 
