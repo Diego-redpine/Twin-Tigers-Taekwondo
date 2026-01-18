@@ -266,10 +266,8 @@
         <!-- Header -->
         <header class="sticky top-0 z-50 bg-tiger-blue-500 px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div id="studio-logo" class="w-10 h-10 bg-tiger-blue-600 rounded-xl flex items-center justify-center">
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z"/>
-                    </svg>
+                <div id="studio-logo" class="w-10 h-10 bg-tiger-blue-600 rounded-xl flex items-center justify-center overflow-hidden">
+                    <img src="assets/images/twin_tigers_logo.PNG" alt="Twin Tigers Logo" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class=\'w-6 h-6 text-white\' fill=\'currentColor\' viewBox=\'0 0 24 24\'><path d=\'M12 2L8 8h8L12 2zM6 10l-4 6h8l-4-6zM18 10l-4 6h8l-4-6zM12 10l-4 6h8l-4-6zM8 18l4 4 4-4H8z\'/></svg>'">
                 </div>
                 <div>
                     <h1 id="studio-name" class="font-bold text-sm text-white">TWIN TIGERS</h1>
@@ -943,7 +941,7 @@
         async function checkAuth() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                window.location.href = 'index.html';
+                window.location.href = 'index_new.html';
                 return;
             }
             currentUser = session.user;
@@ -971,7 +969,7 @@
         async function handleLogout() {
             if (confirm('Are you sure you want to sign out?')) {
                 await supabase.auth.signOut();
-                window.location.href = 'index.html';
+                window.location.href = 'index_new.html';
             }
         }
 
@@ -2083,6 +2081,7 @@
         function loadStudioSettings() {
             const savedName = localStorage.getItem('studioName');
             const savedLogo = localStorage.getItem('studioLogo');
+            const defaultLogo = 'assets/images/twin_tigers_logo.PNG';
 
             const nameInput = document.getElementById('setting-studio-name');
             const titleEl = document.getElementById('studio-name');
@@ -2092,24 +2091,54 @@
                 if (titleEl) titleEl.textContent = savedName.toUpperCase();
             }
 
-            if (savedLogo) {
-                const navLogo = document.getElementById('studio-logo');
-                const preview = document.getElementById('settings-logo-preview');
+            // Use saved logo or default to the actual logo image file
+            const logoToUse = savedLogo || defaultLogo;
+            const navLogo = document.getElementById('studio-logo');
+            const preview = document.getElementById('settings-logo-preview');
 
-                if (navLogo) {
-                    navLogo.innerHTML = `<img src="${savedLogo}" alt="Studio logo" class="w-full h-full object-cover rounded-xl">`;
-                }
-                if (preview) {
-                    preview.innerHTML = `<img src="${savedLogo}" alt="Studio logo" class="w-full h-full object-cover">`;
-                }
+            if (navLogo) {
+                navLogo.innerHTML = `<img src="${logoToUse}" alt="Studio logo" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'">`;
+            }
+            if (preview) {
+                preview.innerHTML = `<img src="${logoToUse}" alt="Studio logo" class="w-full h-full object-cover" onerror="this.style.display='none'">`;
             }
         }
 
         // =============================================
+        // INITIALIZATION
+        // =============================================
+        async function initOwnerPortal() {
+            try {
+                // Load settings first (doesn't require auth)
+                loadStudioSettings();
+
+                // Check authentication
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session) {
+                    window.location.href = 'index_new.html';
+                    return;
+                }
+
+                currentUser = session.user;
+                const email = currentUser.email || '';
+                document.getElementById('user-initials').textContent = email.substring(0, 2).toUpperCase();
+                document.getElementById('user-email').textContent = email;
+
+                const hour = new Date().getHours();
+                let greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+                document.getElementById('welcome-message').textContent = `${greeting}! Here's your studio overview.`;
+
+                // Fetch all data after auth is confirmed
+                await fetchAllData();
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showToast('Failed to initialize. Please refresh the page.', 'error');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuth();
-            fetchAllData();
-            loadStudioSettings();
+            initOwnerPortal();
         });
     </script>
 
